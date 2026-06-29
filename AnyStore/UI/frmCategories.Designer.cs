@@ -13,11 +13,13 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+			Console.WriteLine(">>> Entering Dispose(disposing={0})", disposing);
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
+			Console.WriteLine("<<< Exiting Dispose(disposing={0})", disposing);
         }
 
         #region Windows Form Designer generated code
@@ -28,22 +30,39 @@
         /// </summary>
         private void InitializeComponent()
         {
+			Console.WriteLine(">>> Entering InitializeComponent()");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCategories));
             this.panel1 = new System.Windows.Forms.Panel();
+			Console.WriteLine("InitializeComponent(): resources → {0}", resources);
+			Console.WriteLine("InitializeComponent(): panel1 → {0}", panel1);
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.lblTop = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): pictureBoxClose → {0}", pictureBoxClose);
+			Console.WriteLine("InitializeComponent(): lblTop → {0}", lblTop);
             this.lblCategoryID = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblCategoryID → {0}", lblCategoryID);
+			Console.WriteLine("InitializeComponent(): lblTitle → {0}", lblTitle);
             this.lblDescription = new System.Windows.Forms.Label();
             this.txtCategoryID = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): lblDescription → {0}", lblDescription);
+			Console.WriteLine("InitializeComponent(): txtCategoryID → {0}", txtCategoryID);
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): txtTitle → {0}", txtTitle);
+			Console.WriteLine("InitializeComponent(): txtDescription → {0}", txtDescription);
             this.btnADD = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
+			Console.WriteLine("InitializeComponent(): btnADD → {0}", btnADD);
+			Console.WriteLine("InitializeComponent(): btnUpdate → {0}", btnUpdate);
             this.btnDelete = new System.Windows.Forms.Button();
             this.dgvCategories = new System.Windows.Forms.DataGridView();
+			Console.WriteLine("InitializeComponent(): btnDelete → {0}", btnDelete);
+			Console.WriteLine("InitializeComponent(): dgvCategories → {0}", dgvCategories);
             this.lblSearch = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): lblSearch → {0}", lblSearch);
+			Console.WriteLine("InitializeComponent(): txtSearch → {0}", txtSearch);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategories)).BeginInit();
@@ -209,9 +228,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			Console.WriteLine("InitializeComponent(): this.AutoScaleMode → {0}", this.AutoScaleMode);
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(846, 350);
             this.Controls.Add(this.txtSearch);
+			Console.WriteLine("InitializeComponent(): this.BackColor → {0}", this.BackColor);
             this.Controls.Add(this.lblSearch);
             this.Controls.Add(this.dgvCategories);
             this.Controls.Add(this.btnDelete);
@@ -225,17 +246,22 @@
             this.Controls.Add(this.lblCategoryID);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			Console.WriteLine("InitializeComponent(): this.FormBorderStyle → {0}", this.FormBorderStyle);
             this.Name = "frmCategories";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			Console.WriteLine("InitializeComponent(): this.Name → {0}", this.Name);
+			Console.WriteLine("InitializeComponent(): this.StartPosition → {0}", this.StartPosition);
             this.Text = "frmCategories";
             this.Load += new System.EventHandler(this.frmCategories_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
+			Console.WriteLine("InitializeComponent(): this.Text → {0}", this.Text);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategories)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
+		Console.WriteLine("<<< Exiting InitializeComponent()");
         }
 
         #endregion

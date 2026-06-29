@@ -13,11 +13,13 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+			Console.WriteLine(">>> Entering Dispose(disposing={0})", disposing);
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
+			Console.WriteLine("<<< Exiting Dispose(disposing={0})", disposing);
         }
 
         #region Windows Form Designer generated code
@@ -28,26 +30,47 @@
         /// </summary>
         private void InitializeComponent()
         {
+			Console.WriteLine(">>> Entering InitializeComponent()");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProducts));
             this.panel1 = new System.Windows.Forms.Panel();
+			Console.WriteLine("InitializeComponent(): resources → {0}", resources);
+			Console.WriteLine("InitializeComponent(): panel1 → {0}", panel1);
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.lblTop = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): pictureBoxClose → {0}", pictureBoxClose);
+			Console.WriteLine("InitializeComponent(): lblTop → {0}", lblTop);
             this.lblProductID = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblProductID → {0}", lblProductID);
+			Console.WriteLine("InitializeComponent(): lblName → {0}", lblName);
             this.lblCategory = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblCategory → {0}", lblCategory);
+			Console.WriteLine("InitializeComponent(): lblDescription → {0}", lblDescription);
             this.lblRate = new System.Windows.Forms.Label();
             this.txtID = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): lblRate → {0}", lblRate);
+			Console.WriteLine("InitializeComponent(): txtID → {0}", txtID);
             this.txtName = new System.Windows.Forms.TextBox();
             this.cmbCategory = new System.Windows.Forms.ComboBox();
+			Console.WriteLine("InitializeComponent(): txtName → {0}", txtName);
+			Console.WriteLine("InitializeComponent(): cmbCategory → {0}", cmbCategory);
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtRate = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): txtDescription → {0}", txtDescription);
+			Console.WriteLine("InitializeComponent(): txtRate → {0}", txtRate);
             this.dgvProducts = new System.Windows.Forms.DataGridView();
             this.txtSearch = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): dgvProducts → {0}", dgvProducts);
+			Console.WriteLine("InitializeComponent(): txtSearch → {0}", txtSearch);
             this.lblSearch = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
+			Console.WriteLine("InitializeComponent(): lblSearch → {0}", lblSearch);
+			Console.WriteLine("InitializeComponent(): btnAdd → {0}", btnAdd);
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+			Console.WriteLine("InitializeComponent(): btnUpdate → {0}", btnUpdate);
+			Console.WriteLine("InitializeComponent(): btnDelete → {0}", btnDelete);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
@@ -250,9 +273,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			Console.WriteLine("InitializeComponent(): this.AutoScaleMode → {0}", this.AutoScaleMode);
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(836, 420);
             this.Controls.Add(this.btnDelete);
+			Console.WriteLine("InitializeComponent(): this.BackColor → {0}", this.BackColor);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtSearch);
@@ -270,17 +295,22 @@
             this.Controls.Add(this.lblProductID);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			Console.WriteLine("InitializeComponent(): this.FormBorderStyle → {0}", this.FormBorderStyle);
             this.Name = "frmProducts";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			Console.WriteLine("InitializeComponent(): this.Name → {0}", this.Name);
+			Console.WriteLine("InitializeComponent(): this.StartPosition → {0}", this.StartPosition);
             this.Text = "frmProducts";
             this.Load += new System.EventHandler(this.frmProducts_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
+			Console.WriteLine("InitializeComponent(): this.Text → {0}", this.Text);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
+		Console.WriteLine("<<< Exiting InitializeComponent()");
         }
 
         #endregion

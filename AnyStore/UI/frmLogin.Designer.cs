@@ -13,11 +13,13 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+			Console.WriteLine(">>> Entering Dispose(disposing={0})", disposing);
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
+			Console.WriteLine("<<< Exiting Dispose(disposing={0})", disposing);
         }
 
         #region Windows Form Designer generated code
@@ -28,18 +30,30 @@
         /// </summary>
         private void InitializeComponent()
         {
+			Console.WriteLine(">>> Entering InitializeComponent()");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             this.panel1 = new System.Windows.Forms.Panel();
+			Console.WriteLine("InitializeComponent(): resources → {0}", resources);
+			Console.WriteLine("InitializeComponent(): panel1 → {0}", panel1);
             this.btnLogin = new System.Windows.Forms.Button();
             this.cmbUserType = new System.Windows.Forms.ComboBox();
+			Console.WriteLine("InitializeComponent(): btnLogin → {0}", btnLogin);
+			Console.WriteLine("InitializeComponent(): cmbUserType → {0}", cmbUserType);
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): txtPassword → {0}", txtPassword);
+			Console.WriteLine("InitializeComponent(): txtUsername → {0}", txtUsername);
             this.lblUserType = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblUserType → {0}", lblUserType);
+			Console.WriteLine("InitializeComponent(): lblPassword → {0}", lblPassword);
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblHeader = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblUsername → {0}", lblUsername);
+			Console.WriteLine("InitializeComponent(): lblHeader → {0}", lblHeader);
             this.pboxClose = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+			Console.WriteLine("InitializeComponent(): pboxClose → {0}", pboxClose);
             ((System.ComponentModel.ISupportInitialize)(this.pboxClose)).BeginInit();
             this.SuspendLayout();
             // 
@@ -159,19 +173,26 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			Console.WriteLine("InitializeComponent(): this.AutoScaleMode → {0}", this.AutoScaleMode);
             this.BackColor = System.Drawing.Color.LightSeaGreen;
             this.ClientSize = new System.Drawing.Size(345, 385);
             this.Controls.Add(this.pboxClose);
+			Console.WriteLine("InitializeComponent(): this.BackColor → {0}", this.BackColor);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			Console.WriteLine("InitializeComponent(): this.FormBorderStyle → {0}", this.FormBorderStyle);
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmLogin";
+			Console.WriteLine("InitializeComponent(): this.Name → {0}", this.Name);
+			Console.WriteLine("InitializeComponent(): this.StartPosition → {0}", this.StartPosition);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxClose)).EndInit();
             this.ResumeLayout(false);
+			Console.WriteLine("InitializeComponent(): this.Text → {0}", this.Text);
 
+		Console.WriteLine("<<< Exiting InitializeComponent()");
         }
 
         #endregion

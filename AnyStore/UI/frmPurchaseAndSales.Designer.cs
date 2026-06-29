@@ -13,11 +13,13 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+			Console.WriteLine(">>> Entering Dispose(disposing={0})", disposing);
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
+			Console.WriteLine("<<< Exiting Dispose(disposing={0})", disposing);
         }
 
         #region Windows Form Designer generated code
@@ -28,56 +30,106 @@
         /// </summary>
         private void InitializeComponent()
         {
+			Console.WriteLine(">>> Entering InitializeComponent()");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPurchaseAndSales));
             this.panel1 = new System.Windows.Forms.Panel();
+			Console.WriteLine("InitializeComponent(): resources → {0}", resources);
+			Console.WriteLine("InitializeComponent(): panel1 → {0}", panel1);
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.lblTop = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): pictureBoxClose → {0}", pictureBoxClose);
+			Console.WriteLine("InitializeComponent(): lblTop → {0}", lblTop);
             this.pnlDeaCust = new System.Windows.Forms.Panel();
             this.dtpBillDate = new System.Windows.Forms.DateTimePicker();
+			Console.WriteLine("InitializeComponent(): pnlDeaCust → {0}", pnlDeaCust);
+			Console.WriteLine("InitializeComponent(): dtpBillDate → {0}", dtpBillDate);
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtContact = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): txtName → {0}", txtName);
+			Console.WriteLine("InitializeComponent(): txtContact → {0}", txtContact);
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): txtAddress → {0}", txtAddress);
+			Console.WriteLine("InitializeComponent(): txtEmail → {0}", txtEmail);
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.lblAddress = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): txtSearch → {0}", txtSearch);
+			Console.WriteLine("InitializeComponent(): lblAddress → {0}", lblAddress);
             this.lblBillDate = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblBillDate → {0}", lblBillDate);
+			Console.WriteLine("InitializeComponent(): lblName → {0}", lblName);
             this.lblContact = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblContact → {0}", lblContact);
+			Console.WriteLine("InitializeComponent(): lblEmail → {0}", lblEmail);
             this.lblSearch = new System.Windows.Forms.Label();
             this.lblDeaCustTitle = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblSearch → {0}", lblSearch);
+			Console.WriteLine("InitializeComponent(): lblDeaCustTitle → {0}", lblDeaCustTitle);
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnAdd = new System.Windows.Forms.Button();
+			Console.WriteLine("InitializeComponent(): panel2 → {0}", panel2);
+			Console.WriteLine("InitializeComponent(): btnAdd → {0}", btnAdd);
             this.txtRate = new System.Windows.Forms.TextBox();
             this.TxtQty = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): txtRate → {0}", txtRate);
+			Console.WriteLine("InitializeComponent(): TxtQty → {0}", TxtQty);
             this.txtProductName = new System.Windows.Forms.TextBox();
             this.txtInventory = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): txtProductName → {0}", txtProductName);
+			Console.WriteLine("InitializeComponent(): txtInventory → {0}", txtInventory);
             this.txtSearchProduct = new System.Windows.Forms.TextBox();
             this.lblProductName = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): txtSearchProduct → {0}", txtSearchProduct);
+			Console.WriteLine("InitializeComponent(): lblProductName → {0}", lblProductName);
             this.lblInventory = new System.Windows.Forms.Label();
             this.lblQuantity = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblInventory → {0}", lblInventory);
+			Console.WriteLine("InitializeComponent(): lblQuantity → {0}", lblQuantity);
             this.lblRate = new System.Windows.Forms.Label();
             this.lblProductSearch = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblRate → {0}", lblRate);
+			Console.WriteLine("InitializeComponent(): lblProductSearch → {0}", lblProductSearch);
             this.lblProductTitle = new System.Windows.Forms.Label();
             this.pnldataGRidView = new System.Windows.Forms.Panel();
+			Console.WriteLine("InitializeComponent(): lblProductTitle → {0}", lblProductTitle);
+			Console.WriteLine("InitializeComponent(): pnldataGRidView → {0}", pnldataGRidView);
             this.dgvAddedProducts = new System.Windows.Forms.DataGridView();
             this.lblDGVTtitle = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): dgvAddedProducts → {0}", dgvAddedProducts);
+			Console.WriteLine("InitializeComponent(): lblDGVTtitle → {0}", lblDGVTtitle);
             this.pnlCalculation = new System.Windows.Forms.Panel();
             this.btnSave = new System.Windows.Forms.Button();
+			Console.WriteLine("InitializeComponent(): pnlCalculation → {0}", pnlCalculation);
+			Console.WriteLine("InitializeComponent(): btnSave → {0}", btnSave);
             this.txtReturnAmount = new System.Windows.Forms.TextBox();
             this.txtPaidAmount = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): txtReturnAmount → {0}", txtReturnAmount);
+			Console.WriteLine("InitializeComponent(): txtPaidAmount → {0}", txtPaidAmount);
             this.txtGrandTotal = new System.Windows.Forms.TextBox();
             this.txtDiscount = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): txtGrandTotal → {0}", txtGrandTotal);
+			Console.WriteLine("InitializeComponent(): txtDiscount → {0}", txtDiscount);
             this.txtVat = new System.Windows.Forms.TextBox();
             this.txtSubTotal = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): txtVat → {0}", txtVat);
+			Console.WriteLine("InitializeComponent(): txtSubTotal → {0}", txtSubTotal);
             this.lblReturnAmount = new System.Windows.Forms.Label();
             this.lblPaidAmount = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblReturnAmount → {0}", lblReturnAmount);
+			Console.WriteLine("InitializeComponent(): lblPaidAmount → {0}", lblPaidAmount);
             this.lblGrandTotal = new System.Windows.Forms.Label();
             this.lblVat = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblGrandTotal → {0}", lblGrandTotal);
+			Console.WriteLine("InitializeComponent(): lblVat → {0}", lblVat);
             this.lblDiscount = new System.Windows.Forms.Label();
             this.lblSubTotal = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblDiscount → {0}", lblDiscount);
+			Console.WriteLine("InitializeComponent(): lblSubTotal → {0}", lblSubTotal);
             this.lblcalculationTitle = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+			Console.WriteLine("InitializeComponent(): lblcalculationTitle → {0}", lblcalculationTitle);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.pnlDeaCust.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -582,21 +634,27 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			Console.WriteLine("InitializeComponent(): this.AutoScaleMode → {0}", this.AutoScaleMode);
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(1230, 587);
             this.Controls.Add(this.pnlCalculation);
+			Console.WriteLine("InitializeComponent(): this.BackColor → {0}", this.BackColor);
             this.Controls.Add(this.pnldataGRidView);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pnlDeaCust);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			Console.WriteLine("InitializeComponent(): this.FormBorderStyle → {0}", this.FormBorderStyle);
             this.Name = "frmPurchaseAndSales";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			Console.WriteLine("InitializeComponent(): this.Name → {0}", this.Name);
+			Console.WriteLine("InitializeComponent(): this.StartPosition → {0}", this.StartPosition);
             this.Text = "Purchase and Sales";
             this.Load += new System.EventHandler(this.frmPurchaseAndSales_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
+			Console.WriteLine("InitializeComponent(): this.Text → {0}", this.Text);
             this.pnlDeaCust.ResumeLayout(false);
             this.pnlDeaCust.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -608,6 +666,7 @@
             this.pnlCalculation.PerformLayout();
             this.ResumeLayout(false);
 
+		Console.WriteLine("<<< Exiting InitializeComponent()");
         }
 
         #endregion
