@@ -13,11 +13,13 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+			Console.WriteLine(">>> Entering Dispose(disposing={0})", disposing);
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
+			Console.WriteLine("<<< Exiting Dispose(disposing={0})", disposing);
         }
 
         #region Windows Form Designer generated code
@@ -28,36 +30,67 @@
         /// </summary>
         private void InitializeComponent()
         {
+			Console.WriteLine(">>> Entering InitializeComponent()");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUsers));
             this.panel1 = new System.Windows.Forms.Panel();
+			Console.WriteLine("InitializeComponent(): resources → {0}", resources);
+			Console.WriteLine("InitializeComponent(): panel1 → {0}", panel1);
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.lblTop = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): pictureBoxClose → {0}", pictureBoxClose);
+			Console.WriteLine("InitializeComponent(): lblTop → {0}", lblTop);
             this.lblFirstName = new System.Windows.Forms.Label();
             this.txtFirstName = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): lblFirstName → {0}", lblFirstName);
+			Console.WriteLine("InitializeComponent(): txtFirstName → {0}", txtFirstName);
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.lblLastName = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): txtLastName → {0}", txtLastName);
+			Console.WriteLine("InitializeComponent(): lblLastName → {0}", lblLastName);
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): txtEmail → {0}", txtEmail);
+			Console.WriteLine("InitializeComponent(): lblEmail → {0}", lblEmail);
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): txtUsername → {0}", txtUsername);
+			Console.WriteLine("InitializeComponent(): lblUsername → {0}", lblUsername);
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): txtPassword → {0}", txtPassword);
+			Console.WriteLine("InitializeComponent(): lblPassword → {0}", lblPassword);
             this.txtContact = new System.Windows.Forms.TextBox();
             this.lblContact = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): txtContact → {0}", txtContact);
+			Console.WriteLine("InitializeComponent(): lblContact → {0}", lblContact);
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.lblAddress = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): txtAddress → {0}", txtAddress);
+			Console.WriteLine("InitializeComponent(): lblAddress → {0}", lblAddress);
             this.lblGender = new System.Windows.Forms.Label();
             this.cmbGender = new System.Windows.Forms.ComboBox();
+			Console.WriteLine("InitializeComponent(): lblGender → {0}", lblGender);
+			Console.WriteLine("InitializeComponent(): cmbGender → {0}", cmbGender);
             this.cmbUserType = new System.Windows.Forms.ComboBox();
             this.lblUserType = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): cmbUserType → {0}", cmbUserType);
+			Console.WriteLine("InitializeComponent(): lblUserType → {0}", lblUserType);
             this.txtUserID = new System.Windows.Forms.TextBox();
             this.lblUserID = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): txtUserID → {0}", txtUserID);
+			Console.WriteLine("InitializeComponent(): lblUserID → {0}", lblUserID);
             this.dgvUsers = new System.Windows.Forms.DataGridView();
             this.txtSearch = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): dgvUsers → {0}", dgvUsers);
+			Console.WriteLine("InitializeComponent(): txtSearch → {0}", txtSearch);
             this.lblSearch = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
+			Console.WriteLine("InitializeComponent(): lblSearch → {0}", lblSearch);
+			Console.WriteLine("InitializeComponent(): btnAdd → {0}", btnAdd);
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+			Console.WriteLine("InitializeComponent(): btnUpdate → {0}", btnUpdate);
+			Console.WriteLine("InitializeComponent(): btnDelete → {0}", btnDelete);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
@@ -367,9 +400,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			Console.WriteLine("InitializeComponent(): this.AutoScaleMode → {0}", this.AutoScaleMode);
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(836, 504);
             this.Controls.Add(this.btnDelete);
+			Console.WriteLine("InitializeComponent(): this.BackColor → {0}", this.BackColor);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtSearch);
@@ -397,17 +432,22 @@
             this.Controls.Add(this.lblFirstName);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			Console.WriteLine("InitializeComponent(): this.FormBorderStyle → {0}", this.FormBorderStyle);
             this.Name = "frmUsers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			Console.WriteLine("InitializeComponent(): this.Name → {0}", this.Name);
+			Console.WriteLine("InitializeComponent(): this.StartPosition → {0}", this.StartPosition);
             this.Text = "Users";
             this.Load += new System.EventHandler(this.frmUsers_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
+			Console.WriteLine("InitializeComponent(): this.Text → {0}", this.Text);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
+		Console.WriteLine("<<< Exiting InitializeComponent()");
         }
 
         #endregion

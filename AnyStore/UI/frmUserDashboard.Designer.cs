@@ -13,11 +13,13 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+			Console.WriteLine(">>> Entering Dispose(disposing={0})", disposing);
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
+			Console.WriteLine("<<< Exiting Dispose(disposing={0})", disposing);
         }
 
         #region Windows Form Designer generated code
@@ -28,18 +30,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+			Console.WriteLine(">>> Entering InitializeComponent()");
             this.menuStripTop = new System.Windows.Forms.MenuStrip();
             this.purchaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			Console.WriteLine("InitializeComponent(): purchaseToolStripMenuItem → {0}", purchaseToolStripMenuItem);
+			Console.WriteLine("InitializeComponent(): menuStripTop → {0}", menuStripTop);
             this.salesFormsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			Console.WriteLine("InitializeComponent(): salesFormsToolStripMenuItem → {0}", salesFormsToolStripMenuItem);
             this.inventoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			Console.WriteLine("InitializeComponent(): inventoryToolStripMenuItem → {0}", inventoryToolStripMenuItem);
             this.dealerAndCustomerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			Console.WriteLine("InitializeComponent(): dealerAndCustomerToolStripMenuItem → {0}", dealerAndCustomerToolStripMenuItem);
             this.lblSHead = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblSHead → {0}", lblSHead);
             this.lblLName = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblLName → {0}", lblLName);
             this.lblAppFName = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblAppFName → {0}", lblAppFName);
             this.lblLoggedInUser = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblLoggedInUser → {0}", lblLoggedInUser);
             this.lblUser = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblUser → {0}", lblUser);
             this.pnlFooter = new System.Windows.Forms.Panel();
+			Console.WriteLine("InitializeComponent(): pnlFooter → {0}", pnlFooter);
             this.lblFooter = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblFooter → {0}", lblFooter);
             this.menuStripTop.SuspendLayout();
             this.pnlFooter.SuspendLayout();
             this.SuspendLayout();
@@ -161,6 +176,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			Console.WriteLine("InitializeComponent(): this.AutoScaleMode → {0}", this.AutoScaleMode);
             this.ClientSize = new System.Drawing.Size(1248, 494);
             this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.lblSHead);
@@ -170,19 +186,25 @@
             this.Controls.Add(this.lblUser);
             this.Controls.Add(this.menuStripTop);
             this.MainMenuStrip = this.menuStripTop;
+			Console.WriteLine("InitializeComponent(): this.MainMenuStrip → {0}", this.MainMenuStrip);
             this.Name = "frmUserDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			Console.WriteLine("InitializeComponent(): this.Name → {0}", this.Name);
+			Console.WriteLine("InitializeComponent(): this.StartPosition → {0}", this.StartPosition);
             this.Text = "User Dashboard";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmUserDashboard_FormClosed);
             this.Load += new System.EventHandler(this.frmUserDashboard_Load);
             this.menuStripTop.ResumeLayout(false);
+			Console.WriteLine("InitializeComponent(): this.Text → {0}", this.Text);
+			Console.WriteLine("InitializeComponent(): this.WindowState → {0}", this.WindowState);
             this.menuStripTop.PerformLayout();
             this.pnlFooter.ResumeLayout(false);
             this.pnlFooter.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
+		Console.WriteLine("<<< Exiting InitializeComponent()");
         }
 
         #endregion

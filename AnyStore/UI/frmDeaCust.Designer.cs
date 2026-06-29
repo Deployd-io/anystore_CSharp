@@ -13,11 +13,13 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+			Console.WriteLine(">>> Entering Dispose(disposing={0})", disposing);
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
+			Console.WriteLine("<<< Exiting Dispose(disposing={0})", disposing);
         }
 
         #region Windows Form Designer generated code
@@ -28,28 +30,51 @@
         /// </summary>
         private void InitializeComponent()
         {
+			Console.WriteLine(">>> Entering InitializeComponent()");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDeaCust));
             this.panel1 = new System.Windows.Forms.Panel();
+			Console.WriteLine("InitializeComponent(): resources → {0}", resources);
+			Console.WriteLine("InitializeComponent(): panel1 → {0}", panel1);
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.lblTop = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): pictureBoxClose → {0}", pictureBoxClose);
+			Console.WriteLine("InitializeComponent(): lblTop → {0}", lblTop);
             this.lblID = new System.Windows.Forms.Label();
             this.lblType = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblID → {0}", lblID);
+			Console.WriteLine("InitializeComponent(): lblType → {0}", lblType);
             this.lblName = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblName → {0}", lblName);
+			Console.WriteLine("InitializeComponent(): lblEmail → {0}", lblEmail);
             this.lblAddress = new System.Windows.Forms.Label();
             this.lblContact = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): lblAddress → {0}", lblAddress);
+			Console.WriteLine("InitializeComponent(): lblContact → {0}", lblContact);
             this.txtDeaCustID = new System.Windows.Forms.TextBox();
             this.cmbDeaCust = new System.Windows.Forms.ComboBox();
+			Console.WriteLine("InitializeComponent(): txtDeaCustID → {0}", txtDeaCustID);
+			Console.WriteLine("InitializeComponent(): cmbDeaCust → {0}", cmbDeaCust);
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): txtName → {0}", txtName);
+			Console.WriteLine("InitializeComponent(): txtEmail → {0}", txtEmail);
             this.txtContact = new System.Windows.Forms.TextBox();
             this.txtAddress = new System.Windows.Forms.TextBox();
+			Console.WriteLine("InitializeComponent(): txtContact → {0}", txtContact);
+			Console.WriteLine("InitializeComponent(): txtAddress → {0}", txtAddress);
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
+			Console.WriteLine("InitializeComponent(): btnAdd → {0}", btnAdd);
+			Console.WriteLine("InitializeComponent(): btnUpdate → {0}", btnUpdate);
             this.btnDelete = new System.Windows.Forms.Button();
             this.dgvDeaCust = new System.Windows.Forms.DataGridView();
+			Console.WriteLine("InitializeComponent(): btnDelete → {0}", btnDelete);
+			Console.WriteLine("InitializeComponent(): dgvDeaCust → {0}", dgvDeaCust);
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.lblSearch = new System.Windows.Forms.Label();
+			Console.WriteLine("InitializeComponent(): txtSearch → {0}", txtSearch);
+			Console.WriteLine("InitializeComponent(): lblSearch → {0}", lblSearch);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDeaCust)).BeginInit();
@@ -273,9 +298,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			Console.WriteLine("InitializeComponent(): this.AutoScaleMode → {0}", this.AutoScaleMode);
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(835, 437);
             this.Controls.Add(this.txtSearch);
+			Console.WriteLine("InitializeComponent(): this.BackColor → {0}", this.BackColor);
             this.Controls.Add(this.lblSearch);
             this.Controls.Add(this.dgvDeaCust);
             this.Controls.Add(this.btnDelete);
@@ -295,17 +322,22 @@
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			Console.WriteLine("InitializeComponent(): this.FormBorderStyle → {0}", this.FormBorderStyle);
             this.Name = "frmDeaCust";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			Console.WriteLine("InitializeComponent(): this.Name → {0}", this.Name);
+			Console.WriteLine("InitializeComponent(): this.StartPosition → {0}", this.StartPosition);
             this.Text = "frmDeaCust";
             this.Load += new System.EventHandler(this.frmDeaCust_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
+			Console.WriteLine("InitializeComponent(): this.Text → {0}", this.Text);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDeaCust)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
+		Console.WriteLine("<<< Exiting InitializeComponent()");
         }
 
         #endregion
