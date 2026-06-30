@@ -63,10 +63,14 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="userlogname"></param>
         public LogManager(String userbasepath, String userlogname)
         {
+			Console.WriteLine(">>> Entering LogManager(userbasepath={0},userlogname={1})", userbasepath, userlogname);
             BasePath = String.IsNullOrEmpty(userbasepath) ? "." : userbasepath;
             LogNameHeader = String.IsNullOrEmpty(userlogname) ? "MsgLog" : userlogname;
+			Console.WriteLine("LogManager(userbasepath={0},userlogname={1}): BasePath → {2}", userbasepath, userlogname, BasePath);
+			Console.WriteLine("LogManager(userbasepath={0},userlogname={1}): LogNameHeader → {2}", userbasepath, userlogname, LogNameHeader);
 
             Log(Categories.Info, "********************* New Trace *********************");
+			Console.WriteLine("<<< Exiting LogManager(userbasepath={0},userlogname={1})", userbasepath, userlogname);
         }
 
         /// <summary>
@@ -76,17 +80,22 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="msg"></param>
         public void Log(Categories category, String msg)
         {
+			Console.WriteLine(">>> Entering Log(category={0},msg={1})", category, msg);
             // get call stack
             StackTrace stackTrace = new StackTrace();
 
+			Console.WriteLine("Log(category={0},msg={1}): stackTrace → {2}", category, msg, stackTrace);
             // get calling method name
             String caller = stackTrace.GetFrame(useFrame).GetMethod().Name;
 
+			Console.WriteLine("Log(category={0},msg={1}): caller → {2}", category, msg, caller);
             // log it
             LogWriter.Write(caller, category, msg, BasePath, LogNameHeader);
 
             // reset frame pointer
             useFrame = 1;
+			Console.WriteLine("<<< Exiting Log(category={0},msg={1})", category, msg);
+			Console.WriteLine("Log(category={0},msg={1}): useFrame → {2}", category, msg, useFrame);
         }
 
         /// <summary>
@@ -95,8 +104,10 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="msg"></param>
         public void LogInfoMsg(String msg)
         {
+			Console.WriteLine(">>> Entering LogInfoMsg(msg={0})", msg);
             useFrame++; // bump up the stack frame pointer to skip this entry
             Log(Categories.Info, msg);
+			Console.WriteLine("<<< Exiting LogInfoMsg(msg={0})", msg);
         }
 
         /// <summary>
@@ -105,8 +116,10 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="msg"></param>
         public void LogErrorMsg(String msg)
         {
+			Console.WriteLine(">>> Entering LogErrorMsg(msg={0})", msg);
             useFrame++; // bump up the stack frame pointer to skip this entry
             Log(Categories.Error, msg);
+			Console.WriteLine("<<< Exiting LogErrorMsg(msg={0})", msg);
         }
 
         /// <summary>
@@ -115,8 +128,10 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="ex"></param>
         public void Log(Exception ex)
         {
+			Console.WriteLine(">>> Entering Log(ex={0})", ex);
             useFrame++; // bump up the stack frame pointer to skip this entry
             Log(Categories.Exception, String.Format("{0} from {1}", ex.Message, ex.Source));
+			Console.WriteLine("<<< Exiting Log(ex={0})", ex);
         }
     }
 
@@ -132,6 +147,8 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <returns></returns>
         private static String LogFileName(String name)
         {
+			Console.WriteLine(">>> Entering LogFileName(name={0})", name);
+			Console.WriteLine("<<< Exiting LogFileName(name={0})", name);
             return String.Format("{0}_{1:yyyyMMdd}.Log", name, DateTime.Now);
         }
 
@@ -146,8 +163,11 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="name"></param>
         public static void Write(String from, LogManager.Categories category, String msg, String path, String name)
         {
+			var __logStart = System.Diagnostics.Stopwatch.StartNew();
+			Console.WriteLine(">>> Entering Write(from={0},category={1},msg={2},path={3},name={4})", from, category, msg, path, name);
             StringBuilder line = new StringBuilder();
             line.Append(DateTime.Now.ToShortDateString().ToString());
+			Console.WriteLine("Write(from={0},category={1},msg={2},path={3},name={4}): line → {5}", from, category, msg, path, name, line);
             line.Append("-");
             line.Append(DateTime.Now.ToLongTimeString().ToString());
             line.Append(", ");
@@ -158,8 +178,11 @@ namespace DGVPrinterHelper //AllocationRequest
             line.Append(msg);
             StreamWriter w = new StreamWriter(path + "\\" + LogFileName(name), true);
             w.WriteLine(line.ToString());
+			Console.WriteLine("Write(from={0},category={1},msg={2},path={3},name={4}): w → {5}", from, category, msg, path, name, w);
             w.Flush();
             w.Close();
+			Console.WriteLine("Write(from,category,msg,path,name)={0},{1},{2},{3},{4}: query query executed in {5} ms", from, category, msg, path, name, __logStart.ElapsedMilliseconds);
+		Console.WriteLine("<<< Exiting Write(from={0},category={1},msg={2},path={3},name={4})", from, category, msg, path, name);
         }
     }
 
@@ -262,8 +285,11 @@ namespace DGVPrinterHelper //AllocationRequest
 
             internal Point upperleft(int pagewidth, int pageheight, Margins margins)
             {
+				Console.WriteLine(">>> Entering upperleft(pagewidth={0},pageheight={1},margins={2})", pagewidth, pageheight, margins);
                 int y = 0;
                 int x = 0;
+				Console.WriteLine("upperleft(pagewidth={0},pageheight={1},margins={2}): y → {3}", pagewidth, pageheight, margins, y);
+				Console.WriteLine("upperleft(pagewidth={0},pageheight={1},margins={2}): x → {3}", pagewidth, pageheight, margins, x);
 
                 // if we've been given an absolute location, just use it
                 if (ImageLocation == Location.Absolute)
@@ -301,6 +327,7 @@ namespace DGVPrinterHelper //AllocationRequest
                         throw new ArgumentException(String.Format("Unkown value: {0}", ImageAlignment));
                 }
 
+				Console.WriteLine("<<< Exiting upperleft(pagewidth={0},pageheight={1},margins={2})", pagewidth, pageheight, margins);
                 return new Point(x, y);
             }
         }
@@ -1258,6 +1285,7 @@ namespace DGVPrinterHelper //AllocationRequest
         private StringFormat rowheadercellformat = null;
         public StringFormat GetRowHeaderCellFormat(DataGridView grid)
         {
+			Console.WriteLine(">>> Entering GetRowHeaderCellFormat(grid={0})", grid);
             // get default values from provided data grid view, but only
             // if we don't already have a header cell format
             if ((null != grid) && (null == rowheadercellformat))
@@ -1270,7 +1298,9 @@ namespace DGVPrinterHelper //AllocationRequest
             // if we still don't have a header cell format, create an empty
             if (null == rowheadercellformat)
                 rowheadercellformat = new StringFormat(headercellformatflags);
+				Console.WriteLine("GetRowHeaderCellFormat(grid={0}): rowheadercellformat → {1}", grid, rowheadercellformat);
 
+			Console.WriteLine("<<< Exiting GetRowHeaderCellFormat(grid={0})", grid);
             return rowheadercellformat;
         }
 
@@ -1301,6 +1331,7 @@ namespace DGVPrinterHelper //AllocationRequest
         private StringFormat columnheadercellformat = null;
         public StringFormat GetColumnHeaderCellFormat(DataGridView grid)
         {
+			Console.WriteLine(">>> Entering GetColumnHeaderCellFormat(grid={0})", grid);
             // get default values from provided data grid view, but only
             // if we don't already have a header cell format
             if ((null != grid) && (null == columnheadercellformat))
@@ -1313,7 +1344,9 @@ namespace DGVPrinterHelper //AllocationRequest
             // if we still don't have a header cell format, create an empty
             if (null == columnheadercellformat)
                 columnheadercellformat = new StringFormat(headercellformatflags);
+				Console.WriteLine("GetColumnHeaderCellFormat(grid={0}): columnheadercellformat → {1}", grid, columnheadercellformat);
 
+			Console.WriteLine("<<< Exiting GetColumnHeaderCellFormat(grid={0})", grid);
             return columnheadercellformat;
         }
 
@@ -1351,6 +1384,7 @@ namespace DGVPrinterHelper //AllocationRequest
         private StringFormat cellformat = null;
         public StringFormat GetCellFormat(DataGridView grid)
         {
+			Console.WriteLine(">>> Entering GetCellFormat(grid={0})", grid);
             // get default values from provided data grid view, but only
             // if we don't already have a cell format
             if ((null != grid) && (null == cellformat))
@@ -1363,7 +1397,9 @@ namespace DGVPrinterHelper //AllocationRequest
             // if we still don't have a cell format, create an empty
             if (null == cellformat)
                 cellformat = new StringFormat(cellformatflags);
+				Console.WriteLine("GetCellFormat(grid={0}): cellformat → {1}", grid, cellformat);
 
+			Console.WriteLine("<<< Exiting GetCellFormat(grid={0})", grid);
             return cellformat;
         }
 
@@ -1544,8 +1580,10 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <returns></returns>
         private int PreviewDisplayWidth()
         {
+			Console.WriteLine(">>> Entering PreviewDisplayWidth()");
             double displayWidth = printDoc.DefaultPageSettings.Bounds.Width
                 + 3 * printDoc.DefaultPageSettings.HardMarginY;
+			Console.WriteLine("<<< Exiting PreviewDisplayWidth()");
             return (int)(displayWidth * PrintPreviewZoom);
         }
 
@@ -1555,9 +1593,11 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <returns></returns>
         private int PreviewDisplayHeight()
         {
+			Console.WriteLine(">>> Entering PreviewDisplayHeight()");
             double displayHeight = printDoc.DefaultPageSettings.Bounds.Height
                 + 3 * printDoc.DefaultPageSettings.HardMarginX;
 
+			Console.WriteLine("<<< Exiting PreviewDisplayHeight()");
             return (int)(displayHeight * PrintPreviewZoom);
         }
 
@@ -1567,8 +1607,10 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="e"></param>
         protected virtual void OnCellOwnerDraw(DGVCellDrawingEventArgs e)
         {
+			Console.WriteLine(">>> Entering OnCellOwnerDraw(e={0})", e);
             if (null != OwnerDraw)
                 OwnerDraw(this, e);
+				Console.WriteLine("<<< Exiting OnCellOwnerDraw(e={0})", e);
         }
 
         /// <summary>
@@ -1605,6 +1647,7 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <returns>index of column</returns>
         protected int GetColumnIndex(string colname)
         {
+			Console.WriteLine(">>> Entering GetColumnIndex(colname={0})", colname);
             int i = 0;
             foreach (DataGridViewColumn col in colstoprint)
             {
@@ -1624,6 +1667,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 throw new Exception("Unknown Column Name: " + colname);
             }
 
+			Console.WriteLine("<<< Exiting GetColumnIndex(colname={0})", colname);
             return i;
         }
 
@@ -1639,16 +1683,30 @@ namespace DGVPrinterHelper //AllocationRequest
         /// </summary>
         public DGVPrinter()
         {
+			Console.WriteLine(">>> Entering DGVPrinter()");
             // create print document
             printDoc = new PrintDocument();
+			Console.WriteLine("DGVPrinter(): printDoc → {0}", printDoc);
             //printDoc.PrintPage += new PrintPageEventHandler(PrintPageEventHandler);
             //printDoc.BeginPrint += new PrintEventHandler(BeginPrintEventHandler);
             PrintMargins = new Margins(60, 60, 40, 40);
+			Console.WriteLine("DGVPrinter(): PrintMargins → {0}", PrintMargins);
 
             // set default fonts
             pagenofont = new Font("Tahoma", 8, FontStyle.Regular, GraphicsUnit.Point);
+			Console.WriteLine("DGVPrinter(): pagenofont → {0}", pagenofont);
+			Console.WriteLine("DGVPrinter(): titlefont → {0}", titlefont);
+			Console.WriteLine("DGVPrinter(): subtitlefont → {0}", subtitlefont);
+			Console.WriteLine("DGVPrinter(): titlecolor → {0}", titlecolor);
+			Console.WriteLine("DGVPrinter(): footerfont → {0}", footerfont);
+			Console.WriteLine("DGVPrinter(): subtitlecolor → {0}", subtitlecolor);
+			Console.WriteLine("DGVPrinter(): footercolor → {0}", footercolor);
+			Console.WriteLine("DGVPrinter(): titlespacing → {0}", titlespacing);
+			Console.WriteLine("DGVPrinter(): subtitlespacing → {0}", subtitlespacing);
+			Console.WriteLine("DGVPrinter(): footerspacing → {0}", footerspacing);
             pagenocolor = Color.Black;
             titlefont = new Font("Tahoma", 18, FontStyle.Bold, GraphicsUnit.Point);
+			Console.WriteLine("DGVPrinter(): pagenocolor → {0}", pagenocolor);
             titlecolor = Color.Black;
             subtitlefont = new Font("Tahoma", 12, FontStyle.Bold, GraphicsUnit.Point);
             subtitlecolor = Color.Black;
@@ -1672,18 +1730,28 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // Set these formatting objects to null to flag whether or not they were set by the caller
             columnheadercellformat = null;
+			Console.WriteLine("DGVPrinter(): columnheadercellformat → {0}", columnheadercellformat);
             rowheadercellformat = null;
+			Console.WriteLine("DGVPrinter(): rowheadercellformat → {0}", rowheadercellformat);
             cellformat = null;
+			Console.WriteLine("DGVPrinter(): cellformat → {0}", cellformat);
 
             // Print Preview properties
             Owner = null;
+			Console.WriteLine("DGVPrinter(): Owner → {0}", Owner);
             PrintPreviewZoom = 1.0;
+			Console.WriteLine("DGVPrinter(): PrintPreviewZoom → {0}", PrintPreviewZoom);
 
             // Deprecated properties - retain for backwards compatibility
             headercellalignment = StringAlignment.Near;
+			Console.WriteLine("DGVPrinter(): headercellalignment → {0}", headercellalignment);
+			Console.WriteLine("DGVPrinter(): cellalignment → {0}", cellalignment);
             headercellformatflags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+			Console.WriteLine("DGVPrinter(): headercellformatflags → {0}", headercellformatflags);
             cellalignment = StringAlignment.Near;
             cellformatflags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+			Console.WriteLine("<<< Exiting DGVPrinter()");
+			Console.WriteLine("DGVPrinter(): cellformatflags → {0}", cellformatflags);
         }
 
 
@@ -1708,6 +1776,8 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // save the datagridview we're printing
             this.dgv = dgv;
+			Console.WriteLine("PrintDataGridView(dgv={0}): dgv → {1}", dgv, dgv);
+			Console.WriteLine("PrintDataGridView(dgv={0}): this.dgv → {1}", dgv, this.dgv);
 
             // display dialog and print
             if (DialogResult.OK == DisplayPrintDialog())
@@ -1730,6 +1800,8 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // save the datagridview we're printing
             this.dgv = dgv;
+			Console.WriteLine("PrintPreviewDataGridView(dgv={0}): dgv → {1}", dgv, dgv);
+			Console.WriteLine("PrintPreviewDataGridView(dgv={0}): this.dgv → {1}", dgv, this.dgv);
 
             // display dialog and print
             if (DialogResult.OK == DisplayPrintDialog())
@@ -1759,10 +1831,19 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <returns></returns>
         public DialogResult DisplayPrintDialog()
         {
+			Console.WriteLine(">>> Entering DisplayPrintDialog()");
             if (EnableLogging) Logger.LogInfoMsg("DisplayPrintDialog process started");
             // create new print dialog and set options
             PrintDialog pd = new PrintDialog();
             pd.UseEXDialog = printDialogSettings.UseEXDialog;
+			Console.WriteLine("DisplayPrintDialog(): pd → {0}", pd);
+			Console.WriteLine("DisplayPrintDialog(): pd.UseEXDialog → {0}", pd.UseEXDialog);
+			Console.WriteLine("DisplayPrintDialog(): pd.AllowSelection → {0}", pd.AllowSelection);
+			Console.WriteLine("DisplayPrintDialog(): pd.AllowSomePages → {0}", pd.AllowSomePages);
+			Console.WriteLine("DisplayPrintDialog(): pd.AllowCurrentPage → {0}", pd.AllowCurrentPage);
+			Console.WriteLine("DisplayPrintDialog(): pd.AllowPrintToFile → {0}", pd.AllowPrintToFile);
+			Console.WriteLine("DisplayPrintDialog(): pd.ShowHelp → {0}", pd.ShowHelp);
+			Console.WriteLine("DisplayPrintDialog(): pd.ShowNetwork → {0}", pd.ShowNetwork);
             pd.AllowSelection = printDialogSettings.AllowSelection;
             pd.AllowSomePages = printDialogSettings.AllowSomePages;
             pd.AllowCurrentPage = printDialogSettings.AllowCurrentPage;
@@ -1772,10 +1853,12 @@ namespace DGVPrinterHelper //AllocationRequest
 
             //// setup print dialog with internal setttings
             pd.Document = printDoc;
+			Console.WriteLine("DisplayPrintDialog(): pd.Document → {0}", pd.Document);
             if (!String.IsNullOrEmpty(printerName))
                 printDoc.PrinterSettings.PrinterName = printerName;
 
             // show the dialog and display the result
+			Console.WriteLine("<<< Exiting DisplayPrintDialog()");
             return pd.ShowDialog();
         }
 
@@ -1793,6 +1876,8 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // save the grid we're printing
             this.dgv = dgv;
+			Console.WriteLine("PrintNoDisplay(dgv={0}): dgv → {1}", dgv, dgv);
+			Console.WriteLine("PrintNoDisplay(dgv={0}): this.dgv → {1}", dgv, this.dgv);
 
             printDoc.PrintPage += new PrintPageEventHandler(PrintPageEventHandler);
             printDoc.BeginPrint += new PrintEventHandler(BeginPrintEventHandler);
@@ -1816,6 +1901,8 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // save the grid we're printing
             this.dgv = dgv;
+			Console.WriteLine("PrintPreviewNoDisplay(dgv={0}): dgv → {1}", dgv, dgv);
+			Console.WriteLine("PrintPreviewNoDisplay(dgv={0}): this.dgv → {1}", dgv, this.dgv);
 
             printDoc.PrintPage += new PrintPageEventHandler(PrintPageEventHandler);
             printDoc.BeginPrint += new PrintEventHandler(BeginPrintEventHandler);
@@ -1826,9 +1913,13 @@ namespace DGVPrinterHelper //AllocationRequest
             // if the caller hasn't provided a print preview dialog, then create one
             if (null == PreviewDialog)
                 PreviewDialog = new PrintPreviewDialog();
+				Console.WriteLine("PrintPreviewNoDisplay(dgv={0}): PreviewDialog → {1}", dgv, PreviewDialog);
 
             // set up dialog for preview
             PreviewDialog.Document = printDoc;
+			Console.WriteLine("PrintPreviewNoDisplay(dgv={0}): PreviewDialog.Document → {1}", dgv, PreviewDialog.Document);
+			Console.WriteLine("PrintPreviewNoDisplay(dgv={0}): PreviewDialog.UseAntiAlias → {1}", dgv, PreviewDialog.UseAntiAlias);
+			Console.WriteLine("PrintPreviewNoDisplay(dgv={0}): PreviewDialog.Owner → {1}", dgv, PreviewDialog.Owner);
             PreviewDialog.UseAntiAlias = true;
             PreviewDialog.Owner = Owner;
             PreviewDialog.PrintPreviewControl.Zoom = PrintPreviewZoom;
@@ -1837,6 +1928,7 @@ namespace DGVPrinterHelper //AllocationRequest
 
             if (null != ppvIcon)
                 PreviewDialog.Icon = ppvIcon;
+				Console.WriteLine("PrintPreviewNoDisplay(dgv={0}): PreviewDialog.Icon → {1}", dgv, PreviewDialog.Icon);
 
             // show the dialog
             PreviewDialog.ShowDialog();
@@ -1864,6 +1956,8 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // save the grid we're printing
             this.dgv = dgv;
+			Console.WriteLine("EmbeddedPrint(dgv={0},g={1},area={2}): dgv → {3}", dgv, g, area, dgv);
+			Console.WriteLine("EmbeddedPrint(dgv={0},g={1},area={2}): this.dgv → {3}", dgv, g, area, this.dgv);
 
             //-----------------------------------------------------------------
             // Force setting for embedded printing
@@ -1872,18 +1966,27 @@ namespace DGVPrinterHelper //AllocationRequest
             // set margins so we print within the provided area
             Margins saveMargins = PrintMargins;
             PrintMargins.Top = area.Top;
+			Console.WriteLine("EmbeddedPrint(dgv={0},g={1},area={2}): PrintMargins.Top → {3}", dgv, g, area, PrintMargins.Top);
+			Console.WriteLine("EmbeddedPrint(dgv={0},g={1},area={2}): PrintMargins.Bottom → {3}", dgv, g, area, PrintMargins.Bottom);
+			Console.WriteLine("EmbeddedPrint(dgv={0},g={1},area={2}): PrintMargins.Left → {3}", dgv, g, area, PrintMargins.Left);
+			Console.WriteLine("EmbeddedPrint(dgv={0},g={1},area={2}): PrintMargins.Right → {3}", dgv, g, area, PrintMargins.Right);
             PrintMargins.Bottom = 0;
             PrintMargins.Left = area.Left;
             PrintMargins.Right = 0;
 
             // set "page" height and width to our destination area
             pageHeight = area.Height + area.Top;
+			Console.WriteLine("EmbeddedPrint(dgv={0},g={1},area={2}): pageHeight → {3}", dgv, g, area, pageHeight);
             printWidth = area.Width;
+			Console.WriteLine("EmbeddedPrint(dgv={0},g={1},area={2}): printWidth → {3}", dgv, g, area, printWidth);
             pageWidth = area.Width + area.Left;
 
             // force 'off' header and footer
             PrintHeader = false;
+			Console.WriteLine("EmbeddedPrint(dgv={0},g={1},area={2}): PrintHeader → {3}", dgv, g, area, PrintHeader);
+			Console.WriteLine("EmbeddedPrint(dgv={0},g={1},area={2}): pageno → {3}", dgv, g, area, pageno);
             PrintFooter = false;
+			Console.WriteLine("EmbeddedPrint(dgv={0},g={1},area={2}): PrintFooter → {3}", dgv, g, area, PrintFooter);
             pageno = false;
 
             //-----------------------------------------------------------------
@@ -1896,6 +1999,7 @@ namespace DGVPrinterHelper //AllocationRequest
             // we can in the space provided.
             //-----------------------------------------------------------------
             PrintPage(g);
+			Console.WriteLine("<<< Exiting EmbeddedPrint(dgv={0},g={1},area={2})", dgv, g, area);
             return false;
         }
 
@@ -1911,6 +2015,8 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // save the grid we're printing
             this.dgv = dgv;
+			Console.WriteLine("EmbeddedPrintMultipageSetup(dgv={0},area={1}): dgv → {2}", dgv, area, dgv);
+			Console.WriteLine("EmbeddedPrintMultipageSetup(dgv={0},area={1}): this.dgv → {2}", dgv, area, this.dgv);
 
             //-----------------------------------------------------------------
             // Force setting for embedded printing
@@ -1919,18 +2025,27 @@ namespace DGVPrinterHelper //AllocationRequest
             // set margins so we print within the provided area
             Margins saveMargins = PrintMargins;
             PrintMargins.Top = area.Top;
+			Console.WriteLine("EmbeddedPrintMultipageSetup(dgv={0},area={1}): PrintMargins.Top → {2}", dgv, area, PrintMargins.Top);
+			Console.WriteLine("EmbeddedPrintMultipageSetup(dgv={0},area={1}): PrintMargins.Bottom → {2}", dgv, area, PrintMargins.Bottom);
+			Console.WriteLine("EmbeddedPrintMultipageSetup(dgv={0},area={1}): PrintMargins.Left → {2}", dgv, area, PrintMargins.Left);
+			Console.WriteLine("EmbeddedPrintMultipageSetup(dgv={0},area={1}): PrintMargins.Right → {2}", dgv, area, PrintMargins.Right);
             PrintMargins.Bottom = 0;
             PrintMargins.Left = area.Left;
             PrintMargins.Right = 0;
 
             // set "page" height and width to our destination area
             pageHeight = area.Height + area.Top;
+			Console.WriteLine("EmbeddedPrintMultipageSetup(dgv={0},area={1}): pageHeight → {2}", dgv, area, pageHeight);
             printWidth = area.Width;
+			Console.WriteLine("EmbeddedPrintMultipageSetup(dgv={0},area={1}): printWidth → {2}", dgv, area, printWidth);
             pageWidth = area.Width + area.Left;
 
             // force 'off' header and footer
             PrintHeader = false;
+			Console.WriteLine("EmbeddedPrintMultipageSetup(dgv={0},area={1}): PrintHeader → {2}", dgv, area, PrintHeader);
+			Console.WriteLine("EmbeddedPrintMultipageSetup(dgv={0},area={1}): pageno → {2}", dgv, area, pageno);
             PrintFooter = false;
+			Console.WriteLine("EmbeddedPrintMultipageSetup(dgv={0},area={1}): PrintFooter → {2}", dgv, area, PrintFooter);
             pageno = false;
 
             //-----------------------------------------------------------------
@@ -1947,11 +2062,16 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="e"></param>
         public void BeginPrintEventHandler(object sender, PrintEventArgs e)
         {
+			Console.WriteLine(">>> Entering BeginPrintEventHandler(sender={0},e={1})", sender, e);
             if (EnableLogging) Logger.LogInfoMsg("BeginPrintEventHandler called. Printing started.");
             // reset counters since we'll go through this twice if we print from preview
             currentpageset = 0;
+			Console.WriteLine("BeginPrintEventHandler(sender={0},e={1}): currentpageset → {2}", sender, e, currentpageset);
             lastrowprinted = -1;
+			Console.WriteLine("BeginPrintEventHandler(sender={0},e={1}): lastrowprinted → {2}", sender, e, lastrowprinted);
             CurrentPage = 0;
+			Console.WriteLine("<<< Exiting BeginPrintEventHandler(sender={0},e={1})", sender, e);
+			Console.WriteLine("BeginPrintEventHandler(sender={0},e={1}): CurrentPage → {2}", sender, e, CurrentPage);
         }
 
         /// <summary>
@@ -1963,8 +2083,10 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="e">Event info from Windows about the printing</param>
         public void PrintPageEventHandler(object sender, PrintPageEventArgs e)
         {
+			Console.WriteLine(">>> Entering PrintPageEventHandler(sender={0},e={1})", sender, e);
             if (EnableLogging) Logger.LogInfoMsg("PrintPageEventHandler called. Printing a page.");
             e.HasMorePages = PrintPage(e.Graphics);
+			Console.WriteLine("<<< Exiting PrintPageEventHandler(sender={0},e={1})", sender, e);
         }
 
 
@@ -2133,6 +2255,7 @@ namespace DGVPrinterHelper //AllocationRequest
         /// </summary>
         private void SetupColumns()
         {
+			Console.WriteLine(">>> Entering SetupColumns()");
             // identify fixed columns by their column number in the print list
             foreach (string colname in fixedcolumnnames)
             {
@@ -2155,6 +2278,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 else
                     colwidthsoverride.Add(-1);
 
+		Console.WriteLine("<<< Exiting SetupColumns()");
         }
 
         /// <summary>
@@ -2165,6 +2289,7 @@ namespace DGVPrinterHelper //AllocationRequest
         /// </summary>
         private void SetupPrintRange()
         {
+			Console.WriteLine(">>> Entering SetupPrintRange()");
             //-----------------------------------------------------------------
             // set up the rows and columns to print
             //
@@ -2174,6 +2299,8 @@ namespace DGVPrinterHelper //AllocationRequest
             //-----------------------------------------------------------------
             SortedList temprowstoprint = null;
             SortedList tempcolstoprint = null;
+			Console.WriteLine("SetupPrintRange(): temprowstoprint → {0}", temprowstoprint);
+			Console.WriteLine("SetupPrintRange(): tempcolstoprint → {0}", tempcolstoprint);
 
             // rows to print (handles "selection" and "current page" options
             if (PrintRange.Selection == printRange)
@@ -2223,8 +2350,11 @@ namespace DGVPrinterHelper //AllocationRequest
                     foreach (DataGridViewCell cell in dgv.SelectedCells)
                     {
                         displayindex = cell.OwningColumn.DisplayIndex;
+						Console.WriteLine("SetupPrintRange(): displayindex → {0}", displayindex);
                         colindex = cell.ColumnIndex;
+						Console.WriteLine("SetupPrintRange(): colindex → {0}", colindex);
                         rowindex = cell.RowIndex;
+						Console.WriteLine("SetupPrintRange(): rowindex → {0}", rowindex);
 
                         // add unique rows
                         if (!temprowstoprint.Contains(rowindex))
@@ -2276,9 +2406,11 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // move rows and columns into global containers
             rowstoprint = new List<rowdata>(temprowstoprint.Count);
+			Console.WriteLine("SetupPrintRange(): rowstoprint → {0}", rowstoprint);
             foreach (object item in temprowstoprint.Values) rowstoprint.Add(new rowdata() { row = (DataGridViewRow)item });
 
             colstoprint = new List<DataGridViewColumn>(tempcolstoprint.Count);
+			Console.WriteLine("SetupPrintRange(): colstoprint → {0}", colstoprint);
             foreach (object item in tempcolstoprint.Values) colstoprint.Add(item);
 
             // remove "hidden" columns from list of columns to print
@@ -2290,6 +2422,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (EnableLogging) Logger.LogInfoMsg(String.Format("Grid Printout Range is {0} columns", colstoprint.Count));
             if (EnableLogging) Logger.LogInfoMsg(String.Format("Grid Printout Range is {0} rows", rowstoprint.Count));
 
+		Console.WriteLine("<<< Exiting SetupPrintRange()");
         }
 
         /// <summary>
@@ -2436,8 +2569,11 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="newcolwidth">new column width</param>
         private void RecalcRowHeights(Graphics g, int colindex, float newcolwidth)
         {
+			Console.WriteLine(">>> Entering RecalcRowHeights(g={0},colindex={1},newcolwidth={2})", g, colindex, newcolwidth);
             DataGridViewCell cell = null;
             float finalsize = 0F;
+			Console.WriteLine("RecalcRowHeights(g={0},colindex={1},newcolwidth={2}): cell → {3}", g, colindex, newcolwidth, cell);
+			Console.WriteLine("RecalcRowHeights(g={0},colindex={1},newcolwidth={2}): finalsize → {3}", g, colindex, newcolwidth, finalsize);
 
             // search calculated cell sizes for widths larger than our new width
             for (int i = 0; i < rowstoprint.Count; i++)
@@ -2451,6 +2587,7 @@ namespace DGVPrinterHelper //AllocationRequest
                     // get column style
                     DataGridViewCellStyle colstyle = GetStyle(((DataGridViewRow)rowstoprint[i].row), ((DataGridViewColumn)colstoprint[colindex]));
 
+					Console.WriteLine("RecalcRowHeights(g={0},colindex={1},newcolwidth={2}): colstyle → {3}", g, colindex, newcolwidth, colstyle);
                     // build the cell style and font 
                     buildstringformat(ref currentformat, colstyle, cellformat.Alignment, cellformat.LineAlignment,
                         cellformat.FormatFlags, cellformat.Trimming);
@@ -2459,6 +2596,7 @@ namespace DGVPrinterHelper //AllocationRequest
                     // change the row height
                     SizeF size = calccellsize(g, cell, colstyle, newcolwidth, colwidthsoverride[colindex], currentformat);
 
+					Console.WriteLine("RecalcRowHeights(g={0},colindex={1},newcolwidth={2}): size → {3}", g, colindex, newcolwidth, size);
                     finalsize = size.Height;
                 }
                 else
@@ -2469,6 +2607,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 // change the saved row height based on the recalculated size
                 rowstoprint[i].height = (rowstoprint[i].height < finalsize ? finalsize : rowstoprint[i].height);
             }
+			Console.WriteLine("<<< Exiting RecalcRowHeights(g={0},colindex={1},newcolwidth={2})", g, colindex, newcolwidth);
         }
 
 
@@ -2480,10 +2619,13 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="g">The graphics context for all measurements</param>
         private void measureprintarea(Graphics g)
         {
+			Console.WriteLine(">>> Entering measureprintarea(g={0})", g);
             int i, j;
             colwidths = new List<float>(colstoprint.Count);
+			Console.WriteLine("measureprintarea(g={0}): colwidths → {1}", g, colwidths);
             footerHeight = 0;
 
+			Console.WriteLine("measureprintarea(g={0}): footerHeight → {1}", g, footerHeight);
             // temp variables
             DataGridViewColumn col;
             DataGridViewRow row;
@@ -2496,6 +2638,7 @@ namespace DGVPrinterHelper //AllocationRequest
             for (i = 0; i < colstoprint.Count; i++)
             {
                 col = (DataGridViewColumn)colstoprint[i];
+				Console.WriteLine("measureprintarea(g={0}): col → {1}", g, col);
 
                 //-------------------------------------------------------------
                 // Build String format and Cell style
@@ -2506,6 +2649,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 DataGridViewCellStyle headercolstyle = col.HeaderCell.InheritedStyle.Clone();
                 if (ColumnHeaderStyles.ContainsKey(col.Name))
                 {
+				Console.WriteLine("measureprintarea(g={0}): headercolstyle → {1}", g, headercolstyle);
                     headercolstyle = columnheaderstyles[col.Name];
 
                     // build the cell style and font 
@@ -2528,11 +2672,14 @@ namespace DGVPrinterHelper //AllocationRequest
                 //-------------------------------------------------------------
                 SizeF size = col.HeaderCell.Size;
 
+				Console.WriteLine("measureprintarea(g={0}): size → {1}", g, size);
                 // deal with overridden col widths
                 float usewidth = 0;
-                if (0 <= colwidthsoverride[i])
+					Console.WriteLine("measureprintarea(g={0}): usewidth → {1}", g, usewidth);
+                if (0 <= colwidthsoverride[i]) {
                     //usewidth = colwidthsoverride[i];
                     colwidths.Add(colwidthsoverride[i]);            // override means set that size
+                }
                 else if ((ColumnWidthSetting.CellWidth == ColumnWidth) || (ColumnWidthSetting.Porportional == ColumnWidth))
                 {
                     usewidth = col.HeaderCell.Size.Width;
@@ -2550,7 +2697,10 @@ namespace DGVPrinterHelper //AllocationRequest
 
                 // accumulate heights, saving largest for data sized option
                 if (RowHeightSetting.DataHeight == RowHeight)
+                {
                     colheaderheight = (colheaderheight < size.Height ? size.Height : colheaderheight);
+					Console.WriteLine("measureprintarea(g={0}): colheaderheight → {1}", g, colheaderheight);
+                }
                 else
                     colheaderheight = col.HeaderCell.Size.Height;
             }
@@ -2562,6 +2712,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (pageno)
             {
                 pagenumberHeight = (g.MeasureString("Page", pagenofont, printWidth, pagenumberformat)).Height;
+				Console.WriteLine("measureprintarea(g={0}): pagenumberHeight → {1}", g, pagenumberHeight);
             }
 
             //-----------------------------------------------------------------
@@ -2572,7 +2723,9 @@ namespace DGVPrinterHelper //AllocationRequest
             {
                 // calculate title and subtitle heights
                 titleheight = (g.MeasureString(title, titlefont, printWidth, titleformat)).Height;
+				Console.WriteLine("measureprintarea(g={0}): titleheight → {1}", g, titleheight);
                 subtitleheight = (g.MeasureString(subtitle, subtitlefont, printWidth, subtitleformat)).Height;
+				Console.WriteLine("measureprintarea(g={0}): subtitleheight → {1}", g, subtitleheight);
             }
 
             //-----------------------------------------------------------------
@@ -2596,6 +2749,7 @@ namespace DGVPrinterHelper //AllocationRequest
             for (i = 0; i < rowstoprint.Count; i++)
             {
                 row = (DataGridViewRow)rowstoprint[i].row;
+				Console.WriteLine("measureprintarea(g={0}): row → {1}", g, row);
 
                 // add row headers if they're visible
                 if ((bool)PrintRowHeaders)
@@ -2608,6 +2762,7 @@ namespace DGVPrinterHelper //AllocationRequest
                     SizeF rhsize = g.MeasureString(rowheadertext,
                         row.HeaderCell.InheritedStyle.Font);
                     rowheaderwidth = (rowheaderwidth < rhsize.Width) ? rhsize.Width : rowheaderwidth;
+					Console.WriteLine("measureprintarea(g={0}): rowheaderwidth → {1}", g, rowheaderwidth);
                 }
 
                 // calculate widths for each column. We're looking for the largest width needed for
@@ -2624,6 +2779,7 @@ namespace DGVPrinterHelper //AllocationRequest
                     StringFormat currentformat = null;
                     DataGridViewCellStyle colstyle = GetStyle(row, col); // = row.Cells[col.Index].InheritedStyle.Clone();
 
+					Console.WriteLine("measureprintarea(g={0}): colstyle → {1}", g, colstyle);
                     // build the cell style and font 
                     buildstringformat(ref currentformat, colstyle, cellformat.Alignment, cellformat.LineAlignment,
                         cellformat.FormatFlags, cellformat.Trimming);
@@ -2636,8 +2792,11 @@ namespace DGVPrinterHelper //AllocationRequest
                     // get the default width, depending on overrides. Only calculate data
                     // sizes for DataWidth column setting.
                     if (0 <= colwidthsoverride[j])
+                    {
                         // set overridden column width
                         basewidth = colwidthsoverride[j];
+						Console.WriteLine("measureprintarea(g={0}): basewidth → {1}", g, basewidth);
+                    }
                     else if ((ColumnWidthSetting.CellWidth == ColumnWidth) || (ColumnWidthSetting.Porportional == ColumnWidth))
                         // set default to same as title cell width
                         basewidth = colwidths[j];
@@ -2669,6 +2828,7 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // assume everything will fit on one page
             pagesets = new List<PageDef>();
+			Console.WriteLine("measureprintarea(g={0}): pagesets → {1}", g, pagesets);
             pagesets.Add(new PageDef(PrintMargins, colstoprint.Count, pageWidth));
             int pset = 0;
 
@@ -2762,6 +2922,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 {
                     String columnlist = "";
 
+					Console.WriteLine("measureprintarea(g={0}): columnlist → {1}", g, columnlist);
                     Logger.LogInfoMsg(String.Format("PageSet {0} Information ----------------------------------------------", i));
 
                     // list out all the columns printed on this page since we may have fixed columns to account for
@@ -2806,6 +2967,7 @@ namespace DGVPrinterHelper //AllocationRequest
                         pageset.printWidth, pageset.coltotalwidth));
                 }
             }
+			Console.WriteLine("<<< Exiting measureprintarea(g={0})", g);
         }
 
         /// <summary>
@@ -2898,8 +3060,11 @@ namespace DGVPrinterHelper //AllocationRequest
         /// </summary>
         private int Pagination()
         {
+			Console.WriteLine(">>> Entering Pagination()");
             float pos = 0;
             paging newpage = paging.keepgoing;
+			Console.WriteLine("Pagination(): pos → {0}", pos);
+			Console.WriteLine("Pagination(): newpage → {0}", newpage);
 
             //// if we're printing by pages, the total pages is the last page to 
             //// print
@@ -2908,10 +3073,12 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // Start counting pages at 1
             CurrentPage = 1;
+			Console.WriteLine("Pagination(): CurrentPage → {0}", CurrentPage);
 
             // Calculate where to stop printing the grid - count up from the bottom of the page.
             staticheight = pageHeight - FooterHeight - pagesets[currentpageset].margins.Bottom; //PrintMargins.Bottom;
 
+			Console.WriteLine("Pagination(): staticheight → {0}", staticheight);
             // add in the page number height - doesn't matter at this point if it's printing on top or bottom
             staticheight -= PageNumberHeight;
 
@@ -2922,11 +3089,13 @@ namespace DGVPrinterHelper //AllocationRequest
             if (!String.IsNullOrEmpty(breakonvaluechange))
             {
                 oldvalue = rowstoprint[0].row.Cells[breakonvaluechange].EditedFormattedValue;
+				Console.WriteLine("Pagination(): oldvalue → {0}", oldvalue);
             }
 
             // if we're printing by rows, sum up rowheights until we're done.
             for (int currentrow = 0; currentrow < (rowstoprint.Count); currentrow++)
             {
+				Console.WriteLine("Pagination(): currentrow → {0}", currentrow);
                 // end of page: Count the page and reset to top of next page
                 if (pos + rowstoprint[currentrow].height >= staticheight)
                 {
@@ -2995,6 +3164,7 @@ namespace DGVPrinterHelper //AllocationRequest
             }
 
             // return counted pages
+			Console.WriteLine("<<< Exiting Pagination()");
             return CurrentPage;
         }
 
@@ -3004,14 +3174,17 @@ namespace DGVPrinterHelper //AllocationRequest
         /// </summary>
         private bool DetermineHasMorePages()
         {
+			Console.WriteLine(">>> Entering DetermineHasMorePages()");
             currentpageset++;
             if (currentpageset < pagesets.Count)
             {
                 //currentpageset--;   // decrement back to a valid pageset number
                 return true;        // tell the caller we're through.
             }
-            else
+            else {
+				Console.WriteLine("<<< Exiting DetermineHasMorePages()");
                 return false;
+            }
         }
 
         /// <summary>
@@ -3022,18 +3195,23 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="g">Graphics object to print to</param>
         private bool PrintPage(Graphics g)
         {
+			Console.WriteLine(">>> Entering PrintPage(g={0})", g);
             // for tracing and logging purposes
             int firstrow = 0;
 
+			Console.WriteLine("PrintPage(g={0}): firstrow → {1}", g, firstrow);
             // flag for continuing or ending print process
             bool HasMorePages = false;
 
+			Console.WriteLine("PrintPage(g={0}): HasMorePages → {1}", g, HasMorePages);
             // flag for handling printing some pages rather than all
             bool printthispage = false;
 
+			Console.WriteLine("PrintPage(g={0}): printthispage → {1}", g, printthispage);
             // current printing position within one page
             float printpos = pagesets[currentpageset].margins.Top;
 
+			Console.WriteLine("PrintPage(g={0}): printpos → {1}", g, printpos);
             // increment page number & check page range
             CurrentPage++;
             if (EnableLogging) Logger.LogInfoMsg(String.Format("Print Page processing page {0} -----------------------", CurrentPage));
@@ -3043,6 +3221,7 @@ namespace DGVPrinterHelper //AllocationRequest
             // calculate the static vertical space available - this is where we stop printing rows
             // Note: leave room for the page number if it's on the bottom
             staticheight = pageHeight - FooterHeight - pagesets[currentpageset].margins.Bottom;
+			Console.WriteLine("PrintPage(g={0}): staticheight → {1}", g, staticheight);
             if (!pagenumberontop)
                 staticheight -= PageNumberHeight;
 
@@ -3052,9 +3231,11 @@ namespace DGVPrinterHelper //AllocationRequest
             // current row information block
             rowdata thisrow = null;
 
+			Console.WriteLine("PrintPage(g={0}): thisrow → {1}", g, thisrow);
             // next row (lookahead) information block
             rowdata nextrow = null;
 
+			Console.WriteLine("PrintPage(g={0}): nextrow → {1}", g, nextrow);
             //-----------------------------------------------------------------
             // scan down heights until we're off this (non-printing) page
             //-----------------------------------------------------------------
@@ -3069,6 +3250,8 @@ namespace DGVPrinterHelper //AllocationRequest
                 // are we done with this page?
                 bool pagecomplete = false;
                 currentrow = lastrowprinted + 1;
+				Console.WriteLine("PrintPage(g={0}): pagecomplete → {1}", g, pagecomplete);
+				Console.WriteLine("PrintPage(g={0}): currentrow → {1}", g, currentrow);
 
                 // for logging
                 firstrow = currentrow;
@@ -3101,6 +3284,7 @@ namespace DGVPrinterHelper //AllocationRequest
                     {
                         // completed a row, so reset startlocation and count this row.
                         rowstartlocation = 0;
+						Console.WriteLine("PrintPage(g={0}): rowstartlocation → {1}", g, rowstartlocation);
                     }
 
                     // if we're out of data (no partial rows and no more rows)
@@ -3132,8 +3316,10 @@ namespace DGVPrinterHelper //AllocationRequest
 
                     // reset counters since we'll go through this twice if we print from preview
                     lastrowprinted = -1;
+					Console.WriteLine("PrintPage(g={0}): lastrowprinted → {1}", g, lastrowprinted);
                     CurrentPage = 0;
 
+					Console.WriteLine("PrintPage(g={0}): CurrentPage → {1}", g, CurrentPage);
                     return HasMorePages;
                 }
             }
@@ -3206,6 +3392,7 @@ namespace DGVPrinterHelper //AllocationRequest
             //-----------------------------------------------------------------
             bool continueprinting = true;
             currentrow = lastrowprinted + 1;
+			Console.WriteLine("PrintPage(g={0}): continueprinting → {1}", g, continueprinting);
 
             // for logging
             firstrow = currentrow;
@@ -3261,6 +3448,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 PageDef pageset = pagesets[currentpageset];
                 String columnlist = "";
 
+				Console.WriteLine("PrintPage(g={0}): columnlist → {1}", g, columnlist);
                 // list out all the columns printed on this page since we may have fixed columns to account for
                 for (int i = 0; i < pageset.colstoprint.Count; i++)
                     columnlist = String.Format("{0},{1}", columnlist,
@@ -3323,6 +3511,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 HasMorePages = true;
             }
 
+			Console.WriteLine("<<< Exiting PrintPage(g={0})", g);
             return HasMorePages;
         }
 
