@@ -18,12 +18,15 @@ namespace AnyStore.DAL
         #region Insert Method for Transaction Detail
         public bool InsertTransactionDetail(transactionDetailBLL td)
         {
+			Console.WriteLine(">>> Entering InsertTransactionDetail(td={0})", td);
             //Create a boolean value and set its default value to false
             bool isSuccess = false;
 
+			Console.WriteLine("InsertTransactionDetail(td={0}): isSuccess → {1}", td, isSuccess);
             //Create a database connection here
             SqlConnection conn = new SqlConnection(myconnstrng);
 
+			Console.WriteLine("InsertTransactionDetail(td={0}): conn → {1}", td, conn);
             try
             {
                 //Sql Query to Insert Transaction detais
@@ -32,6 +35,7 @@ namespace AnyStore.DAL
                 //Passing the value to the SQL Query
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 //Passing the values using cmd
+				Console.WriteLine("InsertTransactionDetail(td={0}): cmd → {1}", td, cmd);
                 cmd.Parameters.AddWithValue("@product_id", td.product_id);
                 cmd.Parameters.AddWithValue("@rate", td.rate);
                 cmd.Parameters.AddWithValue("@qty", td.qty);
@@ -46,6 +50,7 @@ namespace AnyStore.DAL
                 //declare the int variable and execute the query
                 int rows = cmd.ExecuteNonQuery();
 
+				Console.WriteLine("InsertTransactionDetail(td={0}): rows → {1}", td, rows);
                 if(rows>0)
                 {
                     //Query Executed Successfully
@@ -59,6 +64,7 @@ namespace AnyStore.DAL
             }
             catch(Exception ex)
             {
+				Console.Error.WriteLine("Exception in InsertTransactionDetail(td={0}): {1}", td, ex.Message);
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -66,6 +72,7 @@ namespace AnyStore.DAL
                 //Close Database Connection
                 conn.Close();
             }
+			Console.WriteLine("<<< Exiting InsertTransactionDetail(td={0})", td);
             return isSuccess;
         }
         #endregion
