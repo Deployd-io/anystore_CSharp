@@ -18,12 +18,16 @@ namespace AnyStore.UI
     {
         public frmPurchaseAndSales()
         {
+			Console.WriteLine(">>> Entering frmPurchaseAndSales()");
             InitializeComponent();
+			Console.WriteLine("<<< Exiting frmPurchaseAndSales()");
         }
 
         private void pictureBoxClose_Click(object sender, EventArgs e)
         {
+			Console.WriteLine(">>> Entering pictureBoxClose_Click(sender={0},e={1})", sender, e);
             this.Hide();
+			Console.WriteLine("<<< Exiting pictureBoxClose_Click(sender={0},e={1})", sender, e);
         }
         DeaCustDAL dcDAL = new DeaCustDAL();
         productsDAL pDAL = new productsDAL();
@@ -34,20 +38,24 @@ namespace AnyStore.UI
         DataTable transactionDT = new DataTable();
         private void frmPurchaseAndSales_Load(object sender, EventArgs e)
         {
+			Console.WriteLine(">>> Entering frmPurchaseAndSales_Load(sender={0},e={1})", sender, e);
             //Get the transactionType value from frmUserDashboard
             string type = frmUserDashboard.transactionType;
             //Set the value on lblTop
             lblTop.Text = type;
+			Console.WriteLine("frmPurchaseAndSales_Load(sender={0},e={1}): lblTop.Text → {2}", sender, e, lblTop.Text);
 
             //Specify Columns for our TransactionDataTable
             transactionDT.Columns.Add("Product Name");
             transactionDT.Columns.Add("Rate");
             transactionDT.Columns.Add("Quantity");
             transactionDT.Columns.Add("Total");
+			Console.WriteLine("<<< Exiting frmPurchaseAndSales_Load(sender={0},e={1})", sender, e);
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
+			Console.WriteLine(">>> Entering txtSearch_TextChanged(sender={0},e={1})", sender, e);
             //Get the keyword fro the text box
             string keyword = txtSearch.Text;
 
@@ -55,6 +63,10 @@ namespace AnyStore.UI
             {
                 //Clear all the textboxes
                 txtName.Text = "";
+				Console.WriteLine("txtSearch_TextChanged(sender={0},e={1}): txtName.Text → {2}", sender, e, txtName.Text);
+				Console.WriteLine("txtSearch_TextChanged(sender={0},e={1}): txtEmail.Text → {2}", sender, e, txtEmail.Text);
+				Console.WriteLine("txtSearch_TextChanged(sender={0},e={1}): txtContact.Text → {2}", sender, e, txtContact.Text);
+				Console.WriteLine("txtSearch_TextChanged(sender={0},e={1}): txtAddress.Text → {2}", sender, e, txtAddress.Text);
                 txtEmail.Text = "";
                 txtContact.Text = "";
                 txtAddress.Text = "";
@@ -64,15 +76,18 @@ namespace AnyStore.UI
             //Write the code to get the details and set the value on text boxes
             DeaCustBLL dc = dcDAL.SearchDealerCustomerForTransaction(keyword);
 
+			Console.WriteLine("txtSearch_TextChanged(sender={0},e={1}): dc → {2}", sender, e, dc);
             //Now transfer or set the value from DeCustBLL to textboxes
             txtName.Text = dc.name;
             txtEmail.Text = dc.email;
             txtContact.Text = dc.contact;
             txtAddress.Text = dc.address;
+			Console.WriteLine("<<< Exiting txtSearch_TextChanged(sender={0},e={1})", sender, e);
         }
 
         private void txtSearchProduct_TextChanged(object sender, EventArgs e)
         {
+			Console.WriteLine(">>> Entering txtSearchProduct_TextChanged(sender={0},e={1})", sender, e);
             //Get the keyword from productsearch textbox
             string keyword = txtSearchProduct.Text;
 
@@ -80,6 +95,10 @@ namespace AnyStore.UI
             if(keyword=="")
             {
                 txtProductName.Text = "";
+				Console.WriteLine("txtSearchProduct_TextChanged(sender={0},e={1}): txtProductName.Text → {2}", sender, e, txtProductName.Text);
+				Console.WriteLine("txtSearchProduct_TextChanged(sender={0},e={1}): txtInventory.Text → {2}", sender, e, txtInventory.Text);
+				Console.WriteLine("txtSearchProduct_TextChanged(sender={0},e={1}): txtRate.Text → {2}", sender, e, txtRate.Text);
+				Console.WriteLine("txtSearchProduct_TextChanged(sender={0},e={1}): TxtQty.Text → {2}", sender, e, TxtQty.Text);
                 txtInventory.Text = "";
                 txtRate.Text = "";
                 TxtQty.Text = "";
@@ -93,10 +112,12 @@ namespace AnyStore.UI
             txtProductName.Text = p.name;
             txtInventory.Text = p.qty.ToString();
             txtRate.Text = p.rate.ToString();
+			Console.WriteLine("<<< Exiting txtSearchProduct_TextChanged(sender={0},e={1})", sender, e);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+			Console.WriteLine(">>> Entering btnAdd_Click(sender={0},e={1})", sender, e);
             //Get Product Name, Rate and Qty customer wants to buy
             string productName = txtProductName.Text;
             decimal Rate = decimal.Parse(txtRate.Text);
@@ -108,6 +129,7 @@ namespace AnyStore.UI
             //Get the subtotal value from textbox
             decimal subTotal = decimal.Parse(txtSubTotal.Text);
             subTotal = subTotal + Total;
+			Console.WriteLine("btnAdd_Click(sender={0},e={1}): subTotal → {2}", sender, e, subTotal);
 
             //Check whether the product is selected or not
             if(productName=="")
@@ -122,20 +144,28 @@ namespace AnyStore.UI
 
                 //Show in DAta Grid View
                 dgvAddedProducts.DataSource = transactionDT;
+				Console.WriteLine("btnAdd_Click(sender={0},e={1}): dgvAddedProducts.DataSource → {2}", sender, e, dgvAddedProducts.DataSource);
                 //Display the Subtotal in textbox
                 txtSubTotal.Text = subTotal.ToString();
 
                 //Clear the Textboxes
                 txtSearchProduct.Text = "";
+				Console.WriteLine("btnAdd_Click(sender={0},e={1}): txtSearchProduct.Text → {2}", sender, e, txtSearchProduct.Text);
+				Console.WriteLine("btnAdd_Click(sender={0},e={1}): txtProductName.Text → {2}", sender, e, txtProductName.Text);
+				Console.WriteLine("btnAdd_Click(sender={0},e={1}): txtInventory.Text → {2}", sender, e, txtInventory.Text);
+				Console.WriteLine("btnAdd_Click(sender={0},e={1}): txtRate.Text → {2}", sender, e, txtRate.Text);
+				Console.WriteLine("btnAdd_Click(sender={0},e={1}): TxtQty.Text → {2}", sender, e, TxtQty.Text);
                 txtProductName.Text = "";
                 txtInventory.Text = "0.00";
                 txtRate.Text = "0.00";
                 TxtQty.Text = "0.00";
             }
+			Console.WriteLine("<<< Exiting btnAdd_Click(sender={0},e={1})", sender, e);
         }
 
         private void txtDiscount_TextChanged(object sender, EventArgs e)
         {
+			Console.WriteLine(">>> Entering txtDiscount_TextChanged(sender={0},e={1})", sender, e);
             //Get the value fro discount textbox
             string value = txtDiscount.Text;
 
@@ -149,6 +179,7 @@ namespace AnyStore.UI
                 //Get the discount in decimal value
                 decimal subTotal = decimal.Parse(txtSubTotal.Text);
                 decimal discount = decimal.Parse(txtDiscount.Text);
+				Console.WriteLine("txtDiscount_TextChanged(sender={0},e={1}): subTotal → {2}", sender, e, subTotal);
 
                 //Calculate the grandtotal based on discount
                 decimal grandTotal = ((100 - discount) / 100) * subTotal;
@@ -157,10 +188,12 @@ namespace AnyStore.UI
                 txtGrandTotal.Text = grandTotal.ToString();
             }
             
+			Console.WriteLine("<<< Exiting txtDiscount_TextChanged(sender={0},e={1})", sender, e);
         }
 
         private void txtVat_TextChanged(object sender, EventArgs e)
         {
+			Console.WriteLine(">>> Entering txtVat_TextChanged(sender={0},e={1})", sender, e);
             //Check if the grandTotal has value or not if it has not value then calculate the discount first
             string check = txtGrandTotal.Text;
             if(check=="")
@@ -179,10 +212,12 @@ namespace AnyStore.UI
                 //Displaying new grand total with vat
                 txtGrandTotal.Text = grandTotalWithVAT.ToString();
             }
+			Console.WriteLine("<<< Exiting txtVat_TextChanged(sender={0},e={1})", sender, e);
         }
 
         private void txtPaidAmount_TextChanged(object sender, EventArgs e)
         {
+			Console.WriteLine(">>> Entering txtPaidAmount_TextChanged(sender={0},e={1})", sender, e);
             //Get the paid amount and grand total
             decimal grandTotal = decimal.Parse(txtGrandTotal.Text);
             decimal paidAmount = decimal.Parse(txtPaidAmount.Text);
@@ -191,13 +226,16 @@ namespace AnyStore.UI
 
             //Display the return amount as well
             txtReturnAmount.Text = returnAmount.ToString();
+			Console.WriteLine("<<< Exiting txtPaidAmount_TextChanged(sender={0},e={1})", sender, e);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+			Console.WriteLine(">>> Entering btnSave_Click(sender={0},e={1})", sender, e);
             //Get the Values from PurchaseSales Form First
             transactionsBLL transaction = new transactionsBLL();
 
+			Console.WriteLine("btnSave_Click(sender={0},e={1}): transaction.type → {2}", sender, e, transaction.type);
             transaction.type = lblTop.Text;
 
             //Get the ID of Dealer or Customer Here
@@ -205,15 +243,20 @@ namespace AnyStore.UI
             string deaCustName = txtName.Text;
             DeaCustBLL dc = dcDAL.GetDeaCustIDFromName(deaCustName);
 
+			Console.WriteLine("btnSave_Click(sender={0},e={1}): dc → {2}", sender, e, dc);
+			Console.WriteLine("btnSave_Click(sender={0},e={1}): transaction.dea_cust_id → {2}", sender, e, transaction.dea_cust_id);
             transaction.dea_cust_id = dc.id;
             transaction.grandTotal = Math.Round(decimal.Parse(txtGrandTotal.Text),2);
             transaction.transaction_date = DateTime.Now;
+			Console.WriteLine("btnSave_Click(sender={0},e={1}): transaction.transaction_date → {2}", sender, e, transaction.transaction_date);
             transaction.tax = decimal.Parse(txtVat.Text);
             transaction.discount = decimal.Parse(txtDiscount.Text);
 
             //Get the Username of Logged in user
             string username = frmLogin.loggedIn;
             userBLL u = uDAL.GetIDFromUsername(username);
+			Console.WriteLine("btnSave_Click(sender={0},e={1}): transaction.added_by → {2}", sender, e, transaction.added_by);
+			Console.WriteLine("btnSave_Click(sender={0},e={1}): transaction.transactionDetails → {2}", sender, e, transaction.transactionDetails);
 
             transaction.added_by = u.id;
             transaction.transactionDetails = transactionDT;
@@ -313,6 +356,7 @@ namespace AnyStore.UI
                     MessageBox.Show("Transaction Failed");
                 }
             }
+			Console.WriteLine("<<< Exiting btnSave_Click(sender={0},e={1})", sender, e);
         }
     }
 }
