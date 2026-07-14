@@ -19,12 +19,16 @@ namespace AnyStore.DAL
         #region SELECT MEthod for Dealer and Customer
         public DataTable Select()
         {
+			Console.WriteLine(">>> Entering Select()");
+			var __logStart = System.Diagnostics.Stopwatch.StartNew();
             //SQL Connection for Database Connection
             SqlConnection conn = new SqlConnection(myconnstrng);
 
+			Console.WriteLine("Select(): conn → {0}", conn);
             //DataTble to hold the value from database and return it
             DataTable dt = new DataTable();
 
+			Console.WriteLine("Select(): dt → {0}", dt);
             try
             {
                 //Write SQL Query t Select all the DAta from dAtabase
@@ -33,16 +37,20 @@ namespace AnyStore.DAL
                 //Creating SQL Command to execute Query
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
+				Console.WriteLine("Select(): cmd → {0}", cmd);
                 //Creting SQL Data Adapter to Store Data From Database Temporarily
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
+				Console.WriteLine("Select(): adapter → {0}", adapter);
                 //Open Database Connection
                 conn.Open();
                 //Passign the value from SQL Data Adapter to DAta table
                 adapter.Fill(dt);
+				Console.WriteLine("Select(): find query executed in {0} ms", __logStart.ElapsedMilliseconds);
             }
             catch(Exception ex)
             {
+				Console.Error.WriteLine("Exception in Select(): {0}", ex.Message);
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -50,12 +58,14 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			Console.WriteLine("<<< Exiting Select()");
             return dt;
         }
         #endregion
         #region INSERT Method to Add details fo Dealer or Customer
         public bool Insert(DeaCustBLL dc)
         {
+			var __logStart = System.Diagnostics.Stopwatch.StartNew();
             //Creting SQL Connection First
             SqlConnection conn = new SqlConnection(myconnstrng);
 
@@ -111,6 +121,7 @@ namespace AnyStore.DAL
         #region UPDATE method for Dealer and Customer Module
         public bool Update(DeaCustBLL dc)
         {
+			var __logStart = System.Diagnostics.Stopwatch.StartNew();
             //SQL Connection for Database Connection
             SqlConnection conn = new SqlConnection(myconnstrng);
             //Create Boolean variable and set its default value to false
@@ -164,6 +175,7 @@ namespace AnyStore.DAL
         #region DELETE Method for Dealer and Customer Module
         public bool Delete(DeaCustBLL dc)
         {
+			var __logStart = System.Diagnostics.Stopwatch.StartNew();
             //SQlConnection for Database Connection
             SqlConnection conn = new SqlConnection(myconnstrng);
 
@@ -210,12 +222,16 @@ namespace AnyStore.DAL
         #region SEARCH METHOD for Dealer and Customer Module
         public DataTable Search(string keyword)
         {
+			Console.WriteLine(">>> Entering Search(keyword={0})", keyword);
+			var __logStart = System.Diagnostics.Stopwatch.StartNew();
             //Create a Sql Connection
             SqlConnection conn = new SqlConnection(myconnstrng);
 
+			Console.WriteLine("Search(keyword={0}): conn → {1}", keyword, conn);
             //Creating a Data TAble and returnign its value
             DataTable dt = new DataTable();
 
+			Console.WriteLine("Search(keyword={0}): dt → {1}", keyword, dt);
             try
             {
                 //Write the Query to Search Dealer or Customer Based in id, type and name
@@ -224,15 +240,19 @@ namespace AnyStore.DAL
                 //Sql Command to Execute the Query
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 //Sql Dat Adapeter to hold tthe data from dataase temporarily
+				Console.WriteLine("Search(keyword={0}): cmd → {1}", keyword, cmd);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
+				Console.WriteLine("Search(keyword={0}): adapter → {1}", keyword, adapter);
                 //Open DAta Base Connection
                 conn.Open();
                 //Pass the value from adapter to data table
                 adapter.Fill(dt);
+				Console.WriteLine("Search(keyword)={0}: find query executed in {1} ms", keyword, __logStart.ElapsedMilliseconds);
             }
             catch(Exception ex)
             {
+				Console.Error.WriteLine("Exception in Search(keyword={0}): {1}", keyword, ex.Message);
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -240,21 +260,27 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			Console.WriteLine("<<< Exiting Search(keyword={0})", keyword);
             return dt;
         }
         #endregion
         #region METHOD TO SAERCH DEALER Or CUSTOMER FOR TRANSACTON MODULE
         public DeaCustBLL SearchDealerCustomerForTransaction(string keyword)
         {
+			Console.WriteLine(">>> Entering SearchDealerCustomerForTransaction(keyword={0})", keyword);
+			var __logStart = System.Diagnostics.Stopwatch.StartNew();
             //Create an object for DeaCustBLL class
             DeaCustBLL dc = new DeaCustBLL();
 
+			Console.WriteLine("SearchDealerCustomerForTransaction(keyword={0}): dc → {1}", keyword, dc);
             //Create a DAtabase Connection
             SqlConnection conn = new SqlConnection(myconnstrng);
 
+			Console.WriteLine("SearchDealerCustomerForTransaction(keyword={0}): conn → {1}", keyword, conn);
             //Create a DAta Table to hold the value temporarily
             DataTable dt = new DataTable();
 
+			Console.WriteLine("SearchDealerCustomerForTransaction(keyword={0}): dt → {1}", keyword, dt);
             try
             {
                 //Write a SQL Query to Search Dealer or Customer Based on Keywords
@@ -263,11 +289,13 @@ namespace AnyStore.DAL
                 //Create a Sql Data Adapter to Execute the Query
                 SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
 
+				Console.WriteLine("SearchDealerCustomerForTransaction(keyword={0}): adapter → {1}", keyword, adapter);
                 //Open the DAtabase Connection
                 conn.Open();
 
                 //Transfer the data from SqlData Adapter to DAta Table
                 adapter.Fill(dt);
+				Console.WriteLine("SearchDealerCustomerForTransaction(keyword)={0}: find query executed in {1} ms", keyword, __logStart.ElapsedMilliseconds);
 
                 //If we have values on dt we need to save it in dealerCustomer BLL
                 if(dt.Rows.Count>0)
@@ -281,6 +309,7 @@ namespace AnyStore.DAL
             }
             catch(Exception ex)
             {
+				Console.Error.WriteLine("Exception in SearchDealerCustomerForTransaction(keyword={0}): {1}", keyword, ex.Message);
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -289,20 +318,26 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			Console.WriteLine("<<< Exiting SearchDealerCustomerForTransaction(keyword={0})", keyword);
             return dc;
         }
         #endregion
         #region METHOD TO GET ID OF THE DEALER OR CUSTOMER BASED ON NAME
         public DeaCustBLL GetDeaCustIDFromName(string Name)
         {
+			Console.WriteLine(">>> Entering GetDeaCustIDFromName(Name={0})", Name);
+			var __logStart = System.Diagnostics.Stopwatch.StartNew();
             //First Create an Object of DeaCust BLL and REturn it
             DeaCustBLL dc = new DeaCustBLL();
 
+			Console.WriteLine("GetDeaCustIDFromName(Name={0}): dc → {1}", Name, dc);
             //SQL Conection here
             SqlConnection conn = new SqlConnection(myconnstrng);
             //Data TAble to Holdthe data temporarily
+			Console.WriteLine("GetDeaCustIDFromName(Name={0}): conn → {1}", Name, conn);
             DataTable dt = new DataTable();
 
+			Console.WriteLine("GetDeaCustIDFromName(Name={0}): dt → {1}", Name, dt);
             try
             {
                 //SQL Query to Get id based on Name
@@ -310,10 +345,12 @@ namespace AnyStore.DAL
                 //Create the SQL Data Adapter to Execute the Query
                 SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
 
+				Console.WriteLine("GetDeaCustIDFromName(Name={0}): adapter → {1}", Name, adapter);
                 conn.Open();
 
                 //Passing the CAlue from Adapter to DAtatable
                 adapter.Fill(dt);
+				Console.WriteLine("GetDeaCustIDFromName(Name)={0}: find query executed in {1} ms", Name, __logStart.ElapsedMilliseconds);
                 if(dt.Rows.Count>0)
                 {
                     //Pass the value from dt to DeaCustBLL dc
@@ -322,6 +359,7 @@ namespace AnyStore.DAL
             }
             catch(Exception ex)
             {
+				Console.Error.WriteLine("Exception in GetDeaCustIDFromName(Name={0}): {1}", Name, ex.Message);
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -329,6 +367,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			Console.WriteLine("<<< Exiting GetDeaCustIDFromName(Name={0})", Name);
             return dc;
         }
         #endregion
