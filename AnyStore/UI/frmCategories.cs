@@ -9,19 +9,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Extensions.Logging;
 
 namespace AnyStore.UI
 {
+	private static readonly Microsoft.Extensions.Logging.ILogger _logger = Microsoft.Extensions.Logging.Abstractions.NullLogger.Instance;
     public partial class frmCategories : Form
     {
         public frmCategories()
         {
+			_logger.LogDebug(">>> Entering frmCategories()");
             InitializeComponent();
+			_logger.LogDebug("<<< Exiting frmCategories()");
         }
 
         private void pictureBoxClose_Click(object sender, EventArgs e)
         {
+			_logger.LogDebug(">>> Entering pictureBoxClose_Click(sender={Sender},e={E})", sender, e);
             this.Hide();
+			_logger.LogDebug("<<< Exiting pictureBoxClose_Click(sender={Sender},e={E})", sender, e);
         }
 
         categoriesBLL c = new categoriesBLL();
@@ -30,8 +36,12 @@ namespace AnyStore.UI
 
         private void btnADD_Click(object sender, EventArgs e)
         {
+			_logger.LogDebug(">>> Entering btnADD_Click(sender={Sender},e={E})", sender, e);
             //Get the values from Categroy Form
             c.title = txtTitle.Text;
+			_logger.LogDebug("btnADD_Click(sender={Sender},e={E}): c.title → {Arg2}", sender, e, c.title);
+			_logger.LogDebug("btnADD_Click(sender={Sender},e={E}): c.description → {Arg2}", sender, e, c.description);
+			_logger.LogDebug("btnADD_Click(sender={Sender},e={E}): c.added_date → {Arg2}", sender, e, c.added_date);
             c.description = txtDescription.Text;
             c.added_date = DateTime.Now;
 
@@ -40,6 +50,7 @@ namespace AnyStore.UI
             userBLL usr = udal.GetIDFromUsername(loggedUser);
             //Passign the id of Logged in User in added by field
             c.added_by = usr.id;
+			_logger.LogDebug("btnADD_Click(sender={Sender},e={E}): c.added_by → {Arg2}", sender, e, c.added_by);
 
             //Creating Boolean Method To insert data into database
             bool success = dal.Insert(c);
@@ -52,6 +63,8 @@ namespace AnyStore.UI
                 Clear();
                 //Refresh Data Grid View
                 DataTable dt = dal.Select();
+				_logger.LogDebug("btnADD_Click(sender={Sender},e={E}): dt → {Dt}", sender, e, dt);
+				_logger.LogDebug("btnADD_Click(sender={Sender},e={E}): dgvCategories.DataSource → {Arg2}", sender, e, dgvCategories.DataSource);
                 dgvCategories.DataSource = dt;
             }
             else
@@ -59,36 +72,53 @@ namespace AnyStore.UI
                 //FAiled to Insert New Category
                 MessageBox.Show("Failed to Insert New CAtegory.");
             }
+			_logger.LogDebug("<<< Exiting btnADD_Click(sender={Sender},e={E})", sender, e);
         }
         public void Clear()
         {
+			_logger.LogDebug(">>> Entering Clear()");
             txtCategoryID.Text = "";
             txtTitle.Text = "";
+			_logger.LogDebug("Clear(): txtTitle.Text → {Arg0}", txtTitle.Text);
+			_logger.LogDebug("Clear(): txtDescription.Text → {Arg0}", txtDescription.Text);
+			_logger.LogDebug("Clear(): txtSearch.Text → {Arg0}", txtSearch.Text);
+			_logger.LogDebug("Clear(): txtCategoryID.Text → {Arg0}", txtCategoryID.Text);
             txtDescription.Text = "";
             txtSearch.Text = "";
+			_logger.LogDebug("<<< Exiting Clear()");
         }
 
         private void frmCategories_Load(object sender, EventArgs e)
         {
+			_logger.LogDebug(">>> Entering frmCategories_Load(sender={Sender},e={E})", sender, e);
             //Here write the code to display all the categries in DAta Grid View
             DataTable dt = dal.Select();
+			_logger.LogDebug("frmCategories_Load(sender={Sender},e={E}): dt → {Dt}", sender, e, dt);
+			_logger.LogDebug("frmCategories_Load(sender={Sender},e={E}): dgvCategories.DataSource → {Arg2}", sender, e, dgvCategories.DataSource);
             dgvCategories.DataSource = dt;
+			_logger.LogDebug("<<< Exiting frmCategories_Load(sender={Sender},e={E})", sender, e);
         }
 
         private void dgvCategories_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+			_logger.LogDebug(">>> Entering dgvCategories_RowHeaderMouseClick(sender={Sender},e={E})", sender, e);
             //Finding the Row Index of the Row Clicked on Data Grid View
             int RowIndex = e.RowIndex;
             txtCategoryID.Text = dgvCategories.Rows[RowIndex].Cells[0].Value.ToString();
             txtTitle.Text = dgvCategories.Rows[RowIndex].Cells[1].Value.ToString();
             txtDescription.Text = dgvCategories.Rows[RowIndex].Cells[2].Value.ToString();
+			_logger.LogDebug("<<< Exiting dgvCategories_RowHeaderMouseClick(sender={Sender},e={E})", sender, e);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+			_logger.LogDebug(">>> Entering btnUpdate_Click(sender={Sender},e={E})", sender, e);
             //Get the Values from the CAtegory form
             c.id = int.Parse(txtCategoryID.Text);
             c.title = txtTitle.Text;
+			_logger.LogDebug("btnUpdate_Click(sender={Sender},e={E}): c.title → {Arg2}", sender, e, c.title);
+			_logger.LogDebug("btnUpdate_Click(sender={Sender},e={E}): c.description → {Arg2}", sender, e, c.description);
+			_logger.LogDebug("btnUpdate_Click(sender={Sender},e={E}): c.added_date → {Arg2}", sender, e, c.added_date);
             c.description = txtDescription.Text;
             c.added_date = DateTime.Now;
             //Getting ID in Added by field
@@ -96,6 +126,7 @@ namespace AnyStore.UI
             userBLL usr = udal.GetIDFromUsername(loggedUser);
             //Passign the id of Logged in User in added by field
             c.added_by = usr.id;
+			_logger.LogDebug("btnUpdate_Click(sender={Sender},e={E}): c.added_by → {Arg2}", sender, e, c.added_by);
 
             //Creating Boolean variable to update categories and check 
             bool success = dal.Update(c);
@@ -107,6 +138,8 @@ namespace AnyStore.UI
                 Clear();
                 //Refresh Data Gid View
                 DataTable dt = dal.Select();
+				_logger.LogDebug("btnUpdate_Click(sender={Sender},e={E}): dt → {Dt}", sender, e, dt);
+				_logger.LogDebug("btnUpdate_Click(sender={Sender},e={E}): dgvCategories.DataSource → {Arg2}", sender, e, dgvCategories.DataSource);
                 dgvCategories.DataSource = dt;
             }
             else
@@ -114,10 +147,12 @@ namespace AnyStore.UI
                 //FAiled to Update Category
                 MessageBox.Show("Failed to Update Category");
             }
+			_logger.LogDebug("<<< Exiting btnUpdate_Click(sender={Sender},e={E})", sender, e);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+			_logger.LogDebug(">>> Entering btnDelete_Click(sender={Sender},e={E})", sender, e);
             //Get te ID of the Category Which we want to Delete
             c.id = int.Parse(txtCategoryID.Text);
 
@@ -132,6 +167,8 @@ namespace AnyStore.UI
                 Clear();
                 //REfreshing DAta Grid View
                 DataTable dt = dal.Select();
+				_logger.LogDebug("btnDelete_Click(sender={Sender},e={E}): dt → {Dt}", sender, e, dt);
+				_logger.LogDebug("btnDelete_Click(sender={Sender},e={E}): dgvCategories.DataSource → {Arg2}", sender, e, dgvCategories.DataSource);
                 dgvCategories.DataSource = dt;
             }
             else
@@ -139,10 +176,12 @@ namespace AnyStore.UI
                 //FAiled to Delete CAtegory 
                 MessageBox.Show("Failed to Delete CAtegory");
             }
+			_logger.LogDebug("<<< Exiting btnDelete_Click(sender={Sender},e={E})", sender, e);
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
+			_logger.LogDebug(">>> Entering txtSearch_TextChanged(sender={Sender},e={E})", sender, e);
             //Get the Keywords
             string keywords = txtSearch.Text;
 
@@ -151,6 +190,8 @@ namespace AnyStore.UI
             {
                 //Use Searh Method To Display Categoreis
                 DataTable dt = dal.Search(keywords);
+				_logger.LogDebug("txtSearch_TextChanged(sender={Sender},e={E}): dt → {Dt}", sender, e, dt);
+				_logger.LogDebug("txtSearch_TextChanged(sender={Sender},e={E}): dgvCategories.DataSource → {Arg2}", sender, e, dgvCategories.DataSource);
                 dgvCategories.DataSource = dt;
             }
             else
@@ -159,6 +200,7 @@ namespace AnyStore.UI
                 DataTable dt = dal.Select();
                 dgvCategories.DataSource = dt;
             }
+			_logger.LogDebug("<<< Exiting txtSearch_TextChanged(sender={Sender},e={E})", sender, e);
         }
     }
 }
