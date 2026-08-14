@@ -52,6 +52,7 @@
     <Compile Include="BLL\DeaCustBLL.cs" />
     <Compile Include="BLL\loginBLL.cs" />
     <Compile Include="BLL\productsBLL.cs" />
+    <Compile Include="BLL\reportsBLL.cs" />
     <Compile Include="BLL\transactionDetailBLL.cs" />
     <Compile Include="BLL\transactionsBLL.cs" />
     <Compile Include="BLL\userBLL.cs" />

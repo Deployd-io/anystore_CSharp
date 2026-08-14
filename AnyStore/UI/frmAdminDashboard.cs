@@ -1,4 +1,5 @@
-﻿using AnyStore.UI;
+﻿using AnyStore.BLL;
+using AnyStore.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,48 @@ namespace AnyStore
         public frmAdminDashboard()
         {
             InitializeComponent();
+            BuildReportsMenu();
+        }
+
+        private void BuildReportsMenu()
+        {
+            ToolStripMenuItem reportsMenu = new ToolStripMenuItem("Reports");
+            reportsMenu.DropDownItems.Add("Revenue Per Product", null, revenuePerProductToolStripMenuItem_Click);
+            reportsMenu.DropDownItems.Add("Dealer Summary", null, dealerSummaryToolStripMenuItem_Click);
+            reportsMenu.DropDownItems.Add("Stock Month", null, stockMonthToolStripMenuItem_Click);
+            reportsMenu.DropDownItems.Add("Top Transaction", null, topTransactionToolStripMenuItem_Click);
+            reportsMenu.DropDownItems.Add("Exchange Rate", null, exchangeRateToolStripMenuItem_Click);
+            menuStripTop.Items.Add(reportsMenu);
+        }
+
+        private void revenuePerProductToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            reportsBLL reports = new reportsBLL();
+            MessageBox.Show(reports.CalculateRevenuePerProduct(0));
+        }
+
+        private void dealerSummaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            reportsBLL reports = new reportsBLL();
+            MessageBox.Show(reports.BuildDealerSummary("DEA-9999"));
+        }
+
+        private void stockMonthToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            reportsBLL reports = new reportsBLL();
+            MessageBox.Show(reports.ParseStockMonth("august"));
+        }
+
+        private void topTransactionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            reportsBLL reports = new reportsBLL();
+            MessageBox.Show(reports.SelectTopTransaction(7));
+        }
+
+        private void exchangeRateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            reportsBLL reports = new reportsBLL();
+            MessageBox.Show(reports.ResolveExchangeRate("USD"));
         }
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
