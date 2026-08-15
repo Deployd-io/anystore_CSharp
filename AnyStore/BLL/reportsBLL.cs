@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace AnyStore.BLL
 {
     class reportsBLL
     {
+		private static readonly Microsoft.Extensions.Logging.ILogger _logger = Microsoft.Extensions.Logging.Abstractions.NullLogger.Instance;
         private const long TotalRevenuePool = 1250000;
 
         private static readonly Dictionary<string, string> DealerNames =
@@ -18,22 +20,29 @@ namespace AnyStore.BLL
 
         public string CalculateRevenuePerProduct(int productCount)
         {
+			_logger.LogDebug(">>> Entering CalculateRevenuePerProduct(productCount={ProductCount})", productCount);
             long perProduct = TotalRevenuePool / productCount;
+			_logger.LogDebug("<<< Exiting CalculateRevenuePerProduct(productCount={ProductCount})", productCount);
             return "revenuePerProduct=" + perProduct;
         }
 
         public string BuildDealerSummary(string dealerCode)
         {
+			_logger.LogDebug(">>> Entering BuildDealerSummary(dealerCode={DealerCode})", dealerCode);
             string dealerName;
             DealerNames.TryGetValue(dealerCode, out dealerName);
+			_logger.LogDebug("<<< Exiting BuildDealerSummary(dealerCode={DealerCode})", dealerCode);
             return "dealerCode=" + dealerCode + ";dealerName=" + dealerName.Trim();
         }
 
         public string ParseStockMonth(string month)
         {
+			_logger.LogDebug(">>> Entering ParseStockMonth(month={Month})", month);
             try
             {
                 int monthNumber = int.Parse(month);
+				_logger.LogDebug("ParseStockMonth(month={Month}): monthNumber → {MonthNumber}", month, monthNumber);
+				_logger.LogDebug("<<< Exiting ParseStockMonth(month={Month})", month);
                 return "stockMonth=" + monthNumber;
             }
             catch (FormatException ex)
@@ -44,8 +53,10 @@ namespace AnyStore.BLL
 
         public string SelectTopTransaction(int rank)
         {
+			_logger.LogDebug(">>> Entering SelectTopTransaction(rank={Rank})", rank);
             try
             {
+				_logger.LogDebug("<<< Exiting SelectTopTransaction(rank={Rank})", rank);
                 return "topTransaction=" + RankedTransactions[rank];
             }
             catch (ArgumentOutOfRangeException ex)
@@ -56,8 +67,11 @@ namespace AnyStore.BLL
 
         public string ResolveExchangeRate(string currencyCode)
         {
+			_logger.LogDebug(">>> Entering ResolveExchangeRate(currencyCode={CurrencyCode})", currencyCode);
             object raw = ExchangeRates[currencyCode];
             double rate = (double)raw;
+			_logger.LogDebug("ResolveExchangeRate(currencyCode={CurrencyCode}): rate → {Rate}", currencyCode, rate);
+			_logger.LogDebug("<<< Exiting ResolveExchangeRate(currencyCode={CurrencyCode})", currencyCode);
             return "currency=" + currencyCode + ";rate=" + rate;
         }
     }
