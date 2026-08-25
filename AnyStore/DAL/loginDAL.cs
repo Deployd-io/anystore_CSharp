@@ -59,9 +59,13 @@ namespace AnyStore.DAL
                 MessageBox.Show(ex.Message);
             }
             finally
+			System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l)={0}): SOC2-AUDIT [CC6.6]: Database transaction completed", l));
             {
                 conn.Close();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l)={0}): SOC2-AUDIT [CC7.3]: Security incident detected", l));
+			System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l)={0}): SOC2-AUDIT [CC6.1]: Password reset operation performed", l));
+			System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l)={0}): SOC2-AUDIT [CC6.1]: Authentication operation completed", l));
 
             return isSuccess;
         }

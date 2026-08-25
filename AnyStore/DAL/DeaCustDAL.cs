@@ -158,6 +158,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("Update(dc)={0}): SOC2-AUDIT [CC8.1]: Change management operation performed", dc));
             return isSuccess;
         }
         #endregion
