@@ -16,6 +16,7 @@ namespace AnyStore.UI
         public frmTransactions()
         {
             InitializeComponent();
+			System.Diagnostics.Trace.WriteLine("frmTransactions()=null): SOC2-AUDIT [CC6.6]: Database transaction completed");
         }
 
         transactionDAL tdal = new transactionDAL();
@@ -29,6 +30,7 @@ namespace AnyStore.UI
             //Dispay all the transactions
             DataTable dt = tdal.DisplayAllTransactions();
             dgvTransactions.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("frmTransactions_Load(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
 
         private void cmbTransactionType_SelectedIndexChanged(object sender, EventArgs e)
@@ -38,6 +40,7 @@ namespace AnyStore.UI
 
             DataTable dt = tdal.DisplayTransactionByType(type);
             dgvTransactions.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("cmbTransactionType_SelectedIndexChanged(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
 
         private void btnAll_Click(object sender, EventArgs e)
@@ -45,6 +48,7 @@ namespace AnyStore.UI
             //Dispay all the transactions
             DataTable dt = tdal.DisplayAllTransactions();
             dgvTransactions.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAll_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
     }
 }

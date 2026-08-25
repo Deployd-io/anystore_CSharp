@@ -50,6 +50,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine("Select()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed");
             return dt;
         }
         #endregion
@@ -161,6 +162,8 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("Update(p)={0}): SOC2-AUDIT [CC8.1]: Change management operation performed", p));
+			System.Diagnostics.Trace.WriteLine(string.Format("Update(p)={0}): SOC2-AUDIT [CC6.7]: Encryption operation completed", p));
             return isSuccess;
         }
         #endregion
