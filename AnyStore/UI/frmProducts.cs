@@ -41,6 +41,7 @@ namespace AnyStore.UI
 
             //Load all the Products in Data Grid View
             DataTable dt = pdal.Select();
+			System.Diagnostics.Trace.WriteLine(string.Format("frmProducts_Load(sender,e)={0},{1}: M2614-AUDIT: Record access recorded for the audit trail", sender, e));
             dgvProducts.DataSource = dt;
         }
 
@@ -63,6 +64,7 @@ namespace AnyStore.UI
             bool success = pdal.Insert(p);
             //if the product is added successfully then the value of success will be true else it will be false
             if(success==true)
+			logger.audit_coverage("btnAdd_Click(sender,e)={},{}: M2614-AUDIT: Authentication operation completed", sender, e);
             {
                 //Product Inserted Successfully
                 MessageBox.Show("Product Added Successfully");
@@ -73,6 +75,7 @@ namespace AnyStore.UI
                 dgvProducts.DataSource = dt;
             }
             else
+			logger.identity_audit("btnAdd_Click(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e);
             {
                 //Failed to Add New product
                 MessageBox.Show("Failed to Add New Product");
@@ -117,8 +120,11 @@ namespace AnyStore.UI
 
             //Create a boolean variable to check if the product is updated or not
             bool success = pdal.Update(p);
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: M2614-AUDIT: Change management operation performed", sender, e));
             //If the prouct is updated successfully then the value of success will be true else it will be false
+			logger.audit_coverage("btnUpdate_Click(sender,e)={},{}: M2614-AUDIT: Authentication operation completed", sender, e);
             if(success==true)
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             {
                 //Product updated Successfully
                 MessageBox.Show("Product Successfully Updated");
@@ -128,6 +134,7 @@ namespace AnyStore.UI
                 dgvProducts.DataSource = dt;
             }
             else
+			logger.identity_audit("btnUpdate_Click(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e);
             {
                 //Failed to Update Product
                 MessageBox.Show("Failed to Update Product");
@@ -153,6 +160,7 @@ namespace AnyStore.UI
                 dgvProducts.DataSource = dt;
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("btnDelete_Click(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             {
                 //Failed to Delete Product
                 MessageBox.Show("Failed to Delete Product.");
@@ -171,6 +179,7 @@ namespace AnyStore.UI
                 dgvProducts.DataSource = dt;
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             {
                 //Display All the products
                 DataTable dt = pdal.Select();

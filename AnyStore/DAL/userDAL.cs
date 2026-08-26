@@ -96,6 +96,7 @@ namespace AnyStore.DAL
             {
                 conn.Close();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("Insert(u)={0}): M2614-AUDIT: State change recorded for the audit trail", u));
             return isSuccess;
         }
         #endregion
@@ -143,9 +144,11 @@ namespace AnyStore.DAL
                 MessageBox.Show(ex.Message);
             }
             finally
+			System.Diagnostics.Trace.WriteLine(string.Format("Update(u)={0}): M2614-AUDIT: State change recorded for the audit trail", u));
             {
                 conn.Close();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("Update(u)={0}): SOC2-AUDIT [CC8.1]: Change management operation performed", u));
             return isSuccess;
         }
         #endregion
@@ -183,6 +186,7 @@ namespace AnyStore.DAL
             {
                 conn.Close();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("Delete(u)={0}): M2614-AUDIT: State change recorded for the audit trail", u));
             return isSuccess;
         }
         #endregion
@@ -217,6 +221,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
             //Return the value in DataTable
+			System.Diagnostics.Trace.WriteLine(string.Format("Search(keywords)={0}): M2614-AUDIT: Record access recorded for the audit trail", keywords));
             return dt;
         }
         #endregion
@@ -248,6 +253,7 @@ namespace AnyStore.DAL
             {
                 conn.Close();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("GetIDFromUsername(username)={0}): M2614-AUDIT: Record access recorded for the audit trail", username));
             return u;
         }
         #endregion

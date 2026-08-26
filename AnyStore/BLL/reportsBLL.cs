@@ -46,6 +46,8 @@ namespace AnyStore.BLL
         {
             try
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("SelectTopTransaction(rank)={0}): M2614-AUDIT: Database transaction completed", rank));
+				System.Diagnostics.Trace.WriteLine(string.Format("SelectTopTransaction(rank)={0}): SOC2-AUDIT [CC6.6]: Database transaction completed", rank));
                 return "topTransaction=" + RankedTransactions[rank];
             }
             catch (ArgumentOutOfRangeException ex)
@@ -58,6 +60,7 @@ namespace AnyStore.BLL
         {
             object raw = ExchangeRates[currencyCode];
             double rate = (double)raw;
+			System.Diagnostics.Trace.WriteLine(string.Format("ResolveExchangeRate(currencyCode)={0}): M2614-AUDIT: State change recorded for the audit trail", currencyCode));
             return "currency=" + currencyCode + ";rate=" + rate;
         }
     }

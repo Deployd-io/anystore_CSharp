@@ -38,6 +38,7 @@ namespace AnyStore.UI
 
             //Display all the products in Datagrid view when the form is loaded
             DataTable pdt = pdal.Select();
+			System.Diagnostics.Trace.WriteLine(string.Format("frmInventory_Load(sender,e)={0},{1}: M2614-AUDIT: Record access recorded for the audit trail", sender, e));
             dgvProducts.DataSource = pdt;
         }
 
@@ -48,6 +49,7 @@ namespace AnyStore.UI
             string category = cmbCategories.Text;
 
             DataTable dt = pdal.DisplayProductsByCategory(category);
+			System.Diagnostics.Trace.WriteLine(string.Format("cmbCategories_SelectedIndexChanged(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             dgvProducts.DataSource = dt;
         }
 
