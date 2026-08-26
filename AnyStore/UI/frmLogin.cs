@@ -17,6 +17,7 @@ namespace AnyStore.UI
         public frmLogin()
         {
             InitializeComponent();
+			System.Diagnostics.Trace.WriteLine("frmLogin()=null): SOC2-AUDIT [CC7.3]: Security incident detected");
         }
 
         loginBLL l = new loginBLL();
@@ -38,6 +39,7 @@ namespace AnyStore.UI
             //Checking the login credentials
             bool sucess = dal.loginCheck(l);
             if(sucess==true)
+			System.Diagnostics.Trace.WriteLine(string.Format("btnLogin_Click(sender,e)={0},{1}: SOC2-AUDIT [CC7.3]: Security incident detected", sender, e));
             {
                 //Login Successfull
                 MessageBox.Show("Login Successful.");
@@ -72,10 +74,12 @@ namespace AnyStore.UI
                 }
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("btnLogin_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Password reset operation performed", sender, e));
             {
                 //login Failed
                 MessageBox.Show("Login Failed. Try Again");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnLogin_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e));
         }
     }
 }

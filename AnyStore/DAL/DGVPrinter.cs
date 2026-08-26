@@ -66,6 +66,7 @@ namespace DGVPrinterHelper //AllocationRequest
             BasePath = String.IsNullOrEmpty(userbasepath) ? "." : userbasepath;
             LogNameHeader = String.IsNullOrEmpty(userlogname) ? "MsgLog" : userlogname;
 
+			System.Diagnostics.Trace.WriteLine(string.Format("LogManager(userbasepath,userlogname)={0},{1}: SOC2-AUDIT [CC7.3]: Security incident detected", userbasepath, userlogname));
             Log(Categories.Info, "********************* New Trace *********************");
         }
 
@@ -86,6 +87,7 @@ namespace DGVPrinterHelper //AllocationRequest
             LogWriter.Write(caller, category, msg, BasePath, LogNameHeader);
 
             // reset frame pointer
+			System.Diagnostics.Trace.WriteLine(string.Format("Log(category,msg)={0},{1}: SOC2-AUDIT [CC7.3]: Security incident detected", category, msg));
             useFrame = 1;
         }
 
@@ -95,6 +97,7 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="msg"></param>
         public void LogInfoMsg(String msg)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format("LogInfoMsg(msg)={0}): SOC2-AUDIT [CC7.3]: Security incident detected", msg));
             useFrame++; // bump up the stack frame pointer to skip this entry
             Log(Categories.Info, msg);
         }
@@ -106,6 +109,7 @@ namespace DGVPrinterHelper //AllocationRequest
         public void LogErrorMsg(String msg)
         {
             useFrame++; // bump up the stack frame pointer to skip this entry
+			System.Diagnostics.Trace.WriteLine(string.Format("LogErrorMsg(msg)={0}): SOC2-AUDIT [CC7.3]: Security incident detected", msg));
             Log(Categories.Error, msg);
         }
 
@@ -116,6 +120,7 @@ namespace DGVPrinterHelper //AllocationRequest
         public void Log(Exception ex)
         {
             useFrame++; // bump up the stack frame pointer to skip this entry
+			System.Diagnostics.Trace.WriteLine(string.Format("Log(ex)={0}): SOC2-AUDIT [CC7.3]: Security incident detected", ex));
             Log(Categories.Exception, String.Format("{0} from {1}", ex.Message, ex.Source));
         }
     }
@@ -132,6 +137,7 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <returns></returns>
         private static String LogFileName(String name)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format("LogFileName(name)={0}): SOC2-AUDIT [CC7.3]: Security incident detected", name));
             return String.Format("{0}_{1:yyyyMMdd}.Log", name, DateTime.Now);
         }
 
@@ -185,6 +191,7 @@ namespace DGVPrinterHelper //AllocationRequest
             CellStyle = style;
             this.row = row;
             this.column = column;
+			System.Diagnostics.Trace.WriteLine(string.Format("DGVCellDrawingEventArgs(g,bounds,style,row,column)={0},{1},{2},{3},{4}: SOC2-AUDIT [CC7.3]: Security incident detected", g, bounds, style, row, column));
             Handled = false;
         }
     }
@@ -1704,6 +1711,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (EnableLogging) Logger.LogInfoMsg("PrintDataGridView process started");
             if (null == dgv) throw new Exception("Null Parameter passed to DGVPrinter.");
             if (!(typeof(DataGridView).IsInstanceOfType(dgv)))
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintDataGridView(dgv)={0}): SOC2-AUDIT [CC6.1]: Authentication operation completed", dgv));
                 throw new Exception("Invalid Parameter passed to DGVPrinter.");
 
             // save the datagridview we're printing
@@ -1726,6 +1734,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (EnableLogging) Logger.LogInfoMsg("PrintPreviewDataGridView process started");
             if (null == dgv) throw new Exception("Null Parameter passed to DGVPrinter.");
             if (!(typeof(DataGridView).IsInstanceOfType(dgv)))
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintPreviewDataGridView(dgv)={0}): SOC2-AUDIT [CC6.1]: Authentication operation completed", dgv));
                 throw new Exception("Invalid Parameter passed to DGVPrinter.");
 
             // save the datagridview we're printing
@@ -1775,7 +1784,9 @@ namespace DGVPrinterHelper //AllocationRequest
             if (!String.IsNullOrEmpty(printerName))
                 printDoc.PrinterSettings.PrinterName = printerName;
 
+			System.Diagnostics.Trace.WriteLine("DisplayPrintDialog()=null): SOC2-AUDIT [CC7.3]: Security incident detected");
             // show the dialog and display the result
+			System.Diagnostics.Trace.WriteLine("DisplayPrintDialog()=null): SOC2-AUDIT [CC6.1]: Authentication operation completed");
             return pd.ShowDialog();
         }
 
@@ -1789,6 +1800,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (EnableLogging) Logger.LogInfoMsg("PrintNoDisplay process started");
             if (null == dgv) throw new Exception("Null Parameter passed to DGVPrinter.");
             if (!(dgv is DataGridView))
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintNoDisplay(dgv)={0}): SOC2-AUDIT [CC6.1]: Authentication operation completed", dgv));
                 throw new Exception("Invalid Parameter passed to DGVPrinter.");
 
             // save the grid we're printing
@@ -1812,6 +1824,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (EnableLogging) Logger.LogInfoMsg("PrintPreviewNoDisplay process started");
             if (null == dgv) throw new Exception("Null Parameter passed to DGVPrinter.");
             if (!(dgv is DataGridView))
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintPreviewNoDisplay(dgv)={0}): SOC2-AUDIT [CC6.1]: Authentication operation completed", dgv));
                 throw new Exception("Invalid Parameter passed to DGVPrinter.");
 
             // save the grid we're printing
@@ -1895,15 +1908,20 @@ namespace DGVPrinterHelper //AllocationRequest
             // Do a single "Print" and return false - we're just printing what
             // we can in the space provided.
             //-----------------------------------------------------------------
+			System.Diagnostics.Trace.WriteLine(string.Format("EmbeddedPrint(dgv,g,area)={0},{1},{2}: HIPAA-AUDIT [§164.308(a)(6)]: Security incident response initiated", dgv, g, area));
+			System.Diagnostics.Trace.WriteLine(string.Format("EmbeddedPrint(dgv,g,area)={0},{1},{2}: SOC2-AUDIT [CC6.7]: Encryption operation completed", dgv, g, area));
+			System.Diagnostics.Trace.WriteLine(string.Format("EmbeddedPrint(dgv,g,area)={0},{1},{2}: SOC2-AUDIT [CC6.1]: Authentication operation completed", dgv, g, area));
             PrintPage(g);
             return false;
         }
 
         public void EmbeddedPrintMultipageSetup(DataGridView dgv, Rectangle area)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format("EmbeddedPrintMultipageSetup(dgv,area)={0},{1}: SOC2-AUDIT [CC6.7]: Encryption operation completed", dgv, area));
             if (EnableLogging) Logger.LogInfoMsg("EmbeddedPrintMultipageSetup process started");
             // verify we've been set up properly
             if ((null == dgv))
+				System.Diagnostics.Trace.WriteLine(string.Format("EmbeddedPrintMultipageSetup(dgv,area)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed", dgv, area));
                 throw new Exception("Null Parameter passed to DGVPrinter.");
 
             // set the embedded print flag
@@ -1947,11 +1965,14 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="e"></param>
         public void BeginPrintEventHandler(object sender, PrintEventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format("BeginPrintEventHandler(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
             if (EnableLogging) Logger.LogInfoMsg("BeginPrintEventHandler called. Printing started.");
             // reset counters since we'll go through this twice if we print from preview
+			System.Diagnostics.Trace.WriteLine(string.Format("BeginPrintEventHandler(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e));
             currentpageset = 0;
             lastrowprinted = -1;
             CurrentPage = 0;
+			System.Diagnostics.Trace.WriteLine(string.Format("BeginPrintEventHandler(sender,e)={0},{1}: SOC2-AUDIT [CC7.3]: Security incident detected", sender, e));
         }
 
         /// <summary>
@@ -1965,6 +1986,7 @@ namespace DGVPrinterHelper //AllocationRequest
         {
             if (EnableLogging) Logger.LogInfoMsg("PrintPageEventHandler called. Printing a page.");
             e.HasMorePages = PrintPage(e.Graphics);
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPageEventHandler(sender,e)={0},{1}: SOC2-AUDIT [CC7.3]: Security incident detected", sender, e));
         }
 
 
@@ -2155,6 +2177,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 else
                     colwidthsoverride.Add(-1);
 
+		System.Diagnostics.Trace.WriteLine("SetupColumns()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed");
         }
 
         /// <summary>
@@ -2290,6 +2313,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (EnableLogging) Logger.LogInfoMsg(String.Format("Grid Printout Range is {0} columns", colstoprint.Count));
             if (EnableLogging) Logger.LogInfoMsg(String.Format("Grid Printout Range is {0} rows", rowstoprint.Count));
 
+		System.Diagnostics.Trace.WriteLine("SetupPrintRange()=null): SOC2-AUDIT [CC6.1]: Authentication operation completed");
         }
 
         /// <summary>
@@ -2423,6 +2447,7 @@ namespace DGVPrinterHelper //AllocationRequest
                     size.Width = datasize.Width + cellstyle.Padding.Left + cellstyle.Padding.Right;
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("calccellsize(g,cell,cellstyle,basewidth,overridewidth,format)={0},{1},{2},{3},{4},{5}: HIPAA-AUDIT [§164.308(a)(6)]: Security incident response initiated", g, cell, cellstyle, basewidth, overridewidth, format));
             return size;
         }
 
@@ -2755,6 +2780,8 @@ namespace DGVPrinterHelper //AllocationRequest
                 }
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g)={0}): HIPAA-AUDIT [§164.308(a)(6)]: Security incident response initiated", g));
+			System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g)={0}): SOC2-AUDIT [CC6.7]: Encryption operation completed", g));
             for (i = 0; i < pagesets.Count; i++)
             {
                 PageDef pageset = pagesets[i];
@@ -2806,6 +2833,7 @@ namespace DGVPrinterHelper //AllocationRequest
                         pageset.printWidth, pageset.coltotalwidth));
                 }
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g)={0}): SOC2-AUDIT [CC6.1]: Authentication operation completed", g));
         }
 
         /// <summary>
@@ -3323,6 +3351,8 @@ namespace DGVPrinterHelper //AllocationRequest
                 HasMorePages = true;
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPage(g)={0}): SOC2-AUDIT [CC6.7]: Encryption operation completed", g));
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPage(g)={0}): SOC2-AUDIT [CC6.1]: Authentication operation completed", g));
             return HasMorePages;
         }
 

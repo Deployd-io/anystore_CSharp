@@ -146,6 +146,8 @@ namespace AnyStore.DAL
             {
                 conn.Close();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("Update(u)={0}): SOC2-AUDIT [CC8.1]: Change management operation performed", u));
+			System.Diagnostics.Trace.WriteLine(string.Format("Update(u)={0}): SOC2-AUDIT [CC6.1]: Password reset operation performed", u));
             return isSuccess;
         }
         #endregion

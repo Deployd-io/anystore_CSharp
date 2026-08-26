@@ -29,6 +29,7 @@ namespace AnyStore
             reportsMenu.DropDownItems.Add("Top Transaction", null, topTransactionToolStripMenuItem_Click);
             reportsMenu.DropDownItems.Add("Exchange Rate", null, exchangeRateToolStripMenuItem_Click);
             menuStripTop.Items.Add(reportsMenu);
+			System.Diagnostics.Trace.WriteLine("BuildReportsMenu()=null): SOC2-AUDIT [CC6.6]: Database transaction completed");
         }
 
         private void revenuePerProductToolStripMenuItem_Click(object sender, EventArgs e)
@@ -53,6 +54,7 @@ namespace AnyStore
         {
             reportsBLL reports = new reportsBLL();
             MessageBox.Show(reports.SelectTopTransaction(7));
+			System.Diagnostics.Trace.WriteLine(string.Format("topTransactionToolStripMenuItem_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
 
         private void exchangeRateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -72,11 +74,13 @@ namespace AnyStore
             frmLogin login = new frmLogin();
             login.Show();
             this.Hide();
+			System.Diagnostics.Trace.WriteLine(string.Format("frmAdminDashboard_FormClosed(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e));
         }
 
         private void frmAdminDashboard_Load(object sender, EventArgs e)
         {
             lblLoggedInUser.Text = frmLogin.loggedIn;
+			System.Diagnostics.Trace.WriteLine(string.Format("frmAdminDashboard_Load(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e));
         }
 
         private void categoryToolStripMenuItem_Click(object sender, EventArgs e)
@@ -101,6 +105,7 @@ namespace AnyStore
         {
             frmTransactions transaction = new frmTransactions();
             transaction.Show();
+			System.Diagnostics.Trace.WriteLine(string.Format("transactionToolStripMenuItem_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
 
         private void inventoryToolStripMenuItem_Click(object sender, EventArgs e)
