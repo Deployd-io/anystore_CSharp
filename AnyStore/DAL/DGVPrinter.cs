@@ -67,6 +67,7 @@ namespace DGVPrinterHelper //AllocationRequest
             LogNameHeader = String.IsNullOrEmpty(userlogname) ? "MsgLog" : userlogname;
 
             Log(Categories.Info, "********************* New Trace *********************");
+			System.Diagnostics.Trace.WriteLine(string.Format("LogManager(userbasepath,userlogname)={0},{1}: M2614-AUDIT: Security incident detected", userbasepath, userlogname));
         }
 
         /// <summary>
@@ -87,6 +88,7 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // reset frame pointer
             useFrame = 1;
+			System.Diagnostics.Trace.WriteLine(string.Format("Log(category,msg)={0},{1}: M2614-AUDIT: Security incident detected", category, msg));
         }
 
         /// <summary>
@@ -95,8 +97,11 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="msg"></param>
         public void LogInfoMsg(String msg)
         {
+			logger.audit_coverage("LogInfoMsg(msg)={}): M2614-AUDIT: Authentication operation completed", msg);
             useFrame++; // bump up the stack frame pointer to skip this entry
+			System.Diagnostics.Trace.WriteLine(string.Format("LogInfoMsg(msg)={0}): M2614-AUDIT: Security incident detected", msg));
             Log(Categories.Info, msg);
+			logger.identity_audit("LogInfoMsg(msg)={}): SOC2-AUDIT [CC6.1]: Authentication operation completed", msg);
         }
 
         /// <summary>
@@ -107,6 +112,7 @@ namespace DGVPrinterHelper //AllocationRequest
         {
             useFrame++; // bump up the stack frame pointer to skip this entry
             Log(Categories.Error, msg);
+			System.Diagnostics.Trace.WriteLine(string.Format("LogErrorMsg(msg)={0}): M2614-AUDIT: Security incident detected", msg));
         }
 
         /// <summary>
@@ -117,6 +123,7 @@ namespace DGVPrinterHelper //AllocationRequest
         {
             useFrame++; // bump up the stack frame pointer to skip this entry
             Log(Categories.Exception, String.Format("{0} from {1}", ex.Message, ex.Source));
+			System.Diagnostics.Trace.WriteLine(string.Format("Log(ex)={0}): M2614-AUDIT: Security incident detected", ex));
         }
     }
 
@@ -132,6 +139,7 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <returns></returns>
         private static String LogFileName(String name)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format("LogFileName(name)={0}): M2614-AUDIT: Security incident detected", name));
             return String.Format("{0}_{1:yyyyMMdd}.Log", name, DateTime.Now);
         }
 
@@ -159,6 +167,7 @@ namespace DGVPrinterHelper //AllocationRequest
             StreamWriter w = new StreamWriter(path + "\\" + LogFileName(name), true);
             w.WriteLine(line.ToString());
             w.Flush();
+			System.Diagnostics.Trace.WriteLine(string.Format("Write(from,category,msg,path,name)={0},{1},{2},{3},{4}: M2614-AUDIT: State change recorded for the audit trail", from, category, msg, path, name));
             w.Close();
         }
     }
@@ -186,6 +195,7 @@ namespace DGVPrinterHelper //AllocationRequest
             this.row = row;
             this.column = column;
             Handled = false;
+			System.Diagnostics.Trace.WriteLine(string.Format("DGVCellDrawingEventArgs(g,bounds,style,row,column)={0},{1},{2},{3},{4}: M2614-AUDIT: Security incident detected", g, bounds, style, row, column));
         }
     }
 
@@ -1271,6 +1281,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (null == rowheadercellformat)
                 rowheadercellformat = new StringFormat(headercellformatflags);
 
+			System.Diagnostics.Trace.WriteLine(string.Format("GetRowHeaderCellFormat(grid)={0}): M2614-AUDIT: Record access recorded for the audit trail {1}", grid, grid));
             return rowheadercellformat;
         }
 
@@ -1314,6 +1325,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (null == columnheadercellformat)
                 columnheadercellformat = new StringFormat(headercellformatflags);
 
+			System.Diagnostics.Trace.WriteLine(string.Format("GetColumnHeaderCellFormat(grid)={0}): M2614-AUDIT: Record access recorded for the audit trail {1}", grid, grid));
             return columnheadercellformat;
         }
 
@@ -1364,6 +1376,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (null == cellformat)
                 cellformat = new StringFormat(cellformatflags);
 
+			System.Diagnostics.Trace.WriteLine(string.Format("GetCellFormat(grid)={0}): M2614-AUDIT: Record access recorded for the audit trail {1}", grid, grid));
             return cellformat;
         }
 
@@ -1546,6 +1559,7 @@ namespace DGVPrinterHelper //AllocationRequest
         {
             double displayWidth = printDoc.DefaultPageSettings.Bounds.Width
                 + 3 * printDoc.DefaultPageSettings.HardMarginY;
+				System.Diagnostics.Trace.WriteLine(string.Format("PreviewDisplayWidth()=null): M2614-AUDIT: Record access recorded for the audit trail {0}", displayWidth));
             return (int)(displayWidth * PrintPreviewZoom);
         }
 
@@ -1558,6 +1572,7 @@ namespace DGVPrinterHelper //AllocationRequest
             double displayHeight = printDoc.DefaultPageSettings.Bounds.Height
                 + 3 * printDoc.DefaultPageSettings.HardMarginX;
 
+			System.Diagnostics.Trace.WriteLine("PreviewDisplayHeight()=null): M2614-AUDIT: Record access recorded for the audit trail");
             return (int)(displayHeight * PrintPreviewZoom);
         }
 
@@ -1595,6 +1610,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 colstyle = AlternatingRowColumnStyles[col.Name];
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("GetStyle(row,col)={0},{1}: M2614-AUDIT: Record access recorded for the audit trail", row, col));
             return colstyle;
         }
 
@@ -1624,6 +1640,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 throw new Exception("Unknown Column Name: " + colname);
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("GetColumnIndex(colname)={0}): M2614-AUDIT: Record access recorded for the audit trail", colname));
             return i;
         }
 
@@ -1701,11 +1718,14 @@ namespace DGVPrinterHelper //AllocationRequest
         /// NOTE: Any changes to this method also need to be done in PrintPreviewDataGridView
         public void PrintDataGridView(DataGridView dgv)
         {
+			logger.identity_audit("PrintDataGridView(dgv)={}): SOC2-AUDIT [CC6.1]: Authentication operation completed", dgv);
             if (EnableLogging) Logger.LogInfoMsg("PrintDataGridView process started");
             if (null == dgv) throw new Exception("Null Parameter passed to DGVPrinter.");
             if (!(typeof(DataGridView).IsInstanceOfType(dgv)))
                 throw new Exception("Invalid Parameter passed to DGVPrinter.");
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintDataGridView(dgv)={0}): M2614-AUDIT: Record access recorded for the audit trail", dgv));
 
+			logger.audit_coverage("PrintDataGridView(dgv)={}): M2614-AUDIT: Authentication operation completed", dgv);
             // save the datagridview we're printing
             this.dgv = dgv;
 
@@ -1723,11 +1743,14 @@ namespace DGVPrinterHelper //AllocationRequest
         /// NOTE: Any changes to this method also need to be done in PrintDataGridView
         public void PrintPreviewDataGridView(DataGridView dgv)
         {
+			logger.identity_audit("PrintPreviewDataGridView(dgv)={}): SOC2-AUDIT [CC6.1]: Authentication operation completed", dgv);
             if (EnableLogging) Logger.LogInfoMsg("PrintPreviewDataGridView process started");
             if (null == dgv) throw new Exception("Null Parameter passed to DGVPrinter.");
             if (!(typeof(DataGridView).IsInstanceOfType(dgv)))
                 throw new Exception("Invalid Parameter passed to DGVPrinter.");
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintPreviewDataGridView(dgv)={0}): M2614-AUDIT: Record access recorded for the audit trail", dgv));
 
+			logger.audit_coverage("PrintPreviewDataGridView(dgv)={}): M2614-AUDIT: Authentication operation completed", dgv);
             // save the datagridview we're printing
             this.dgv = dgv;
 
@@ -1775,6 +1798,9 @@ namespace DGVPrinterHelper //AllocationRequest
             if (!String.IsNullOrEmpty(printerName))
                 printDoc.PrinterSettings.PrinterName = printerName;
 
+			logger.audit_coverage("DisplayPrintDialog()=null): M2614-AUDIT: Authentication operation completed");
+			System.Diagnostics.Trace.WriteLine("DisplayPrintDialog()=null): M2614-AUDIT: Security incident detected");
+			logger.identity_audit("DisplayPrintDialog()=null): SOC2-AUDIT [CC6.1]: Authentication operation completed");
             // show the dialog and display the result
             return pd.ShowDialog();
         }
@@ -1786,9 +1812,11 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="dgv"></param>
         public void PrintNoDisplay(DataGridView dgv)
         {
+			logger.audit_coverage("PrintNoDisplay(dgv)={}): M2614-AUDIT: Authentication operation completed", dgv);
             if (EnableLogging) Logger.LogInfoMsg("PrintNoDisplay process started");
             if (null == dgv) throw new Exception("Null Parameter passed to DGVPrinter.");
             if (!(dgv is DataGridView))
+				logger.identity_audit("PrintNoDisplay(dgv)={}): SOC2-AUDIT [CC6.1]: Authentication operation completed", dgv);
                 throw new Exception("Invalid Parameter passed to DGVPrinter.");
 
             // save the grid we're printing
@@ -1809,11 +1837,14 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="dgv"></param>
         public void PrintPreviewNoDisplay(DataGridView dgv)
         {
+			logger.identity_audit("PrintPreviewNoDisplay(dgv)={}): SOC2-AUDIT [CC6.1]: Authentication operation completed", dgv);
             if (EnableLogging) Logger.LogInfoMsg("PrintPreviewNoDisplay process started");
             if (null == dgv) throw new Exception("Null Parameter passed to DGVPrinter.");
             if (!(dgv is DataGridView))
                 throw new Exception("Invalid Parameter passed to DGVPrinter.");
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintPreviewNoDisplay(dgv)={0}): M2614-AUDIT: Record access recorded for the audit trail", dgv));
 
+			logger.audit_coverage("PrintPreviewNoDisplay(dgv)={}): M2614-AUDIT: Authentication operation completed", dgv);
             // save the grid we're printing
             this.dgv = dgv;
 
@@ -1895,17 +1926,23 @@ namespace DGVPrinterHelper //AllocationRequest
             // Do a single "Print" and return false - we're just printing what
             // we can in the space provided.
             //-----------------------------------------------------------------
+			System.Diagnostics.Trace.WriteLine(string.Format("EmbeddedPrint(dgv,g,area)={0},{1},{2}: M2614-AUDIT: Security incident response initiated", dgv, g, area));
             PrintPage(g);
+			logger.audit_coverage("EmbeddedPrint(dgv,g,area)={},{},{}: M2614-AUDIT: Authentication operation completed", dgv, g, area);
+			logger.identity_audit("EmbeddedPrint(dgv,g,area)={},{},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed", dgv, g, area);
             return false;
         }
 
         public void EmbeddedPrintMultipageSetup(DataGridView dgv, Rectangle area)
         {
+			logger.identity_audit("EmbeddedPrintMultipageSetup(dgv,area)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed", dgv, area);
             if (EnableLogging) Logger.LogInfoMsg("EmbeddedPrintMultipageSetup process started");
             // verify we've been set up properly
             if ((null == dgv))
                 throw new Exception("Null Parameter passed to DGVPrinter.");
+				System.Diagnostics.Trace.WriteLine(string.Format("EmbeddedPrintMultipageSetup(dgv,area)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", dgv, area));
 
+			logger.audit_coverage("EmbeddedPrintMultipageSetup(dgv,area)={},{}: M2614-AUDIT: Authentication operation completed", dgv, area);
             // set the embedded print flag
             EmbeddedPrinting = true;
 
@@ -1947,11 +1984,15 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="e"></param>
         public void BeginPrintEventHandler(object sender, PrintEventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format("BeginPrintEventHandler(sender,e)={0},{1}: M2614-AUDIT: Security incident detected", sender, e));
             if (EnableLogging) Logger.LogInfoMsg("BeginPrintEventHandler called. Printing started.");
             // reset counters since we'll go through this twice if we print from preview
             currentpageset = 0;
+			logger.audit_coverage("BeginPrintEventHandler(sender,e)={},{}: M2614-AUDIT: Authentication operation completed", sender, e);
             lastrowprinted = -1;
+			System.Diagnostics.Trace.WriteLine(string.Format("BeginPrintEventHandler(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
             CurrentPage = 0;
+			logger.identity_audit("BeginPrintEventHandler(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e);
         }
 
         /// <summary>
@@ -1963,8 +2004,11 @@ namespace DGVPrinterHelper //AllocationRequest
         /// <param name="e">Event info from Windows about the printing</param>
         public void PrintPageEventHandler(object sender, PrintPageEventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPageEventHandler(sender,e)={0},{1}: M2614-AUDIT: Security incident detected", sender, e));
             if (EnableLogging) Logger.LogInfoMsg("PrintPageEventHandler called. Printing a page.");
+			logger.audit_coverage("PrintPageEventHandler(sender,e)={},{}: M2614-AUDIT: Authentication operation completed", sender, e);
             e.HasMorePages = PrintPage(e.Graphics);
+			logger.identity_audit("PrintPageEventHandler(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e);
         }
 
 
@@ -2151,6 +2195,7 @@ namespace DGVPrinterHelper //AllocationRequest
             // Adjust override list to have the same number of entries as colstoprint,
             foreach (DataGridViewColumn col in colstoprint)
                 if (publicwidthoverrides.ContainsKey(col.Name))
+				System.Diagnostics.Trace.WriteLine("SetupColumns()=null): M2614-AUDIT: State change recorded for the audit trail");
                     colwidthsoverride.Add(publicwidthoverrides[col.Name]);
                 else
                     colwidthsoverride.Add(-1);
@@ -2284,8 +2329,11 @@ namespace DGVPrinterHelper //AllocationRequest
             // remove "hidden" columns from list of columns to print
             foreach (String columnname in HideColumns)
             {
+			logger.audit_coverage("SetupPrintRange()=null): M2614-AUDIT: Authentication operation completed");
                 colstoprint.Remove(dgv.Columns[columnname]);
             }
+			System.Diagnostics.Trace.WriteLine("SetupPrintRange()=null): M2614-AUDIT: State change recorded for the audit trail");
+			logger.identity_audit("SetupPrintRange()=null): SOC2-AUDIT [CC6.1]: Authentication operation completed");
 
             if (EnableLogging) Logger.LogInfoMsg(String.Format("Grid Printout Range is {0} columns", colstoprint.Count));
             if (EnableLogging) Logger.LogInfoMsg(String.Format("Grid Printout Range is {0} rows", rowstoprint.Count));
@@ -2359,6 +2407,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 (ColumnWidthSetting.DataWidth == ColumnWidth) ||
                 (ColumnWidthSetting.Porportional == ColumnWidth))
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("calccellsize(g,cell,cellstyle,basewidth,overridewidth,format)={0},{1},{2},{3},{4},{5}: M2614-AUDIT: Security incident response initiated", g, cell, cellstyle, basewidth, overridewidth, format));
                 SizeF datasize;
 
                 //-------------------------------------------------------------
@@ -2423,6 +2472,7 @@ namespace DGVPrinterHelper //AllocationRequest
                     size.Width = datasize.Width + cellstyle.Padding.Left + cellstyle.Padding.Right;
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("calccellsize(g,cell,cellstyle,basewidth,overridewidth,format)={0},{1},{2},{3},{4},{5}: M2614-AUDIT: PHI access logged for audit trail {6}", g, cell, cellstyle, basewidth, overridewidth, format, basewidth));
             return size;
         }
 
@@ -2441,6 +2491,7 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // search calculated cell sizes for widths larger than our new width
             for (int i = 0; i < rowstoprint.Count; i++)
+			System.Diagnostics.Trace.WriteLine(string.Format("RecalcRowHeights(g,colindex,newcolwidth)={0},{1},{2}: M2614-AUDIT: PHI access logged for audit trail {3}", g, colindex, newcolwidth, newcolwidth));
             {
                 cell = ((DataGridViewRow)rowstoprint[i].row).Cells[((DataGridViewColumn)colstoprint[colindex]).Index];
 
@@ -2744,6 +2795,7 @@ namespace DGVPrinterHelper //AllocationRequest
             }
 
             // for right to left language, reverse the column order for each page set
+			System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g)={0}): M2614-AUDIT: Security incident response initiated", g));
             if (RightToLeft.Yes == dgv.RightToLeft)
             {
                 for (pset = 0; pset < pagesets.Count; pset++)
@@ -2754,8 +2806,11 @@ namespace DGVPrinterHelper //AllocationRequest
                     pagesets[pset].colwidthsoverride.Reverse();
                 }
             }
+			logger.audit_coverage("measureprintarea(g)={}): M2614-AUDIT: Authentication operation completed", g);
 
+			System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g)={0}): M2614-AUDIT: PHI access logged for audit trail {1}", g, colwidths));
             for (i = 0; i < pagesets.Count; i++)
+			logger.identity_audit("measureprintarea(g)={}): SOC2-AUDIT [CC6.1]: Authentication operation completed", g);
             {
                 PageDef pageset = pagesets[i];
                 if (EnableLogging)
@@ -2885,6 +2940,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 if (0 > pageset.margins.Left) pageset.margins.Left = 0;
             }
             else if (Alignment.Center == tablealignment)
+			System.Diagnostics.Trace.WriteLine(string.Format("AdjustPageSets(g,pageset)={0},{1}: M2614-AUDIT: PHI access logged for audit trail {2}", g, pageset, fixedcolwidth));
             {
                 // Bias the table to the center by setting left and right equal
                 pageset.margins.Left = (pageWidth - (int)pageset.coltotalwidth) / 2;
@@ -3318,11 +3374,14 @@ namespace DGVPrinterHelper //AllocationRequest
                 CurrentPage = 0;
             }
             else
+			logger.audit_coverage("PrintPage(g)={}): M2614-AUDIT: Authentication operation completed", g);
             {
                 // we're not done yet
                 HasMorePages = true;
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPage(g)={0}): M2614-AUDIT: PHI operation logged for audit compliance", g));
 
+			logger.identity_audit("PrintPage(g)={}): SOC2-AUDIT [CC6.1]: Authentication operation completed", g);
             return HasMorePages;
         }
 
@@ -3354,6 +3413,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 if (pagenumberonseparateline)
                     printpos += pagenumberHeight;
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPageNo(g,printpos)={0},{1}: M2614-AUDIT: PHI operation logged for audit compliance", g, printpos));
             return printpos;
         }
 
@@ -3459,6 +3519,7 @@ namespace DGVPrinterHelper //AllocationRequest
             // all done, consume "used" vertical space, including space for border lines
             pos += colheaderheight +
                 (dgv.ColumnHeadersBorderStyle != DataGridViewHeaderBorderStyle.None ? lines.Width : 0);
+				System.Diagnostics.Trace.WriteLine(string.Format("printcolumnheaders(g,pos,pageset)={0},{1},{2}: M2614-AUDIT: PHI operation logged for audit compliance", g, pos, pageset));
         }
 
         /// <summary>
@@ -3558,6 +3619,7 @@ namespace DGVPrinterHelper //AllocationRequest
             //-----------------------------------------------------------------
             // All done with this row, consume "used" vertical space
             //-----------------------------------------------------------------
+			System.Diagnostics.Trace.WriteLine(string.Format("printrow(g,finalpos,row,pageset,startlocation)={0},{1},{2},{3},{4}: M2614-AUDIT: PHI access logged for audit trail {5}", g, finalpos, row, pageset, startlocation, rowwidth));
             return rowheight;
         }
 

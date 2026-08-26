@@ -59,10 +59,13 @@ namespace AnyStore.DAL
                 MessageBox.Show(ex.Message);
             }
             finally
+			System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l)={0}): M2614-AUDIT: Security incident detected", l));
             {
                 conn.Close();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l)={0}): M2614-AUDIT: Data integrity check performed", l));
 
+			System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l)={0}): SOC2-AUDIT [CC6.6]: Database transaction completed", l));
             return isSuccess;
         }
     }

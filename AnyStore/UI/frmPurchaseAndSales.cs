@@ -41,8 +41,11 @@ namespace AnyStore.UI
 
             //Specify Columns for our TransactionDataTable
             transactionDT.Columns.Add("Product Name");
+			System.Diagnostics.Trace.WriteLine(string.Format("frmPurchaseAndSales_Load(sender,e)={0},{1}: M2614-AUDIT: Database transaction completed", sender, e));
             transactionDT.Columns.Add("Rate");
+			System.Diagnostics.Trace.WriteLine(string.Format("frmPurchaseAndSales_Load(sender,e)={0},{1}: M2614-AUDIT: Record access recorded for the audit trail", sender, e));
             transactionDT.Columns.Add("Quantity");
+			System.Diagnostics.Trace.WriteLine(string.Format("frmPurchaseAndSales_Load(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
             transactionDT.Columns.Add("Total");
         }
 
@@ -66,8 +69,11 @@ namespace AnyStore.UI
 
             //Now transfer or set the value from DeCustBLL to textboxes
             txtName.Text = dc.name;
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: M2614-AUDIT: Database transaction completed", sender, e));
             txtEmail.Text = dc.email;
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             txtContact.Text = dc.contact;
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
             txtAddress.Text = dc.address;
         }
 
@@ -90,8 +96,11 @@ namespace AnyStore.UI
             productsBLL p = pDAL.GetProductsForTransaction(keyword);
 
             //Set the values on textboxes based on p object
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearchProduct_TextChanged(sender,e)={0},{1}: M2614-AUDIT: Database transaction completed", sender, e));
             txtProductName.Text = p.name;
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearchProduct_TextChanged(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             txtInventory.Text = p.qty.ToString();
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearchProduct_TextChanged(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
             txtRate.Text = p.rate.ToString();
         }
 
@@ -111,11 +120,13 @@ namespace AnyStore.UI
 
             //Check whether the product is selected or not
             if(productName=="")
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: M2614-AUDIT: Database transaction completed", sender, e));
             {
                 //Display error MEssage
                 MessageBox.Show("Select the product first. Try Again.");
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
             {
                 //Add product to the dAta Grid View
                 transactionDT.Rows.Add(productName,Rate,Qty,Total);
@@ -156,6 +167,7 @@ namespace AnyStore.UI
                 //Display the GrandTotla in TextBox
                 txtGrandTotal.Text = grandTotal.ToString();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("txtDiscount_TextChanged(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             
         }
 
@@ -169,6 +181,7 @@ namespace AnyStore.UI
                 MessageBox.Show("Calculate the discount and set the Grand Total First.");
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("txtVat_TextChanged(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             {
                 //Calculate VAT
                 //Getting the VAT Percent first
@@ -190,6 +203,7 @@ namespace AnyStore.UI
             decimal returnAmount = paidAmount - grandTotal;
 
             //Display the return amount as well
+			System.Diagnostics.Trace.WriteLine(string.Format("txtPaidAmount_TextChanged(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail {2}", sender, e, paidAmount));
             txtReturnAmount.Text = returnAmount.ToString();
         }
 
@@ -219,11 +233,16 @@ namespace AnyStore.UI
             transaction.transactionDetails = transactionDT;
 
             //Lets Create a Boolean Variable and set its value to false
+			System.Diagnostics.Trace.WriteLine(string.Format("btnSave_Click(sender,e)={0},{1}: M2614-AUDIT: Database transaction completed", sender, e));
             bool success = false;
+			logger.audit_coverage("btnSave_Click(sender,e)={},{}: M2614-AUDIT: Authentication operation completed for user {}", sender, e, username);
 
+			System.Diagnostics.Trace.WriteLine(string.Format("btnSave_Click(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             //Actual Code to Insert Transaction And Transaction Details
+			System.Diagnostics.Trace.WriteLine(string.Format("btnSave_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
             using (TransactionScope scope = new TransactionScope())
             {
+				logger.identity_audit("btnSave_Click(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed for user {}", sender, e, username);
                 int transactionID = -1;
                 //Create aboolean value and insert transaction 
                 bool w = tDAL.Insert_Transaction(transaction, out transactionID);

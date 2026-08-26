@@ -46,6 +46,7 @@ namespace AnyStore.UI
 
             //If the category is inserted successfully then the value of the success will be true else it will be false
             if(success==true)
+			logger.audit_coverage("btnADD_Click(sender,e)={},{}: M2614-AUDIT: Authentication operation completed for user {}", sender, e, loggedUser);
             {
                 //NewCAtegory Inserted Successfully
                 MessageBox.Show("New Category Inserted Successfully.");
@@ -55,6 +56,7 @@ namespace AnyStore.UI
                 dgvCategories.DataSource = dt;
             }
             else
+			logger.identity_audit("btnADD_Click(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed for user {}", sender, e, loggedUser);
             {
                 //FAiled to Insert New Category
                 MessageBox.Show("Failed to Insert New CAtegory.");
@@ -72,6 +74,7 @@ namespace AnyStore.UI
         {
             //Here write the code to display all the categries in DAta Grid View
             DataTable dt = dal.Select();
+			System.Diagnostics.Trace.WriteLine(string.Format("frmCategories_Load(sender,e)={0},{1}: M2614-AUDIT: Record access recorded for the audit trail", sender, e));
             dgvCategories.DataSource = dt;
         }
 
@@ -99,8 +102,11 @@ namespace AnyStore.UI
 
             //Creating Boolean variable to update categories and check 
             bool success = dal.Update(c);
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: M2614-AUDIT: Change management operation performed by initiator {2}", sender, e, loggedUser));
             //If the cateory is updated successfully then the value of success will be true else it will be false
+			logger.audit_coverage("btnUpdate_Click(sender,e)={},{}: M2614-AUDIT: Authentication operation completed for user {}", sender, e, loggedUser);
             if(success==true)
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             {
                 //CAtegory updated Successfully 
                 MessageBox.Show("Category Updated Successfully");
@@ -110,6 +116,7 @@ namespace AnyStore.UI
                 dgvCategories.DataSource = dt;
             }
             else
+			logger.identity_audit("btnUpdate_Click(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed for user {}", sender, e, loggedUser);
             {
                 //FAiled to Update Category
                 MessageBox.Show("Failed to Update Category");
@@ -135,6 +142,7 @@ namespace AnyStore.UI
                 dgvCategories.DataSource = dt;
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("btnDelete_Click(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             {
                 //FAiled to Delete CAtegory 
                 MessageBox.Show("Failed to Delete CAtegory");
@@ -154,6 +162,7 @@ namespace AnyStore.UI
                 dgvCategories.DataSource = dt;
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             {
                 //Use Select Method to Display All Categories
                 DataTable dt = dal.Select();

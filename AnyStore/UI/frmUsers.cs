@@ -63,14 +63,18 @@ namespace AnyStore.UI
                 //Failed to insert data
                 MessageBox.Show("Failed to add new user");
             }
+			logger.audit_coverage("btnAdd_Click(sender,e)={},{}: M2614-AUDIT: Authentication operation completed for user {}", sender, e, loggedUser);
             //Refreshing Data Grid View
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             DataTable dt = dal.Select();
+			logger.identity_audit("btnAdd_Click(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed for user {}", sender, e, loggedUser);
             dgvUsers.DataSource = dt;
         }
 
         private void frmUsers_Load(object sender, EventArgs e)
         {
             DataTable dt = dal.Select();
+			System.Diagnostics.Trace.WriteLine(string.Format("frmUsers_Load(sender,e)={0},{1}: M2614-AUDIT: Record access recorded for the audit trail", sender, e));
             dgvUsers.DataSource = dt;
         }
         private void clear()
@@ -133,8 +137,11 @@ namespace AnyStore.UI
                 //failed to update user
                 MessageBox.Show("Failed to update user");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: M2614-AUDIT: Change management operation performed", sender, e));
             //Refreshing Data Grid View
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             DataTable dt = dal.Select();
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: SOC2-AUDIT [CC8.1]: Change management operation performed", sender, e));
             dgvUsers.DataSource = dt;
         }
 
@@ -159,6 +166,7 @@ namespace AnyStore.UI
             }
             //refreshing Datagrid view
             DataTable dt = dal.Select();
+			System.Diagnostics.Trace.WriteLine(string.Format("btnDelete_Click(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             dgvUsers.DataSource = dt;
         }
 
@@ -175,6 +183,7 @@ namespace AnyStore.UI
                 dgvUsers.DataSource = dt;
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             {
                 //show all users from the database
                 DataTable dt = dal.Select();

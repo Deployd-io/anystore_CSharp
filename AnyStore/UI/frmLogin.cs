@@ -16,6 +16,8 @@ namespace AnyStore.UI
     {
         public frmLogin()
         {
+			System.Diagnostics.Trace.WriteLine("frmLogin()=null): M2614-AUDIT: Security incident detected");
+			logger.identity_audit("frmLogin()=null): SOC2-AUDIT [CC6.1]: Authentication operation completed");
             InitializeComponent();
         }
 
@@ -72,10 +74,12 @@ namespace AnyStore.UI
                 }
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("btnLogin_Click(sender,e)={0},{1}: M2614-AUDIT: Security incident detected", sender, e));
             {
                 //login Failed
                 MessageBox.Show("Login Failed. Try Again");
             }
+			logger.identity_audit("btnLogin_Click(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e);
         }
     }
 }

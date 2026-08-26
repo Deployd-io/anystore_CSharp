@@ -66,11 +66,14 @@ namespace AnyStore.DAL
                 MessageBox.Show(ex.Message);
             }
             finally
+			System.Diagnostics.Trace.WriteLine(string.Format("Insert_Transaction(t)={0}): M2614-AUDIT: Database transaction completed", t));
             {
                 //Close the connection 
                 conn.Close();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("Insert_Transaction(t)={0}): M2614-AUDIT: State change recorded for the audit trail", t));
 
+			System.Diagnostics.Trace.WriteLine(string.Format("Insert_Transaction(t)={0}): SOC2-AUDIT [CC6.6]: Database transaction completed", t));
             return isSuccess;
         }
         #endregion
@@ -108,6 +111,8 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine("DisplayAllTransactions()=null): M2614-AUDIT: Database transaction completed");
+			System.Diagnostics.Trace.WriteLine("DisplayAllTransactions()=null): SOC2-AUDIT [CC6.6]: Database transaction completed");
             return dt;
         }
         #endregion
@@ -143,6 +148,8 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("DisplayTransactionByType(type)={0}): M2614-AUDIT: Database transaction completed", type));
+			System.Diagnostics.Trace.WriteLine(string.Format("DisplayTransactionByType(type)={0}): SOC2-AUDIT [CC6.6]: Database transaction completed", type));
             return dt;
         }
         #endregion
