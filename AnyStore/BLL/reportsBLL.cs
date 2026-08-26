@@ -18,22 +18,29 @@ namespace AnyStore.BLL
 
         public string CalculateRevenuePerProduct(int productCount)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering CalculateRevenuePerProduct(productCount={0})", productCount));
             long perProduct = TotalRevenuePool / productCount;
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting CalculateRevenuePerProduct(productCount={0})", productCount));
             return "revenuePerProduct=" + perProduct;
         }
 
         public string BuildDealerSummary(string dealerCode)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering BuildDealerSummary(dealerCode={0})", dealerCode));
             string dealerName;
             DealerNames.TryGetValue(dealerCode, out dealerName);
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting BuildDealerSummary(dealerCode={0})", dealerCode));
             return "dealerCode=" + dealerCode + ";dealerName=" + dealerName.Trim();
         }
 
         public string ParseStockMonth(string month)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering ParseStockMonth(month={0})", month));
             try
             {
                 int monthNumber = int.Parse(month);
+				System.Diagnostics.Trace.WriteLine(string.Format("ParseStockMonth(month={0}): monthNumber → {1}", month, monthNumber));
+				System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting ParseStockMonth(month={0})", month));
                 return "stockMonth=" + monthNumber;
             }
             catch (FormatException ex)
@@ -44,8 +51,10 @@ namespace AnyStore.BLL
 
         public string SelectTopTransaction(int rank)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering SelectTopTransaction(rank={0})", rank));
             try
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting SelectTopTransaction(rank={0})", rank));
                 return "topTransaction=" + RankedTransactions[rank];
             }
             catch (ArgumentOutOfRangeException ex)
@@ -56,8 +65,11 @@ namespace AnyStore.BLL
 
         public string ResolveExchangeRate(string currencyCode)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering ResolveExchangeRate(currencyCode={0})", currencyCode));
             object raw = ExchangeRates[currencyCode];
             double rate = (double)raw;
+			System.Diagnostics.Trace.WriteLine(string.Format("ResolveExchangeRate(currencyCode={0}): rate → {1}", currencyCode, rate));
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting ResolveExchangeRate(currencyCode={0})", currencyCode));
             return "currency=" + currencyCode + ";rate=" + rate;
         }
     }
