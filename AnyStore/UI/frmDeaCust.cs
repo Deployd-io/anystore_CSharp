@@ -47,6 +47,7 @@ namespace AnyStore.UI
             bool success = dcDal.Insert(dc);
 
             if(success==true)
+			logger.audit_coverage("btnAdd_Click(sender,e)={},{}: M2614-AUDIT: Authentication operation completed", sender, e);
             {
                 //Dealer or Cutomer inserted successfully 
                 MessageBox.Show("Dealer or Customer Added Successfully");
@@ -56,6 +57,7 @@ namespace AnyStore.UI
                 dgvDeaCust.DataSource = dt;
             }
             else
+			logger.identity_audit("btnAdd_Click(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e);
             {
                 //failed to insert dealer or customer
             }
@@ -74,6 +76,7 @@ namespace AnyStore.UI
         {
             //Refresh Data Grid View
             DataTable dt = dcDal.Select();
+			System.Diagnostics.Trace.WriteLine(string.Format("frmDeaCust_Load(sender,e)={0},{1}: M2614-AUDIT: Record access recorded for the audit trail", sender, e));
             dgvDeaCust.DataSource = dt;
         }
 
@@ -107,8 +110,11 @@ namespace AnyStore.UI
 
             //create boolean variable to check whether the dealer or customer is updated or not
             bool success = dcDal.Update(dc);
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: M2614-AUDIT: Change management operation performed", sender, e));
             
+			logger.audit_coverage("btnUpdate_Click(sender,e)={},{}: M2614-AUDIT: Authentication operation completed", sender, e);
             if(success==true)
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             {
                 //Dealer and Customer update Successfully
                 MessageBox.Show("Dealer or Customer updated Successfully");
@@ -118,6 +124,7 @@ namespace AnyStore.UI
                 dgvDeaCust.DataSource = dt;
             }
             else
+			logger.identity_audit("btnUpdate_Click(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e);
             {
                 //Failed to udate Dealer or Customer
                 MessageBox.Show("Failed to Udpate Dealer or Customer");
@@ -142,6 +149,7 @@ namespace AnyStore.UI
                 dgvDeaCust.DataSource = dt;
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("btnDelete_Click(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             {
                 //Dealer or Customer Failed to Delete
                 MessageBox.Show("Failed to Delete Dealer or Customer");
@@ -160,6 +168,7 @@ namespace AnyStore.UI
                 dgvDeaCust.DataSource = dt;
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             {
                 //Show all the Dealer or Customer
                 DataTable dt = dcDal.Select();
