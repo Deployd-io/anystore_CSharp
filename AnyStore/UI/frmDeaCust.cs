@@ -16,13 +16,17 @@ namespace AnyStore.UI
     {
         public frmDeaCust()
         {
+			System.Diagnostics.Trace.WriteLine(">>> Entering frmDeaCust()");
             InitializeComponent();
+			System.Diagnostics.Trace.WriteLine("<<< Exiting frmDeaCust()");
         }
 
         private void pictureBoxClose_Click(object sender, EventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering pictureBoxClose_Click(sender={0},e={1})", sender, e));
             //Write the code to close this form
             this.Hide();
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting pictureBoxClose_Click(sender={0},e={1})", sender, e));
         }
 
         DeaCustBLL dc = new DeaCustBLL();
@@ -31,6 +35,7 @@ namespace AnyStore.UI
         userDAL uDal = new userDAL();
         private void btnAdd_Click(object sender, EventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering btnAdd_Click(sender={0},e={1})", sender, e));
             //Get the Values from Form
             dc.type = cmbDeaCust.Text;
             dc.name = txtName.Text;
@@ -53,15 +58,25 @@ namespace AnyStore.UI
                 Clear();
                 //Refresh Data Grid View
                 DataTable dt = dcDal.Select();
+				System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender={0},e={1}): dt → {2}", sender, e, dt));
+				System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender={0},e={1}): dgvDeaCust.DataSource → {2}", sender, e, dgvDeaCust.DataSource));
                 dgvDeaCust.DataSource = dt;
             }
             else
             {
                 //failed to insert dealer or customer
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting btnAdd_Click(sender={0},e={1})", sender, e));
         }
         public void Clear()
         {
+			System.Diagnostics.Trace.WriteLine(">>> Entering Clear()");
+			System.Diagnostics.Trace.WriteLine(string.Format("Clear(): txtSearch.Text → {0}", txtSearch.Text));
+			System.Diagnostics.Trace.WriteLine(string.Format("Clear(): txtName.Text → {0}", txtName.Text));
+			System.Diagnostics.Trace.WriteLine(string.Format("Clear(): txtEmail.Text → {0}", txtEmail.Text));
+			System.Diagnostics.Trace.WriteLine(string.Format("Clear(): txtContact.Text → {0}", txtContact.Text));
+			System.Diagnostics.Trace.WriteLine(string.Format("Clear(): txtAddress.Text → {0}", txtAddress.Text));
+			System.Diagnostics.Trace.WriteLine(string.Format("Clear(): txtDeaCustID.Text → {0}", txtDeaCustID.Text));
             txtDeaCustID.Text = "";
             txtName.Text = "";
             txtEmail.Text = "";
@@ -72,13 +87,18 @@ namespace AnyStore.UI
 
         private void frmDeaCust_Load(object sender, EventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering frmDeaCust_Load(sender={0},e={1})", sender, e));
+			System.Diagnostics.Trace.WriteLine(string.Format("frmDeaCust_Load(sender={0},e={1}): dgvDeaCust.DataSource → {2}", sender, e, dgvDeaCust.DataSource));
             //Refresh Data Grid View
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting frmDeaCust_Load(sender={0},e={1})", sender, e));
             DataTable dt = dcDal.Select();
+			System.Diagnostics.Trace.WriteLine(string.Format("frmDeaCust_Load(sender={0},e={1}): dt → {2}", sender, e, dt));
             dgvDeaCust.DataSource = dt;
         }
 
         private void dgvDeaCust_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering dgvDeaCust_RowHeaderMouseClick(sender={0},e={1})", sender, e));
             //int variable to get the identityof row clicked
             int rowIndex = e.RowIndex;
 
@@ -88,10 +108,12 @@ namespace AnyStore.UI
             txtEmail.Text = dgvDeaCust.Rows[rowIndex].Cells[3].Value.ToString();
             txtContact.Text = dgvDeaCust.Rows[rowIndex].Cells[4].Value.ToString();
             txtAddress.Text = dgvDeaCust.Rows[rowIndex].Cells[5].Value.ToString();
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting dgvDeaCust_RowHeaderMouseClick(sender={0},e={1})", sender, e));
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering btnUpdate_Click(sender={0},e={1})", sender, e));
             //Get the values from Form
             dc.id = int.Parse(txtDeaCustID.Text);
             dc.type = cmbDeaCust.Text;
@@ -115,6 +137,8 @@ namespace AnyStore.UI
                 Clear();
                 //Refresh the Data Grid View
                 DataTable dt = dcDal.Select();
+				System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender={0},e={1}): dt → {2}", sender, e, dt));
+				System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender={0},e={1}): dgvDeaCust.DataSource → {2}", sender, e, dgvDeaCust.DataSource));
                 dgvDeaCust.DataSource = dt;
             }
             else
@@ -122,10 +146,12 @@ namespace AnyStore.UI
                 //Failed to udate Dealer or Customer
                 MessageBox.Show("Failed to Udpate Dealer or Customer");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting btnUpdate_Click(sender={0},e={1})", sender, e));
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering btnDelete_Click(sender={0},e={1})", sender, e));
             //Get the id of the user to be deleted from form
             dc.id = int.Parse(txtDeaCustID.Text);
 
@@ -139,6 +165,8 @@ namespace AnyStore.UI
                 Clear();
                 //Refresh the Data Grid View
                 DataTable dt = dcDal.Select();
+				System.Diagnostics.Trace.WriteLine(string.Format("btnDelete_Click(sender={0},e={1}): dt → {2}", sender, e, dt));
+				System.Diagnostics.Trace.WriteLine(string.Format("btnDelete_Click(sender={0},e={1}): dgvDeaCust.DataSource → {2}", sender, e, dgvDeaCust.DataSource));
                 dgvDeaCust.DataSource = dt;
             }
             else
@@ -146,10 +174,12 @@ namespace AnyStore.UI
                 //Dealer or Customer Failed to Delete
                 MessageBox.Show("Failed to Delete Dealer or Customer");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting btnDelete_Click(sender={0},e={1})", sender, e));
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering txtSearch_TextChanged(sender={0},e={1})", sender, e));
             //Get the keyowrd from text box
             string keyword = txtSearch.Text;
 
@@ -157,6 +187,8 @@ namespace AnyStore.UI
             {
                 //Search the Dealer or Customer
                 DataTable dt = dcDal.Search(keyword);
+				System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender={0},e={1}): dt → {2}", sender, e, dt));
+				System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender={0},e={1}): dgvDeaCust.DataSource → {2}", sender, e, dgvDeaCust.DataSource));
                 dgvDeaCust.DataSource = dt;
             }
             else
@@ -165,6 +197,7 @@ namespace AnyStore.UI
                 DataTable dt = dcDal.Select();
                 dgvDeaCust.DataSource = dt;
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting txtSearch_TextChanged(sender={0},e={1})", sender, e));
         }
     }
 }

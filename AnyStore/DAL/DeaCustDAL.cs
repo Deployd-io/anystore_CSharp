@@ -19,11 +19,14 @@ namespace AnyStore.DAL
         #region SELECT MEthod for Dealer and Customer
         public DataTable Select()
         {
+			System.Diagnostics.Trace.WriteLine(">>> Entering Select()");
             //SQL Connection for Database Connection
             SqlConnection conn = new SqlConnection(myconnstrng);
+			System.Diagnostics.Trace.WriteLine(string.Format("Select(): conn → {0}", conn));
 
             //DataTble to hold the value from database and return it
             DataTable dt = new DataTable();
+			System.Diagnostics.Trace.WriteLine(string.Format("Select(): dt → {0}", dt));
 
             try
             {
@@ -32,17 +35,22 @@ namespace AnyStore.DAL
 
                 //Creating SQL Command to execute Query
                 SqlCommand cmd = new SqlCommand(sql, conn);
+				System.Diagnostics.Trace.WriteLine(string.Format("Select(): cmd → {0}", cmd));
 
                 //Creting SQL Data Adapter to Store Data From Database Temporarily
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+				System.Diagnostics.Trace.WriteLine(string.Format("Select(): adapter → {0}", adapter));
 
                 //Open Database Connection
                 conn.Open();
                 //Passign the value from SQL Data Adapter to DAta table
+				var __logStart = System.Diagnostics.Stopwatch.StartNew();
+				System.Diagnostics.Trace.WriteLine(string.Format("Select(): find query executed in {0} ms", __logStart.ElapsedMilliseconds));
                 adapter.Fill(dt);
             }
             catch(Exception ex)
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("Exception in Select(): {0}", ex.Message));
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -50,17 +58,21 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine("<<< Exiting Select()");
             return dt;
         }
         #endregion
         #region INSERT Method to Add details fo Dealer or Customer
         public bool Insert(DeaCustBLL dc)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering Insert(dc={0})", dc));
             //Creting SQL Connection First
             SqlConnection conn = new SqlConnection(myconnstrng);
+			System.Diagnostics.Trace.WriteLine(string.Format("Insert(dc={0}): conn → {1}", dc, conn));
 
             //Create and Boolean value and set its default value to false
             bool isSuccess = false;
+			System.Diagnostics.Trace.WriteLine(string.Format("Insert(dc={0}): isSuccess → {1}", dc, isSuccess));
 
             try
             {
@@ -69,6 +81,7 @@ namespace AnyStore.DAL
 
                 //SQl Command to Pass the values to query and execute
                 SqlCommand cmd = new SqlCommand(sql, conn);
+				System.Diagnostics.Trace.WriteLine(string.Format("Insert(dc={0}): cmd → {1}", dc, cmd));
                 //Passing the calues using Parameters
                 cmd.Parameters.AddWithValue("@type", dc.type);
                 cmd.Parameters.AddWithValue("@name", dc.name);
@@ -82,8 +95,11 @@ namespace AnyStore.DAL
                 conn.Open();
 
                 //Int variable to check whether the query is executed successfully or not
+				var __logStart = System.Diagnostics.Stopwatch.StartNew();
                 int rows = cmd.ExecuteNonQuery();
 
+				System.Diagnostics.Trace.WriteLine(string.Format("Insert(dc)={0}: save query executed in {1} ms", dc, __logStart.ElapsedMilliseconds));
+				System.Diagnostics.Trace.WriteLine(string.Format("Insert(dc={0}): rows → {1}", dc, rows));
                 //If the query is executed successfully then the value of rows will be greater than 0 else it will be less than 0
                 if(rows>0)
                 {
@@ -98,6 +114,7 @@ namespace AnyStore.DAL
             }
             catch(Exception ex)
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("Exception in Insert(dc={0}): {1}", dc, ex.Message));
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -105,16 +122,20 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting Insert(dc={0})", dc));
             return isSuccess;
         }
         #endregion
         #region UPDATE method for Dealer and Customer Module
         public bool Update(DeaCustBLL dc)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering Update(dc={0})", dc));
             //SQL Connection for Database Connection
             SqlConnection conn = new SqlConnection(myconnstrng);
+			System.Diagnostics.Trace.WriteLine(string.Format("Update(dc={0}): conn → {1}", dc, conn));
             //Create Boolean variable and set its default value to false
             bool isSuccess = false;
+			System.Diagnostics.Trace.WriteLine(string.Format("Update(dc={0}): isSuccess → {1}", dc, isSuccess));
 
             try
             {
@@ -122,6 +143,7 @@ namespace AnyStore.DAL
                 string sql = "UPDATE tbl_dea_cust SET type=@type, name=@name, email=@email, contact=@contact, address=@address, added_date=@added_date, added_by=@added_by WHERE id=@id";
                 //Create SQL Command to pass the value in sql
                 SqlCommand cmd = new SqlCommand(sql, conn);
+				System.Diagnostics.Trace.WriteLine(string.Format("Update(dc={0}): cmd → {1}", dc, cmd));
 
                 //Passing the values through parameters
                 cmd.Parameters.AddWithValue("@type", dc.type);
@@ -137,6 +159,7 @@ namespace AnyStore.DAL
                 conn.Open();
 
                 //Int varialbe to check if the query executed successfully or not
+				var __logStart = System.Diagnostics.Stopwatch.StartNew();
                 int rows = cmd.ExecuteNonQuery();
                 if(rows>0)
                 {
@@ -151,6 +174,7 @@ namespace AnyStore.DAL
             }
             catch(Exception ex)
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("Exception in Update(dc={0}): {1}", dc, ex.Message));
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -158,17 +182,21 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting Update(dc={0})", dc));
             return isSuccess;
         }
         #endregion
         #region DELETE Method for Dealer and Customer Module
         public bool Delete(DeaCustBLL dc)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering Delete(dc={0})", dc));
             //SQlConnection for Database Connection
             SqlConnection conn = new SqlConnection(myconnstrng);
+			System.Diagnostics.Trace.WriteLine(string.Format("Delete(dc={0}): conn → {1}", dc, conn));
 
             //Create a Boolean Variable and set its default value to false
             bool isSuccess = false;
+			System.Diagnostics.Trace.WriteLine(string.Format("Delete(dc={0}): isSuccess → {1}", dc, isSuccess));
 
             try
             {
@@ -177,12 +205,14 @@ namespace AnyStore.DAL
 
                 //SQL command to pass the value
                 SqlCommand cmd = new SqlCommand(sql, conn);
+				System.Diagnostics.Trace.WriteLine(string.Format("Delete(dc={0}): cmd → {1}", dc, cmd));
                 //Passing the value
                 cmd.Parameters.AddWithValue("@id", dc.id);
 
                 //Open DB Connection
                 conn.Open();
                 //integer variable
+				var __logStart = System.Diagnostics.Stopwatch.StartNew();
                 int rows = cmd.ExecuteNonQuery();
                 if(rows>0)
                 {
@@ -197,6 +227,7 @@ namespace AnyStore.DAL
             }
             catch(Exception ex)
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("Exception in Delete(dc={0}): {1}", dc, ex.Message));
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -204,17 +235,21 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting Delete(dc={0})", dc));
             return isSuccess;
         }
         #endregion
         #region SEARCH METHOD for Dealer and Customer Module
         public DataTable Search(string keyword)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering Search(keyword={0})", keyword));
             //Create a Sql Connection
             SqlConnection conn = new SqlConnection(myconnstrng);
+			System.Diagnostics.Trace.WriteLine(string.Format("Search(keyword={0}): conn → {1}", keyword, conn));
 
             //Creating a Data TAble and returnign its value
             DataTable dt = new DataTable();
+			System.Diagnostics.Trace.WriteLine(string.Format("Search(keyword={0}): dt → {1}", keyword, dt));
 
             try
             {
@@ -223,16 +258,21 @@ namespace AnyStore.DAL
 
                 //Sql Command to Execute the Query
                 SqlCommand cmd = new SqlCommand(sql, conn);
+				System.Diagnostics.Trace.WriteLine(string.Format("Search(keyword={0}): cmd → {1}", keyword, cmd));
                 //Sql Dat Adapeter to hold tthe data from dataase temporarily
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+				System.Diagnostics.Trace.WriteLine(string.Format("Search(keyword={0}): adapter → {1}", keyword, adapter));
 
                 //Open DAta Base Connection
                 conn.Open();
                 //Pass the value from adapter to data table
+				var __logStart = System.Diagnostics.Stopwatch.StartNew();
+				System.Diagnostics.Trace.WriteLine(string.Format("Search(keyword)={0}: find query executed in {1} ms", keyword, __logStart.ElapsedMilliseconds));
                 adapter.Fill(dt);
             }
             catch(Exception ex)
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("Exception in Search(keyword={0}): {1}", keyword, ex.Message));
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -240,20 +280,25 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting Search(keyword={0})", keyword));
             return dt;
         }
         #endregion
         #region METHOD TO SAERCH DEALER Or CUSTOMER FOR TRANSACTON MODULE
         public DeaCustBLL SearchDealerCustomerForTransaction(string keyword)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering SearchDealerCustomerForTransaction(keyword={0})", keyword));
             //Create an object for DeaCustBLL class
             DeaCustBLL dc = new DeaCustBLL();
+			System.Diagnostics.Trace.WriteLine(string.Format("SearchDealerCustomerForTransaction(keyword={0}): dc → {1}", keyword, dc));
 
             //Create a DAtabase Connection
             SqlConnection conn = new SqlConnection(myconnstrng);
+			System.Diagnostics.Trace.WriteLine(string.Format("SearchDealerCustomerForTransaction(keyword={0}): conn → {1}", keyword, conn));
 
             //Create a DAta Table to hold the value temporarily
             DataTable dt = new DataTable();
+			System.Diagnostics.Trace.WriteLine(string.Format("SearchDealerCustomerForTransaction(keyword={0}): dt → {1}", keyword, dt));
 
             try
             {
@@ -262,11 +307,14 @@ namespace AnyStore.DAL
 
                 //Create a Sql Data Adapter to Execute the Query
                 SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
+				System.Diagnostics.Trace.WriteLine(string.Format("SearchDealerCustomerForTransaction(keyword={0}): adapter → {1}", keyword, adapter));
 
                 //Open the DAtabase Connection
                 conn.Open();
 
                 //Transfer the data from SqlData Adapter to DAta Table
+				var __logStart = System.Diagnostics.Stopwatch.StartNew();
+				System.Diagnostics.Trace.WriteLine(string.Format("SearchDealerCustomerForTransaction(keyword)={0}: find query executed in {1} ms", keyword, __logStart.ElapsedMilliseconds));
                 adapter.Fill(dt);
 
                 //If we have values on dt we need to save it in dealerCustomer BLL
@@ -281,6 +329,7 @@ namespace AnyStore.DAL
             }
             catch(Exception ex)
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("Exception in SearchDealerCustomerForTransaction(keyword={0}): {1}", keyword, ex.Message));
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -289,19 +338,24 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting SearchDealerCustomerForTransaction(keyword={0})", keyword));
             return dc;
         }
         #endregion
         #region METHOD TO GET ID OF THE DEALER OR CUSTOMER BASED ON NAME
         public DeaCustBLL GetDeaCustIDFromName(string Name)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering GetDeaCustIDFromName(Name={0})", Name));
             //First Create an Object of DeaCust BLL and REturn it
             DeaCustBLL dc = new DeaCustBLL();
+			System.Diagnostics.Trace.WriteLine(string.Format("GetDeaCustIDFromName(Name={0}): dc → {1}", Name, dc));
 
             //SQL Conection here
             SqlConnection conn = new SqlConnection(myconnstrng);
+			System.Diagnostics.Trace.WriteLine(string.Format("GetDeaCustIDFromName(Name={0}): conn → {1}", Name, conn));
             //Data TAble to Holdthe data temporarily
             DataTable dt = new DataTable();
+			System.Diagnostics.Trace.WriteLine(string.Format("GetDeaCustIDFromName(Name={0}): dt → {1}", Name, dt));
 
             try
             {
@@ -309,10 +363,13 @@ namespace AnyStore.DAL
                 string sql = "SELECT id FROM tbl_dea_cust WHERE name='"+Name+"'";
                 //Create the SQL Data Adapter to Execute the Query
                 SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
+				System.Diagnostics.Trace.WriteLine(string.Format("GetDeaCustIDFromName(Name={0}): adapter → {1}", Name, adapter));
 
                 conn.Open();
 
                 //Passing the CAlue from Adapter to DAtatable
+				var __logStart = System.Diagnostics.Stopwatch.StartNew();
+				System.Diagnostics.Trace.WriteLine(string.Format("GetDeaCustIDFromName(Name)={0}: find query executed in {1} ms", Name, __logStart.ElapsedMilliseconds));
                 adapter.Fill(dt);
                 if(dt.Rows.Count>0)
                 {
@@ -322,6 +379,7 @@ namespace AnyStore.DAL
             }
             catch(Exception ex)
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("Exception in GetDeaCustIDFromName(Name={0}): {1}", Name, ex.Message));
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -329,6 +387,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting GetDeaCustIDFromName(Name={0})", Name));
             return dc;
         }
         #endregion
