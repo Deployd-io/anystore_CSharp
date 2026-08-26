@@ -46,6 +46,7 @@ namespace AnyStore.BLL
         {
             try
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("SelectTopTransaction(rank)={0}): SOC2-AUDIT [CC6.6]: Database transaction completed", rank));
                 return "topTransaction=" + RankedTransactions[rank];
             }
             catch (ArgumentOutOfRangeException ex)

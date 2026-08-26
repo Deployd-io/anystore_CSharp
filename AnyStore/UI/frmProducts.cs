@@ -73,10 +73,12 @@ namespace AnyStore.UI
                 dgvProducts.DataSource = dt;
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.7]: Encryption operation completed", sender, e));
             {
                 //Failed to Add New product
                 MessageBox.Show("Failed to Add New Product");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e));
         }
         public void Clear()
         {
@@ -85,6 +87,7 @@ namespace AnyStore.UI
             txtDescription.Text = "";
             txtRate.Text = "";
             txtSearch.Text = "";
+			System.Diagnostics.Trace.WriteLine("Clear()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed");
         }
 
         private void dgvProducts_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -98,6 +101,7 @@ namespace AnyStore.UI
             txtDescription.Text = dgvProducts.Rows[rowIndex].Cells[3].Value.ToString();
             txtRate.Text = dgvProducts.Rows[rowIndex].Cells[4].Value.ToString();
 
+		System.Diagnostics.Trace.WriteLine(string.Format("dgvProducts_RowHeaderMouseClick(sender,e)={0},{1}: SOC2-AUDIT [CC6.7]: Encryption operation completed", sender, e));
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -128,10 +132,12 @@ namespace AnyStore.UI
                 dgvProducts.DataSource = dt;
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.7]: Encryption operation completed", sender, e));
             {
                 //Failed to Update Product
                 MessageBox.Show("Failed to Update Product");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e));
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

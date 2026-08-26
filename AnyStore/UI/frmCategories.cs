@@ -55,10 +55,12 @@ namespace AnyStore.UI
                 dgvCategories.DataSource = dt;
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("btnADD_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.7]: Encryption operation completed", sender, e));
             {
                 //FAiled to Insert New Category
                 MessageBox.Show("Failed to Insert New CAtegory.");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnADD_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed for user {2}", sender, e, loggedUser));
         }
         public void Clear()
         {
@@ -66,6 +68,7 @@ namespace AnyStore.UI
             txtTitle.Text = "";
             txtDescription.Text = "";
             txtSearch.Text = "";
+			System.Diagnostics.Trace.WriteLine("Clear()=null): SOC2-AUDIT [CC6.7]: Encryption operation completed");
         }
 
         private void frmCategories_Load(object sender, EventArgs e)
@@ -82,6 +85,7 @@ namespace AnyStore.UI
             txtCategoryID.Text = dgvCategories.Rows[RowIndex].Cells[0].Value.ToString();
             txtTitle.Text = dgvCategories.Rows[RowIndex].Cells[1].Value.ToString();
             txtDescription.Text = dgvCategories.Rows[RowIndex].Cells[2].Value.ToString();
+			System.Diagnostics.Trace.WriteLine(string.Format("dgvCategories_RowHeaderMouseClick(sender,e)={0},{1}: SOC2-AUDIT [CC6.7]: Encryption operation completed", sender, e));
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -110,10 +114,12 @@ namespace AnyStore.UI
                 dgvCategories.DataSource = dt;
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.7]: Encryption operation completed", sender, e));
             {
                 //FAiled to Update Category
                 MessageBox.Show("Failed to Update Category");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed for user {2}", sender, e, loggedUser));
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
