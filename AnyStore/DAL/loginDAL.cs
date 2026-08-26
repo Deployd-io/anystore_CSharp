@@ -18,11 +18,14 @@ namespace AnyStore.DAL
 
         public bool loginCheck(loginBLL l)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering loginCheck(l={0})", l));
             //Create a boolean variable and set its value to false and return it
             bool isSuccess = false;
+			System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l={0}): isSuccess → {1}", l, isSuccess));
 
             //Connecting To DAtabase
             SqlConnection conn = new SqlConnection(myconnstrng);
+			System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l={0}): conn → {1}", l, conn));
 
             try
             {
@@ -31,16 +34,21 @@ namespace AnyStore.DAL
 
                 //Creating SQL Command to pass value
                 SqlCommand cmd = new SqlCommand(sql, conn);
+				System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l={0}): cmd → {1}", l, cmd));
 
                 cmd.Parameters.AddWithValue("@username", l.username);
                 cmd.Parameters.AddWithValue("@password", l.password);
                 cmd.Parameters.AddWithValue("@user_type", l.user_type);
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+				System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l={0}): adapter → {1}", l, adapter));
 
                 DataTable dt = new DataTable();
+				System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l={0}): dt → {1}", l, dt));
+				var __logStart = System.Diagnostics.Stopwatch.StartNew();
 
                 adapter.Fill(dt);
+				System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l)={0}: find query executed in {1} ms", l, __logStart.ElapsedMilliseconds));
 
                 //Checking The rows in DataTable 
                 if(dt.Rows.Count>0)
@@ -56,6 +64,7 @@ namespace AnyStore.DAL
             }
             catch(Exception ex)
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("Exception in loginCheck(l={0}): {1}", l, ex.Message));
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -63,6 +72,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting loginCheck(l={0})", l));
             return isSuccess;
         }
     }
