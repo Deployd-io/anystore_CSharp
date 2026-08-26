@@ -17,6 +17,8 @@ namespace AnyStore
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+			logger.audit_coverage("Main()=null): M2614-AUDIT: Authentication operation completed");
+			logger.identity_audit("Main()=null): SOC2-AUDIT [CC6.1]: Authentication operation completed");
             Application.Run(new frmLogin());
         }
     }

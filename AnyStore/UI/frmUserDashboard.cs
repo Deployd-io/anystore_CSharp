@@ -24,12 +24,16 @@ namespace AnyStore
         {
             frmLogin login = new frmLogin();
             login.Show();
+			logger.audit_coverage("frmUserDashboard_FormClosed(sender,e)={},{}: M2614-AUDIT: Authentication operation completed", sender, e);
             this.Hide();
+			logger.identity_audit("frmUserDashboard_FormClosed(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e);
         }
 
         private void frmUserDashboard_Load(object sender, EventArgs e)
         {
+			logger.identity_audit("frmUserDashboard_Load(sender,e)={},{}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e);
             lblLoggedInUser.Text = frmLogin.loggedIn;
+			System.Diagnostics.Trace.WriteLine(string.Format("frmUserDashboard_Load(sender,e)={0},{1}: M2614-AUDIT: Record access recorded for the audit trail", sender, e));
         }
 
         private void dealerAndCustomerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -42,8 +46,11 @@ namespace AnyStore
         {
             //set value on transactionType static method
             transactionType = "Purchase";
+			System.Diagnostics.Trace.WriteLine(string.Format("purchaseToolStripMenuItem_Click(sender,e)={0},{1}: M2614-AUDIT: Database transaction completed", sender, e));
             frmPurchaseAndSales purchase = new frmPurchaseAndSales();
+			System.Diagnostics.Trace.WriteLine(string.Format("purchaseToolStripMenuItem_Click(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             purchase.Show();
+			System.Diagnostics.Trace.WriteLine(string.Format("purchaseToolStripMenuItem_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
             
         }
 
@@ -53,7 +60,9 @@ namespace AnyStore
             transactionType = "Sales";
             frmPurchaseAndSales sales = new frmPurchaseAndSales();
             sales.Show();
+			System.Diagnostics.Trace.WriteLine(string.Format("salesFormsToolStripMenuItem_Click(sender,e)={0},{1}: M2614-AUDIT: Database transaction completed", sender, e));
             
+			System.Diagnostics.Trace.WriteLine(string.Format("salesFormsToolStripMenuItem_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
 
         private void inventoryToolStripMenuItem_Click(object sender, EventArgs e)

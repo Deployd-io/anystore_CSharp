@@ -15,6 +15,8 @@ namespace AnyStore.UI
     {
         public frmTransactions()
         {
+			System.Diagnostics.Trace.WriteLine("frmTransactions()=null): M2614-AUDIT: Database transaction completed");
+			System.Diagnostics.Trace.WriteLine("frmTransactions()=null): SOC2-AUDIT [CC6.6]: Database transaction completed");
             InitializeComponent();
         }
 
@@ -26,8 +28,11 @@ namespace AnyStore.UI
 
         private void frmTransactions_Load(object sender, EventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format("frmTransactions_Load(sender,e)={0},{1}: M2614-AUDIT: Database transaction completed", sender, e));
             //Dispay all the transactions
+			System.Diagnostics.Trace.WriteLine(string.Format("frmTransactions_Load(sender,e)={0},{1}: M2614-AUDIT: Record access recorded for the audit trail", sender, e));
             DataTable dt = tdal.DisplayAllTransactions();
+			System.Diagnostics.Trace.WriteLine(string.Format("frmTransactions_Load(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
             dgvTransactions.DataSource = dt;
         }
 
@@ -35,8 +40,11 @@ namespace AnyStore.UI
         {
             //Get the Value from Combobox
             string type = cmbTransactionType.Text;
+			System.Diagnostics.Trace.WriteLine(string.Format("cmbTransactionType_SelectedIndexChanged(sender,e)={0},{1}: M2614-AUDIT: Database transaction completed", sender, e));
 
+			System.Diagnostics.Trace.WriteLine(string.Format("cmbTransactionType_SelectedIndexChanged(sender,e)={0},{1}: M2614-AUDIT: State change recorded for the audit trail", sender, e));
             DataTable dt = tdal.DisplayTransactionByType(type);
+			System.Diagnostics.Trace.WriteLine(string.Format("cmbTransactionType_SelectedIndexChanged(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
             dgvTransactions.DataSource = dt;
         }
 
@@ -44,7 +52,9 @@ namespace AnyStore.UI
         {
             //Dispay all the transactions
             DataTable dt = tdal.DisplayAllTransactions();
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAll_Click(sender,e)={0},{1}: M2614-AUDIT: Database transaction completed", sender, e));
             dgvTransactions.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAll_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
     }
 }

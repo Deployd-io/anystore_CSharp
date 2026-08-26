@@ -62,10 +62,12 @@ namespace AnyStore.DAL
                 MessageBox.Show(ex.Message);
             }
             finally
+			System.Diagnostics.Trace.WriteLine(string.Format("InsertTransactionDetail(td)={0}): M2614-AUDIT: State change recorded for the audit trail", td));
             {
                 //Close Database Connection
                 conn.Close();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("InsertTransactionDetail(td)={0}): SOC2-AUDIT [CC6.6]: Database transaction completed", td));
             return isSuccess;
         }
         #endregion
