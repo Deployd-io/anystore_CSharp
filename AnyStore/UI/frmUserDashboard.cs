@@ -30,6 +30,7 @@ namespace AnyStore
         private void frmUserDashboard_Load(object sender, EventArgs e)
         {
             lblLoggedInUser.Text = frmLogin.loggedIn;
+			System.Diagnostics.Trace.WriteLine(string.Format("frmUserDashboard_Load(sender,e)={0},{1}: HIPAA-AUDIT: Record access recorded for the audit trail", sender, e));
         }
 
         private void dealerAndCustomerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -45,6 +46,7 @@ namespace AnyStore
             frmPurchaseAndSales purchase = new frmPurchaseAndSales();
             purchase.Show();
             
+			System.Diagnostics.Trace.WriteLine(string.Format("purchaseToolStripMenuItem_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void salesFormsToolStripMenuItem_Click(object sender, EventArgs e)

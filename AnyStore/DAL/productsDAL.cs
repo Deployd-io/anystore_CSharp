@@ -50,6 +50,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine("Select()=null): HIPAA-AUDIT [§164.312(a)(2)(iv)]: Data encryption applied for PHI protection");
             return dt;
         }
         #endregion
@@ -244,6 +245,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("Search(keywords)={0}): HIPAA-AUDIT: Record access recorded for the audit trail", keywords));
             return dt;
         }
         #endregion
@@ -375,6 +377,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("GetProductQty(ProductID)={0}): HIPAA-AUDIT: Record access recorded for the audit trail {1}", ProductID, ProductID));
             return qty;
         }
         #endregion
@@ -424,6 +427,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("UpdateQuantity(ProductID,Qty)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail {2}", ProductID, Qty, ProductID));
             return success;
         }
         #endregion

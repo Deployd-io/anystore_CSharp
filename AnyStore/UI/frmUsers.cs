@@ -66,12 +66,14 @@ namespace AnyStore.UI
             //Refreshing Data Grid View
             DataTable dt = dal.Select();
             dgvUsers.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void frmUsers_Load(object sender, EventArgs e)
         {
             DataTable dt = dal.Select();
             dgvUsers.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("frmUsers_Load(sender,e)={0},{1}: HIPAA-AUDIT: Record access recorded for the audit trail", sender, e));
         }
         private void clear()
         {
@@ -136,6 +138,7 @@ namespace AnyStore.UI
             //Refreshing Data Grid View
             DataTable dt = dal.Select();
             dgvUsers.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -160,6 +163,7 @@ namespace AnyStore.UI
             //refreshing Datagrid view
             DataTable dt = dal.Select();
             dgvUsers.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("btnDelete_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -180,6 +184,7 @@ namespace AnyStore.UI
                 DataTable dt = dal.Select();
                 dgvUsers.DataSource = dt;
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
     }
 }

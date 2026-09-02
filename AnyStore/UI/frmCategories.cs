@@ -59,6 +59,7 @@ namespace AnyStore.UI
                 //FAiled to Insert New Category
                 MessageBox.Show("Failed to Insert New CAtegory.");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnADD_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
         public void Clear()
         {
@@ -73,6 +74,7 @@ namespace AnyStore.UI
             //Here write the code to display all the categries in DAta Grid View
             DataTable dt = dal.Select();
             dgvCategories.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("frmCategories_Load(sender,e)={0},{1}: HIPAA-AUDIT: Record access recorded for the audit trail", sender, e));
         }
 
         private void dgvCategories_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -114,6 +116,7 @@ namespace AnyStore.UI
                 //FAiled to Update Category
                 MessageBox.Show("Failed to Update Category");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -139,6 +142,7 @@ namespace AnyStore.UI
                 //FAiled to Delete CAtegory 
                 MessageBox.Show("Failed to Delete CAtegory");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnDelete_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -159,6 +163,7 @@ namespace AnyStore.UI
                 DataTable dt = dal.Select();
                 dgvCategories.DataSource = dt;
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
     }
 }

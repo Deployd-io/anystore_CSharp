@@ -39,6 +39,7 @@ namespace AnyStore.UI
             //Display all the products in Datagrid view when the form is loaded
             DataTable pdt = pdal.Select();
             dgvProducts.DataSource = pdt;
+			System.Diagnostics.Trace.WriteLine(string.Format("frmInventory_Load(sender,e)={0},{1}: HIPAA-AUDIT: Record access recorded for the audit trail", sender, e));
         }
 
         private void cmbCategories_SelectedIndexChanged(object sender, EventArgs e)
@@ -49,6 +50,7 @@ namespace AnyStore.UI
 
             DataTable dt = pdal.DisplayProductsByCategory(category);
             dgvProducts.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("cmbCategories_SelectedIndexChanged(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void btnAll_Click(object sender, EventArgs e)

@@ -59,6 +59,7 @@ namespace AnyStore.UI
             {
                 //failed to insert dealer or customer
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
         public void Clear()
         {
@@ -75,6 +76,7 @@ namespace AnyStore.UI
             //Refresh Data Grid View
             DataTable dt = dcDal.Select();
             dgvDeaCust.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("frmDeaCust_Load(sender,e)={0},{1}: HIPAA-AUDIT: Record access recorded for the audit trail", sender, e));
         }
 
         private void dgvDeaCust_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -122,6 +124,7 @@ namespace AnyStore.UI
                 //Failed to udate Dealer or Customer
                 MessageBox.Show("Failed to Udpate Dealer or Customer");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -146,6 +149,7 @@ namespace AnyStore.UI
                 //Dealer or Customer Failed to Delete
                 MessageBox.Show("Failed to Delete Dealer or Customer");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnDelete_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -165,6 +169,7 @@ namespace AnyStore.UI
                 DataTable dt = dcDal.Select();
                 dgvDeaCust.DataSource = dt;
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
     }
 }

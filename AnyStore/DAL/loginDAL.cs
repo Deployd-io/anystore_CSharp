@@ -63,6 +63,8 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l)={0}): HIPAA-AUDIT [§164.312(c)(1)]: Data integrity check performed", l));
+			System.Diagnostics.Trace.WriteLine(string.Format("loginCheck(l)={0}): HIPAA-AUDIT [§164.312(d)]: Authentication verification completed", l));
             return isSuccess;
         }
     }

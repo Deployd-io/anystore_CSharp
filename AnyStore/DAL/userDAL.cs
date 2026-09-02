@@ -248,6 +248,7 @@ namespace AnyStore.DAL
             {
                 conn.Close();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("GetIDFromUsername(username)={0}): HIPAA-AUDIT: Record access recorded for the audit trail", username));
             return u;
         }
         #endregion

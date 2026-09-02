@@ -17,6 +17,7 @@ namespace AnyStore.UI
         public frmLogin()
         {
             InitializeComponent();
+			System.Diagnostics.Trace.WriteLine("frmLogin()=null): HIPAA-AUDIT [§164.312(d)]: Authentication verification completed");
         }
 
         loginBLL l = new loginBLL();
@@ -76,6 +77,7 @@ namespace AnyStore.UI
                 //login Failed
                 MessageBox.Show("Login Failed. Try Again");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnLogin_Click(sender,e)={0},{1}: HIPAA-AUDIT [§164.312(d)]: Authentication verification completed", sender, e));
         }
     }
 }

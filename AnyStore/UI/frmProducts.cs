@@ -42,6 +42,7 @@ namespace AnyStore.UI
             //Load all the Products in Data Grid View
             DataTable dt = pdal.Select();
             dgvProducts.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("frmProducts_Load(sender,e)={0},{1}: HIPAA-AUDIT: Record access recorded for the audit trail", sender, e));
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -77,6 +78,7 @@ namespace AnyStore.UI
                 //Failed to Add New product
                 MessageBox.Show("Failed to Add New Product");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
         public void Clear()
         {
@@ -132,6 +134,7 @@ namespace AnyStore.UI
                 //Failed to Update Product
                 MessageBox.Show("Failed to Update Product");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -157,6 +160,7 @@ namespace AnyStore.UI
                 //Failed to Delete Product
                 MessageBox.Show("Failed to Delete Product.");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnDelete_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -176,6 +180,7 @@ namespace AnyStore.UI
                 DataTable dt = pdal.Select();
                 dgvProducts.DataSource = dt;
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
     }
 }
