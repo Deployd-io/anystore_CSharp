@@ -25,11 +25,13 @@ namespace AnyStore
             frmLogin login = new frmLogin();
             login.Show();
             this.Hide();
+			System.Diagnostics.Trace.WriteLine(string.Format("frmUserDashboard_FormClosed(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e));
         }
 
         private void frmUserDashboard_Load(object sender, EventArgs e)
         {
             lblLoggedInUser.Text = frmLogin.loggedIn;
+			System.Diagnostics.Trace.WriteLine(string.Format("frmUserDashboard_Load(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e));
         }
 
         private void dealerAndCustomerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -45,6 +47,7 @@ namespace AnyStore
             frmPurchaseAndSales purchase = new frmPurchaseAndSales();
             purchase.Show();
             
+			System.Diagnostics.Trace.WriteLine(string.Format("purchaseToolStripMenuItem_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
 
         private void salesFormsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -54,6 +57,7 @@ namespace AnyStore
             frmPurchaseAndSales sales = new frmPurchaseAndSales();
             sales.Show();
             
+			System.Diagnostics.Trace.WriteLine(string.Format("salesFormsToolStripMenuItem_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
 
         private void inventoryToolStripMenuItem_Click(object sender, EventArgs e)

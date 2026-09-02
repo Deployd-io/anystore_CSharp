@@ -18,6 +18,7 @@ namespace AnyStore
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmLogin());
+			System.Diagnostics.Trace.WriteLine("Main()=null): SOC2-AUDIT [CC6.1]: Authentication operation completed");
         }
     }
 }

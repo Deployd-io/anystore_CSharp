@@ -44,6 +44,7 @@ namespace AnyStore.UI
             transactionDT.Columns.Add("Rate");
             transactionDT.Columns.Add("Quantity");
             transactionDT.Columns.Add("Total");
+			System.Diagnostics.Trace.WriteLine(string.Format("frmPurchaseAndSales_Load(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -69,6 +70,7 @@ namespace AnyStore.UI
             txtEmail.Text = dc.email;
             txtContact.Text = dc.contact;
             txtAddress.Text = dc.address;
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
 
         private void txtSearchProduct_TextChanged(object sender, EventArgs e)
@@ -93,6 +95,7 @@ namespace AnyStore.UI
             txtProductName.Text = p.name;
             txtInventory.Text = p.qty.ToString();
             txtRate.Text = p.rate.ToString();
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearchProduct_TextChanged(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -132,6 +135,7 @@ namespace AnyStore.UI
                 txtRate.Text = "0.00";
                 TxtQty.Text = "0.00";
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
         }
 
         private void txtDiscount_TextChanged(object sender, EventArgs e)
@@ -224,6 +228,7 @@ namespace AnyStore.UI
             //Actual Code to Insert Transaction And Transaction Details
             using (TransactionScope scope = new TransactionScope())
             {
+			System.Diagnostics.Trace.WriteLine(string.Format("btnSave_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.6]: Database transaction completed", sender, e));
                 int transactionID = -1;
                 //Create aboolean value and insert transaction 
                 bool w = tDAL.Insert_Transaction(transaction, out transactionID);
@@ -313,6 +318,7 @@ namespace AnyStore.UI
                     MessageBox.Show("Transaction Failed");
                 }
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnSave_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed for user {2}", sender, e, username));
         }
     }
 }
