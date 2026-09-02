@@ -108,6 +108,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine("DisplayAllTransactions()=null): SOC2-AUDIT [CC6.6]: Database transaction completed");
             return dt;
         }
         #endregion
@@ -143,6 +144,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("DisplayTransactionByType(type)={0}): SOC2-AUDIT [CC6.6]: Database transaction completed", type));
             return dt;
         }
         #endregion

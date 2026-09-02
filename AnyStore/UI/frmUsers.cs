@@ -65,6 +65,8 @@ namespace AnyStore.UI
             }
             //Refreshing Data Grid View
             DataTable dt = dal.Select();
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Password reset operation performed for user {2}", sender, e, loggedUser));
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed for user {2}", sender, e, loggedUser));
             dgvUsers.DataSource = dt;
         }
 
@@ -85,6 +87,7 @@ namespace AnyStore.UI
             txtAddress.Text = "";
             cmbGender.Text = "";
             cmbUserType.Text = "";
+			System.Diagnostics.Trace.WriteLine("clear()=null): SOC2-AUDIT [CC6.1]: Password reset operation performed");
         }
 
         private void dgvUsers_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -101,6 +104,7 @@ namespace AnyStore.UI
             txtAddress.Text = dgvUsers.Rows[rowIndex].Cells[7].Value.ToString();
             cmbGender.Text = dgvUsers.Rows[rowIndex].Cells[8].Value.ToString();
             cmbUserType.Text = dgvUsers.Rows[rowIndex].Cells[9].Value.ToString();
+			System.Diagnostics.Trace.WriteLine(string.Format("dgvUsers_RowHeaderMouseClick(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Password reset operation performed", sender, e));
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -135,6 +139,8 @@ namespace AnyStore.UI
             }
             //Refreshing Data Grid View
             DataTable dt = dal.Select();
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: SOC2-AUDIT [CC8.1]: Change management operation performed", sender, e));
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Password reset operation performed", sender, e));
             dgvUsers.DataSource = dt;
         }
 

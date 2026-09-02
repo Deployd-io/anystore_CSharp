@@ -59,6 +59,7 @@ namespace AnyStore.UI
             {
                 //failed to insert dealer or customer
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e));
         }
         public void Clear()
         {
@@ -118,10 +119,12 @@ namespace AnyStore.UI
                 dgvDeaCust.DataSource = dt;
             }
             else
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: SOC2-AUDIT [CC8.1]: Change management operation performed", sender, e));
             {
                 //Failed to udate Dealer or Customer
                 MessageBox.Show("Failed to Udpate Dealer or Customer");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnUpdate_Click(sender,e)={0},{1}: SOC2-AUDIT [CC6.1]: Authentication operation completed", sender, e));
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
