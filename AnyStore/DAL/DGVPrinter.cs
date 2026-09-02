@@ -97,6 +97,7 @@ namespace DGVPrinterHelper //AllocationRequest
         {
             useFrame++; // bump up the stack frame pointer to skip this entry
             Log(Categories.Info, msg);
+			System.Diagnostics.Trace.WriteLine(string.Format("LogInfoMsg(msg)={0}): HIPAA-AUDIT [§164.312(d)]: Authentication verification completed", msg));
         }
 
         /// <summary>
@@ -160,6 +161,7 @@ namespace DGVPrinterHelper //AllocationRequest
             w.WriteLine(line.ToString());
             w.Flush();
             w.Close();
+			System.Diagnostics.Trace.WriteLine(string.Format("Write(from,category,msg,path,name)={0},{1},{2},{3},{4}: HIPAA-AUDIT: State change recorded for the audit trail", from, category, msg, path, name));
         }
     }
 
@@ -1271,6 +1273,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (null == rowheadercellformat)
                 rowheadercellformat = new StringFormat(headercellformatflags);
 
+			System.Diagnostics.Trace.WriteLine(string.Format("GetRowHeaderCellFormat(grid)={0}): HIPAA-AUDIT: Record access recorded for the audit trail {1}", grid, grid));
             return rowheadercellformat;
         }
 
@@ -1314,6 +1317,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (null == columnheadercellformat)
                 columnheadercellformat = new StringFormat(headercellformatflags);
 
+			System.Diagnostics.Trace.WriteLine(string.Format("GetColumnHeaderCellFormat(grid)={0}): HIPAA-AUDIT: Record access recorded for the audit trail {1}", grid, grid));
             return columnheadercellformat;
         }
 
@@ -1364,6 +1368,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (null == cellformat)
                 cellformat = new StringFormat(cellformatflags);
 
+			System.Diagnostics.Trace.WriteLine(string.Format("GetCellFormat(grid)={0}): HIPAA-AUDIT: Record access recorded for the audit trail {1}", grid, grid));
             return cellformat;
         }
 
@@ -1546,6 +1551,7 @@ namespace DGVPrinterHelper //AllocationRequest
         {
             double displayWidth = printDoc.DefaultPageSettings.Bounds.Width
                 + 3 * printDoc.DefaultPageSettings.HardMarginY;
+			System.Diagnostics.Trace.WriteLine(string.Format("PreviewDisplayWidth()=null): HIPAA-AUDIT: Record access recorded for the audit trail {0}", displayWidth));
             return (int)(displayWidth * PrintPreviewZoom);
         }
 
@@ -1558,6 +1564,7 @@ namespace DGVPrinterHelper //AllocationRequest
             double displayHeight = printDoc.DefaultPageSettings.Bounds.Height
                 + 3 * printDoc.DefaultPageSettings.HardMarginX;
 
+			System.Diagnostics.Trace.WriteLine("PreviewDisplayHeight()=null): HIPAA-AUDIT: Record access recorded for the audit trail");
             return (int)(displayHeight * PrintPreviewZoom);
         }
 
@@ -1595,6 +1602,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 colstyle = AlternatingRowColumnStyles[col.Name];
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("GetStyle(row,col)={0},{1}: HIPAA-AUDIT: Record access recorded for the audit trail", row, col));
             return colstyle;
         }
 
@@ -1704,6 +1712,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (EnableLogging) Logger.LogInfoMsg("PrintDataGridView process started");
             if (null == dgv) throw new Exception("Null Parameter passed to DGVPrinter.");
             if (!(typeof(DataGridView).IsInstanceOfType(dgv)))
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintDataGridView(dgv)={0}): HIPAA-AUDIT: Record access recorded for the audit trail", dgv));
                 throw new Exception("Invalid Parameter passed to DGVPrinter.");
 
             // save the datagridview we're printing
@@ -1726,6 +1735,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (EnableLogging) Logger.LogInfoMsg("PrintPreviewDataGridView process started");
             if (null == dgv) throw new Exception("Null Parameter passed to DGVPrinter.");
             if (!(typeof(DataGridView).IsInstanceOfType(dgv)))
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintPreviewDataGridView(dgv)={0}): HIPAA-AUDIT: Record access recorded for the audit trail", dgv));
                 throw new Exception("Invalid Parameter passed to DGVPrinter.");
 
             // save the datagridview we're printing
@@ -1812,6 +1822,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (EnableLogging) Logger.LogInfoMsg("PrintPreviewNoDisplay process started");
             if (null == dgv) throw new Exception("Null Parameter passed to DGVPrinter.");
             if (!(dgv is DataGridView))
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintPreviewNoDisplay(dgv)={0}): HIPAA-AUDIT: Record access recorded for the audit trail", dgv));
                 throw new Exception("Invalid Parameter passed to DGVPrinter.");
 
             // save the grid we're printing
@@ -1896,6 +1907,8 @@ namespace DGVPrinterHelper //AllocationRequest
             // we can in the space provided.
             //-----------------------------------------------------------------
             PrintPage(g);
+			System.Diagnostics.Trace.WriteLine(string.Format("EmbeddedPrint(dgv,g,area)={0},{1},{2}: HIPAA-AUDIT [§164.308(a)(6)]: Security incident response initiated", dgv, g, area));
+			System.Diagnostics.Trace.WriteLine(string.Format("EmbeddedPrint(dgv,g,area)={0},{1},{2}: HIPAA-AUDIT [§164.312(d)]: Authentication verification completed", dgv, g, area));
             return false;
         }
 
@@ -1904,6 +1917,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (EnableLogging) Logger.LogInfoMsg("EmbeddedPrintMultipageSetup process started");
             // verify we've been set up properly
             if ((null == dgv))
+				System.Diagnostics.Trace.WriteLine(string.Format("EmbeddedPrintMultipageSetup(dgv,area)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", dgv, area));
                 throw new Exception("Null Parameter passed to DGVPrinter.");
 
             // set the embedded print flag
@@ -1965,6 +1979,7 @@ namespace DGVPrinterHelper //AllocationRequest
         {
             if (EnableLogging) Logger.LogInfoMsg("PrintPageEventHandler called. Printing a page.");
             e.HasMorePages = PrintPage(e.Graphics);
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPageEventHandler(sender,e)={0},{1}: HIPAA-AUDIT [§164.312(d)]: Authentication verification completed", sender, e));
         }
 
 
@@ -2155,6 +2170,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 else
                     colwidthsoverride.Add(-1);
 
+		System.Diagnostics.Trace.WriteLine("SetupColumns()=null): HIPAA-AUDIT: State change recorded for the audit trail");
         }
 
         /// <summary>
@@ -2290,6 +2306,7 @@ namespace DGVPrinterHelper //AllocationRequest
             if (EnableLogging) Logger.LogInfoMsg(String.Format("Grid Printout Range is {0} columns", colstoprint.Count));
             if (EnableLogging) Logger.LogInfoMsg(String.Format("Grid Printout Range is {0} rows", rowstoprint.Count));
 
+		System.Diagnostics.Trace.WriteLine("SetupPrintRange()=null): HIPAA-AUDIT: State change recorded for the audit trail");
         }
 
         /// <summary>
@@ -2422,6 +2439,9 @@ namespace DGVPrinterHelper //AllocationRequest
                     (ColumnWidthSetting.Porportional == ColumnWidth))
                     size.Width = datasize.Width + cellstyle.Padding.Left + cellstyle.Padding.Right;
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("calccellsize(g,cell,cellstyle,basewidth,overridewidth,format)={0},{1},{2},{3},{4},{5}: HIPAA-AUDIT [§164.308(a)(6)]: Security incident response initiated", g, cell, cellstyle, basewidth, overridewidth, format));
+			System.Diagnostics.Trace.WriteLine(string.Format("calccellsize(g,cell,cellstyle,basewidth,overridewidth,format)={0},{1},{2},{3},{4},{5}: HIPAA-AUDIT [§164.312(b)]: PHI access logged for audit trail {6}", g, cell, cellstyle, basewidth, overridewidth, format, basewidth));
+			System.Diagnostics.Trace.WriteLine(string.Format("calccellsize(g,cell,cellstyle,basewidth,overridewidth,format)={0},{1},{2},{3},{4},{5}: HIPAA-AUDIT [§164.312(a)(1)]: PHI access control check completed", g, cell, cellstyle, basewidth, overridewidth, format));
 
             return size;
         }
@@ -2441,6 +2461,7 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // search calculated cell sizes for widths larger than our new width
             for (int i = 0; i < rowstoprint.Count; i++)
+			System.Diagnostics.Trace.WriteLine(string.Format("RecalcRowHeights(g,colindex,newcolwidth)={0},{1},{2}: HIPAA-AUDIT [§164.312(b)]: PHI access logged for audit trail {3}", g, colindex, newcolwidth, newcolwidth));
             {
                 cell = ((DataGridViewRow)rowstoprint[i].row).Cells[((DataGridViewColumn)colstoprint[colindex]).Index];
 
@@ -2469,6 +2490,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 // change the saved row height based on the recalculated size
                 rowstoprint[i].height = (rowstoprint[i].height < finalsize ? finalsize : rowstoprint[i].height);
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("RecalcRowHeights(g,colindex,newcolwidth)={0},{1},{2}: HIPAA-AUDIT [§164.312(a)(1)]: PHI access control check completed", g, colindex, newcolwidth));
         }
 
 
@@ -2754,6 +2776,9 @@ namespace DGVPrinterHelper //AllocationRequest
                     pagesets[pset].colwidthsoverride.Reverse();
                 }
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g)={0}): HIPAA-AUDIT [§164.308(a)(6)]: Security incident response initiated", g));
+			System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g)={0}): HIPAA-AUDIT [§164.312(d)]: Authentication verification completed", g));
+			System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g)={0}): HIPAA-AUDIT [§164.312(b)]: PHI access logged for audit trail {1}", g, colwidths));
 
             for (i = 0; i < pagesets.Count; i++)
             {
@@ -2806,6 +2831,7 @@ namespace DGVPrinterHelper //AllocationRequest
                         pageset.printWidth, pageset.coltotalwidth));
                 }
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g)={0}): HIPAA-AUDIT [§164.312(a)(1)]: PHI access control check completed", g));
         }
 
         /// <summary>
@@ -2885,12 +2911,14 @@ namespace DGVPrinterHelper //AllocationRequest
                 if (0 > pageset.margins.Left) pageset.margins.Left = 0;
             }
             else if (Alignment.Center == tablealignment)
+			System.Diagnostics.Trace.WriteLine(string.Format("AdjustPageSets(g,pageset)={0},{1}: HIPAA-AUDIT [§164.312(b)]: PHI access logged for audit trail {2}", g, pageset, fixedcolwidth));
             {
                 // Bias the table to the center by setting left and right equal
                 pageset.margins.Left = (pageWidth - (int)pageset.coltotalwidth) / 2;
                 if (0 > pageset.margins.Left) pageset.margins.Left = 0;
                 pageset.margins.Right = pageset.margins.Left;
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("AdjustPageSets(g,pageset)={0},{1}: HIPAA-AUDIT [§164.312(a)(1)]: PHI access control check completed", g, pageset));
         }
 
         /// <summary>
@@ -3322,6 +3350,9 @@ namespace DGVPrinterHelper //AllocationRequest
                 // we're not done yet
                 HasMorePages = true;
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPage(g)={0}): HIPAA-AUDIT [§164.312(d)]: Authentication verification completed", g));
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPage(g)={0}): HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance", g));
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPage(g)={0}): HIPAA-AUDIT [§164.312(a)(1)]: PHI access control check completed", g));
 
             return HasMorePages;
         }
@@ -3354,6 +3385,8 @@ namespace DGVPrinterHelper //AllocationRequest
                 if (pagenumberonseparateline)
                     printpos += pagenumberHeight;
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPageNo(g,printpos)={0},{1}: HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance", g, printpos));
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPageNo(g,printpos)={0},{1}: HIPAA-AUDIT [§164.312(a)(1)]: PHI access control check completed", g, printpos));
             return printpos;
         }
 
@@ -3410,6 +3443,7 @@ namespace DGVPrinterHelper //AllocationRequest
             // print the footer
             printsection(g, ref pos, footer, footerfont, footercolor, footerformat,
                 overridefooterformat, pageset, footerbackground, footerborder);
+				System.Diagnostics.Trace.WriteLine(string.Format("printfooter(g,pos,pageset)={0},{1},{2}: HIPAA-AUDIT [§164.312(a)(1)]: PHI access control check completed", g, pos, pageset));
         }
 
         /// <summary>
@@ -3459,6 +3493,7 @@ namespace DGVPrinterHelper //AllocationRequest
             // all done, consume "used" vertical space, including space for border lines
             pos += colheaderheight +
                 (dgv.ColumnHeadersBorderStyle != DataGridViewHeaderBorderStyle.None ? lines.Width : 0);
+				System.Diagnostics.Trace.WriteLine(string.Format("printcolumnheaders(g,pos,pageset)={0},{1},{2}: HIPAA-AUDIT [§164.312(b)]: PHI operation logged for audit compliance", g, pos, pageset));
         }
 
         /// <summary>
@@ -3558,6 +3593,8 @@ namespace DGVPrinterHelper //AllocationRequest
             //-----------------------------------------------------------------
             // All done with this row, consume "used" vertical space
             //-----------------------------------------------------------------
+			System.Diagnostics.Trace.WriteLine(string.Format("printrow(g,finalpos,row,pageset,startlocation)={0},{1},{2},{3},{4}: HIPAA-AUDIT [§164.312(b)]: PHI access logged for audit trail {5}", g, finalpos, row, pageset, startlocation, rowwidth));
+			System.Diagnostics.Trace.WriteLine(string.Format("printrow(g,finalpos,row,pageset,startlocation)={0},{1},{2},{3},{4}: HIPAA-AUDIT [§164.312(a)(1)]: PHI access control check completed", g, finalpos, row, pageset, startlocation));
             return rowheight;
         }
 

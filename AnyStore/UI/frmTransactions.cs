@@ -29,6 +29,7 @@ namespace AnyStore.UI
             //Dispay all the transactions
             DataTable dt = tdal.DisplayAllTransactions();
             dgvTransactions.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("frmTransactions_Load(sender,e)={0},{1}: HIPAA-AUDIT: Record access recorded for the audit trail", sender, e));
         }
 
         private void cmbTransactionType_SelectedIndexChanged(object sender, EventArgs e)
@@ -38,6 +39,7 @@ namespace AnyStore.UI
 
             DataTable dt = tdal.DisplayTransactionByType(type);
             dgvTransactions.DataSource = dt;
+			System.Diagnostics.Trace.WriteLine(string.Format("cmbTransactionType_SelectedIndexChanged(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void btnAll_Click(object sender, EventArgs e)

@@ -44,6 +44,7 @@ namespace AnyStore.UI
             transactionDT.Columns.Add("Rate");
             transactionDT.Columns.Add("Quantity");
             transactionDT.Columns.Add("Total");
+			System.Diagnostics.Trace.WriteLine(string.Format("frmPurchaseAndSales_Load(sender,e)={0},{1}: HIPAA-AUDIT: Record access recorded for the audit trail", sender, e));
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -69,6 +70,7 @@ namespace AnyStore.UI
             txtEmail.Text = dc.email;
             txtContact.Text = dc.contact;
             txtAddress.Text = dc.address;
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void txtSearchProduct_TextChanged(object sender, EventArgs e)
@@ -93,6 +95,7 @@ namespace AnyStore.UI
             txtProductName.Text = p.name;
             txtInventory.Text = p.qty.ToString();
             txtRate.Text = p.rate.ToString();
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearchProduct_TextChanged(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -132,6 +135,7 @@ namespace AnyStore.UI
                 txtRate.Text = "0.00";
                 TxtQty.Text = "0.00";
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnAdd_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void txtDiscount_TextChanged(object sender, EventArgs e)
@@ -157,6 +161,7 @@ namespace AnyStore.UI
                 txtGrandTotal.Text = grandTotal.ToString();
             }
             
+			System.Diagnostics.Trace.WriteLine(string.Format("txtDiscount_TextChanged(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void txtVat_TextChanged(object sender, EventArgs e)
@@ -179,6 +184,7 @@ namespace AnyStore.UI
                 //Displaying new grand total with vat
                 txtGrandTotal.Text = grandTotalWithVAT.ToString();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("txtVat_TextChanged(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void txtPaidAmount_TextChanged(object sender, EventArgs e)
@@ -191,6 +197,7 @@ namespace AnyStore.UI
 
             //Display the return amount as well
             txtReturnAmount.Text = returnAmount.ToString();
+			System.Diagnostics.Trace.WriteLine(string.Format("txtPaidAmount_TextChanged(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail {2}", sender, e, paidAmount));
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -313,6 +320,7 @@ namespace AnyStore.UI
                     MessageBox.Show("Transaction Failed");
                 }
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("btnSave_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
     }
 }

@@ -29,6 +29,7 @@ namespace AnyStore
             reportsMenu.DropDownItems.Add("Top Transaction", null, topTransactionToolStripMenuItem_Click);
             reportsMenu.DropDownItems.Add("Exchange Rate", null, exchangeRateToolStripMenuItem_Click);
             menuStripTop.Items.Add(reportsMenu);
+			System.Diagnostics.Trace.WriteLine("BuildReportsMenu()=null): HIPAA-AUDIT: Outbound notification recorded for the audit trail");
         }
 
         private void revenuePerProductToolStripMenuItem_Click(object sender, EventArgs e)
@@ -59,6 +60,7 @@ namespace AnyStore
         {
             reportsBLL reports = new reportsBLL();
             MessageBox.Show(reports.ResolveExchangeRate("USD"));
+			System.Diagnostics.Trace.WriteLine(string.Format("exchangeRateToolStripMenuItem_Click(sender,e)={0},{1}: HIPAA-AUDIT: State change recorded for the audit trail", sender, e));
         }
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -77,6 +79,7 @@ namespace AnyStore
         private void frmAdminDashboard_Load(object sender, EventArgs e)
         {
             lblLoggedInUser.Text = frmLogin.loggedIn;
+			System.Diagnostics.Trace.WriteLine(string.Format("frmAdminDashboard_Load(sender,e)={0},{1}: HIPAA-AUDIT: Record access recorded for the audit trail", sender, e));
         }
 
         private void categoryToolStripMenuItem_Click(object sender, EventArgs e)

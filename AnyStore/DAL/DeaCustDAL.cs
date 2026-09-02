@@ -105,6 +105,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("Insert(dc)={0}): HIPAA-AUDIT: State change recorded for the audit trail", dc));
             return isSuccess;
         }
         #endregion
@@ -158,6 +159,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("Update(dc)={0}): HIPAA-AUDIT: State change recorded for the audit trail", dc));
             return isSuccess;
         }
         #endregion
@@ -204,6 +206,7 @@ namespace AnyStore.DAL
                 conn.Close();
             }
 
+			System.Diagnostics.Trace.WriteLine(string.Format("Delete(dc)={0}): HIPAA-AUDIT: State change recorded for the audit trail", dc));
             return isSuccess;
         }
         #endregion
