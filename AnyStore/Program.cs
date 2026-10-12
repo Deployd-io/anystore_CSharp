@@ -15,9 +15,11 @@ namespace AnyStore
         [STAThread]
         static void Main()
         {
+			System.Diagnostics.Trace.WriteLine(">>> Entering Main()");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmLogin());
+			System.Diagnostics.Trace.WriteLine("<<< Exiting Main()");
         }
     }
 }
