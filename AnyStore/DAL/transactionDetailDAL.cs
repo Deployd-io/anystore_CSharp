@@ -18,11 +18,14 @@ namespace AnyStore.DAL
         #region Insert Method for Transaction Detail
         public bool InsertTransactionDetail(transactionDetailBLL td)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering InsertTransactionDetail(td={0})", td));
             //Create a boolean value and set its default value to false
             bool isSuccess = false;
+			System.Diagnostics.Trace.WriteLine(string.Format("InsertTransactionDetail(td={0}): isSuccess → {1}", td, isSuccess));
 
             //Create a database connection here
             SqlConnection conn = new SqlConnection(myconnstrng);
+			System.Diagnostics.Trace.WriteLine(string.Format("InsertTransactionDetail(td={0}): conn → {1}", td, conn));
 
             try
             {
@@ -31,6 +34,7 @@ namespace AnyStore.DAL
 
                 //Passing the value to the SQL Query
                 SqlCommand cmd = new SqlCommand(sql, conn);
+				System.Diagnostics.Trace.WriteLine(string.Format("InsertTransactionDetail(td={0}): cmd → {1}", td, cmd));
                 //Passing the values using cmd
                 cmd.Parameters.AddWithValue("@product_id", td.product_id);
                 cmd.Parameters.AddWithValue("@rate", td.rate);
@@ -44,10 +48,13 @@ namespace AnyStore.DAL
                 conn.Open();
 
                 //declare the int variable and execute the query
+				var __logStart = System.Diagnostics.Stopwatch.StartNew();
                 int rows = cmd.ExecuteNonQuery();
 
+				System.Diagnostics.Trace.WriteLine(string.Format("InsertTransactionDetail(td)={0}: save query executed in {1} ms", td, __logStart.ElapsedMilliseconds));
                 if(rows>0)
                 {
+					System.Diagnostics.Trace.WriteLine(string.Format("InsertTransactionDetail(td={0}): rows → {1}", td, rows));
                     //Query Executed Successfully
                     isSuccess = true;
                 }
@@ -59,6 +66,7 @@ namespace AnyStore.DAL
             }
             catch(Exception ex)
             {
+				System.Diagnostics.Trace.WriteLine(string.Format("Exception in InsertTransactionDetail(td={0}): {1}", td, ex.Message));
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -66,6 +74,7 @@ namespace AnyStore.DAL
                 //Close Database Connection
                 conn.Close();
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting InsertTransactionDetail(td={0})", td));
             return isSuccess;
         }
         #endregion

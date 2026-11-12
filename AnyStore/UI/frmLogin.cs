@@ -16,7 +16,9 @@ namespace AnyStore.UI
     {
         public frmLogin()
         {
+			System.Diagnostics.Trace.WriteLine(">>> Entering frmLogin()");
             InitializeComponent();
+			System.Diagnostics.Trace.WriteLine("<<< Exiting frmLogin()");
         }
 
         loginBLL l = new loginBLL();
@@ -25,12 +27,15 @@ namespace AnyStore.UI
 
         private void pboxClose_Click(object sender, EventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering pboxClose_Click(sender={0},e={1})", sender, e));
             //Code to close this form
             this.Close();
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting pboxClose_Click(sender={0},e={1})", sender, e));
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering btnLogin_Click(sender={0},e={1})", sender, e));
             l.username = txtUsername.Text.Trim();
             l.password = txtPassword.Text.Trim();
             l.user_type = cmbUserType.Text.Trim();
@@ -42,6 +47,7 @@ namespace AnyStore.UI
                 //Login Successfull
                 MessageBox.Show("Login Successful.");
                 loggedIn = l.username;
+				System.Diagnostics.Trace.WriteLine(string.Format("btnLogin_Click(sender={0},e={1}): loggedIn → {2}", sender, e, loggedIn));
                 //Need to open Respective Forms based on User Type
                 switch(l.user_type)
                 {
@@ -76,6 +82,7 @@ namespace AnyStore.UI
                 //login Failed
                 MessageBox.Show("Login Failed. Try Again");
             }
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting btnLogin_Click(sender={0},e={1})", sender, e));
         }
     }
 }
