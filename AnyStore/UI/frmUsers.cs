@@ -120,6 +120,7 @@ namespace AnyStore.UI
             cmbGender.Text = "";
 			System.Diagnostics.Trace.WriteLine(string.Format("clear(): cmbGender.Text → {0}", cmbGender.Text));
             cmbUserType.Text = "";
+			System.Diagnostics.Trace.WriteLine(string.Format("clear(): cmbUserType.Text → {0}", cmbUserType.Text));
         }
 
         private void dgvUsers_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -238,6 +239,7 @@ namespace AnyStore.UI
                 //show all users from the database
                 DataTable dt = dal.Select();
                 dgvUsers.DataSource = dt;
+				System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender={0},e={1}): dgvUsers.DataSource → {2}", sender, e, dgvUsers.DataSource));
             }
 			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting txtSearch_TextChanged(sender={0},e={1})", sender, e));
         }

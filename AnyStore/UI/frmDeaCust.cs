@@ -86,6 +86,7 @@ namespace AnyStore.UI
             txtAddress.Text = "";
 			System.Diagnostics.Trace.WriteLine(string.Format("Clear(): txtAddress.Text → {0}", txtAddress.Text));
             txtSearch.Text = "";
+			System.Diagnostics.Trace.WriteLine(string.Format("Clear(): txtSearch.Text → {0}", txtSearch.Text));
         }
 
         private void frmDeaCust_Load(object sender, EventArgs e)
@@ -201,6 +202,7 @@ namespace AnyStore.UI
                 //Show all the Dealer or Customer
                 DataTable dt = dcDal.Select();
                 dgvDeaCust.DataSource = dt;
+				System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender={0},e={1}): dgvDeaCust.DataSource → {2}", sender, e, dgvDeaCust.DataSource));
             }
 			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting txtSearch_TextChanged(sender={0},e={1})", sender, e));
         }

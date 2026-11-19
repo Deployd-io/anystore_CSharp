@@ -79,9 +79,13 @@ namespace AnyStore.UI
 
             //Now transfer or set the value from DeCustBLL to textboxes
             txtName.Text = dc.name;
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender={0},e={1}): txtName.Text → {2}", sender, e, txtName.Text));
             txtEmail.Text = dc.email;
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender={0},e={1}): txtEmail.Text → {2}", sender, e, txtEmail.Text));
             txtContact.Text = dc.contact;
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender={0},e={1}): txtContact.Text → {2}", sender, e, txtContact.Text));
             txtAddress.Text = dc.address;
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender={0},e={1}): txtAddress.Text → {2}", sender, e, txtAddress.Text));
 			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting txtSearch_TextChanged(sender={0},e={1})", sender, e));
         }
 
@@ -110,6 +114,7 @@ namespace AnyStore.UI
 
             //Set the values on textboxes based on p object
             txtProductName.Text = p.name;
+			System.Diagnostics.Trace.WriteLine(string.Format("txtSearchProduct_TextChanged(sender={0},e={1}): txtProductName.Text → {2}", sender, e, txtProductName.Text));
             txtInventory.Text = p.qty.ToString();
             txtRate.Text = p.rate.ToString();
 			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting txtSearchProduct_TextChanged(sender={0},e={1})", sender, e));

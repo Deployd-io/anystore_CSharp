@@ -114,6 +114,7 @@ namespace AnyStore.UI
             txtRate.Text = "";
 			System.Diagnostics.Trace.WriteLine(string.Format("Clear(): txtRate.Text → {0}", txtRate.Text));
             txtSearch.Text = "";
+			System.Diagnostics.Trace.WriteLine(string.Format("Clear(): txtSearch.Text → {0}", txtSearch.Text));
         }
 
         private void dgvProducts_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -222,6 +223,7 @@ namespace AnyStore.UI
                 //Display All the products
                 DataTable dt = pdal.Select();
                 dgvProducts.DataSource = dt;
+				System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender={0},e={1}): dgvProducts.DataSource → {2}", sender, e, dgvProducts.DataSource));
             }
 			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting txtSearch_TextChanged(sender={0},e={1})", sender, e));
         }

@@ -203,9 +203,12 @@ namespace DGVPrinterHelper //AllocationRequest
             int row, int column)
             : base()
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering DGVCellDrawingEventArgs(g={0},bounds={1},style={2},row={3},column={4})", g, bounds, style, row, column));
             this.g = g;
             DrawingBounds = bounds;
+			System.Diagnostics.Trace.WriteLine(string.Format("DGVCellDrawingEventArgs(g={0},bounds={1},style={2},row={3},column={4}): DrawingBounds → {5}", g, bounds, style, row, column, DrawingBounds));
             CellStyle = style;
+			System.Diagnostics.Trace.WriteLine(string.Format("DGVCellDrawingEventArgs(g={0},bounds={1},style={2},row={3},column={4}): CellStyle → {5}", g, bounds, style, row, column, CellStyle));
             this.row = row;
 			System.Diagnostics.Trace.WriteLine(string.Format("DGVCellDrawingEventArgs(g={0},bounds={1},style={2},row={3},column={4}): this.row → {5}", g, bounds, style, row, column, this.row));
 			System.Diagnostics.Trace.WriteLine(string.Format("DGVCellDrawingEventArgs(g={0},bounds={1},style={2},row={3},column={4}): this.g → {5}", g, bounds, style, row, column, this.g));
@@ -213,6 +216,7 @@ namespace DGVPrinterHelper //AllocationRequest
             this.column = column;
 			System.Diagnostics.Trace.WriteLine(string.Format("DGVCellDrawingEventArgs(g={0},bounds={1},style={2},row={3},column={4}): this.column → {5}", g, bounds, style, row, column, this.column));
             Handled = false;
+			System.Diagnostics.Trace.WriteLine(string.Format("DGVCellDrawingEventArgs(g={0},bounds={1},style={2},row={3},column={4}): Handled → {5}", g, bounds, style, row, column, Handled));
         }
     }
 
@@ -359,10 +363,13 @@ namespace DGVPrinterHelper //AllocationRequest
 				System.Diagnostics.Trace.WriteLine(string.Format("PageDef(m={0},count={1},pagewidth={2}): colwidths → {3}", m, count, pagewidth, colwidths));
                 colwidthsoverride = new List<float>(count);
                 coltotalwidth = 0;
+				System.Diagnostics.Trace.WriteLine(string.Format("PageDef(m={0},count={1},pagewidth={2}): coltotalwidth → {3}", m, count, pagewidth, coltotalwidth));
 				System.Diagnostics.Trace.WriteLine(string.Format("PageDef(m={0},count={1},pagewidth={2}): colwidthsoverride → {3}", m, count, pagewidth, colwidthsoverride));
                 margins = (Margins)m.Clone();
                 pageWidth = pagewidth;
+				System.Diagnostics.Trace.WriteLine(string.Format("PageDef(m={0},count={1},pagewidth={2}): pageWidth → {3}", m, count, pagewidth, pageWidth));
 				System.Diagnostics.Trace.WriteLine(string.Format("PageDef(m={0},count={1},pagewidth={2}): margins → {3}", m, count, pagewidth, margins));
+				System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting PageDef(m={0},count={1},pagewidth={2})", m, count, pagewidth));
             }
 
             public List<int> columnindex;
@@ -2354,7 +2361,9 @@ namespace DGVPrinterHelper //AllocationRequest
                 if (0 != dgv.SelectedRows.Count)
                 {
                     temprowstoprint = new SortedList(dgv.SelectedRows.Count);
+					System.Diagnostics.Trace.WriteLine(string.Format("SetupPrintRange(): temprowstoprint → {0}", temprowstoprint));
                     tempcolstoprint = new SortedList(dgv.Columns.Count);
+					System.Diagnostics.Trace.WriteLine(string.Format("SetupPrintRange(): tempcolstoprint → {0}", tempcolstoprint));
 
                     // sort the rows into index order
                     temprowstoprint = new SortedList(dgv.SelectedRows.Count);
@@ -2575,6 +2584,7 @@ namespace DGVPrinterHelper //AllocationRequest
                         ImageConverter ic = new ImageConverter();
 						System.Diagnostics.Trace.WriteLine(string.Format("calccellsize(g={0},cell={1},cellstyle={2},basewidth={3},overridewidth={4},format={5}): ic → {6}", g, cell, cellstyle, basewidth, overridewidth, format, ic));
                         img = (Image)ic.ConvertFrom((byte[])cell.Value);
+						System.Diagnostics.Trace.WriteLine(string.Format("calccellsize(g={0},cell={1},cellstyle={2},basewidth={3},overridewidth={4},format={5}): img → {6}", g, cell, cellstyle, basewidth, overridewidth, format, img));
                     }
                     else {
 							System.Diagnostics.Trace.WriteLine(string.Format("Throwing Exception from calccellsize(g={0},cell={1},cellstyle={2},basewidth={3},overridewidth={4},format={5})", g, cell, cellstyle, basewidth, overridewidth, format));
@@ -2767,6 +2777,7 @@ namespace DGVPrinterHelper //AllocationRequest
                     colheaderheight = col.HeaderCell.Size.Height;
 					System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g={0}): colheaderheight → {1}", g, colheaderheight));
 					System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g={0}): colheaderheight → {1}", g, colheaderheight));
+					System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g={0}): colheaderheight → {1}", g, colheaderheight));
             }
 
             //-----------------------------------------------------------------
@@ -2839,6 +2850,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 for (j = 0; j < colstoprint.Count; j++)
                 {
                     col = (DataGridViewColumn)colstoprint[j];
+					System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g={0}): col → {1}", g, col));
 
                     //-------------------------------------------------------------
                     // Build string format and cell style 
@@ -2870,6 +2882,7 @@ namespace DGVPrinterHelper //AllocationRequest
                     {
                         // limit to one page
                         basewidth = printWidth;
+						System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g={0}): basewidth → {1}", g, basewidth));
 						System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g={0}): basewidth → {1}", g, basewidth));
 						System.Diagnostics.Trace.WriteLine(string.Format("measureprintarea(g={0}): basewidth → {1}", g, basewidth));
 
@@ -2961,6 +2974,7 @@ namespace DGVPrinterHelper //AllocationRequest
                     // check on fixed columns
                     if (printWidth < (pagesets[pset].coltotalwidth))
                     {
+						System.Diagnostics.Trace.WriteLine(string.Format("Throwing Exception from measureprintarea(g={0})", g));
                         throw new Exception("Fixed column widths exceed the page width.");
                     }
                 }
@@ -3078,6 +3092,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 ratio = (float)1.0;
 				System.Diagnostics.Trace.WriteLine(string.Format("AdjustPageSets(g={0},pageset={1}): ratio → {2}", g, pageset, ratio));
 				System.Diagnostics.Trace.WriteLine(string.Format("AdjustPageSets(g={0},pageset={1}): ratio → {2}", g, pageset, ratio));
+				System.Diagnostics.Trace.WriteLine(string.Format("AdjustPageSets(g={0},pageset={1}): ratio → {2}", g, pageset, ratio));
 
             // reset all column widths for override and/or porportionality. coltotalwidth
             // for each pageset should be <= pageWidth
@@ -3176,6 +3191,7 @@ namespace DGVPrinterHelper //AllocationRequest
                 if (pos + rowstoprint[currentrow].height >= staticheight)
                 {
                     newpage = paging.outofroom;
+					System.Diagnostics.Trace.WriteLine(string.Format("Pagination(): newpage → {0}", newpage));
                 }
 
                 // if we're breaking on value change in a column then watch that column
@@ -3184,6 +3200,8 @@ namespace DGVPrinterHelper //AllocationRequest
                 {
                     newpage = paging.datachange;
                     oldvalue = rowstoprint[currentrow].row.Cells[breakonvaluechange].EditedFormattedValue;
+					System.Diagnostics.Trace.WriteLine(string.Format("Pagination(): oldvalue → {0}", oldvalue));
+					System.Diagnostics.Trace.WriteLine(string.Format("Pagination(): oldvalue → {0}", oldvalue));
                 }
 
                 // if we need to start a new page, count it and reset counters
@@ -3209,6 +3227,7 @@ namespace DGVPrinterHelper //AllocationRequest
                     {
                         // if we are keeping rows together and too little would be showing, put whole row on next page
                         pos = rowstoprint[currentrow].height;
+						System.Diagnostics.Trace.WriteLine(string.Format("Pagination(): pos → {0}", pos));
                     }
                     else
                     {
@@ -3221,6 +3240,7 @@ namespace DGVPrinterHelper //AllocationRequest
 
                     // Recalculate where to stop printing the grid because available space can change w/ dynamic header/footers.
                     staticheight = pageHeight - FooterHeight - pagesets[currentpageset].margins.Bottom; //PrintMargins.Bottom;
+					System.Diagnostics.Trace.WriteLine(string.Format("Pagination(): staticheight → {0}", staticheight));
 
                     // add in the page number height - doesn't matter at this point if it's printing on top or bottom
                     staticheight += PageNumberHeight;
@@ -3471,6 +3491,7 @@ namespace DGVPrinterHelper //AllocationRequest
             //-----------------------------------------------------------------
             bool continueprinting = true;
             currentrow = lastrowprinted + 1;
+			System.Diagnostics.Trace.WriteLine(string.Format("PrintPage(g={0}): currentrow → {1}", g, currentrow));
 
             // for logging
             firstrow = currentrow;
@@ -3582,8 +3603,11 @@ namespace DGVPrinterHelper //AllocationRequest
 
                 // reset counters since we'll go through this twice if we print from preview
                 rowstartlocation = 0;
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintPage(g={0}): rowstartlocation → {1}", g, rowstartlocation));
                 lastrowprinted = -1;
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintPage(g={0}): lastrowprinted → {1}", g, lastrowprinted));
                 CurrentPage = 0;
+				System.Diagnostics.Trace.WriteLine(string.Format("PrintPage(g={0}): CurrentPage → {1}", g, CurrentPage));
             }
             else
             {
@@ -3646,8 +3670,10 @@ namespace DGVPrinterHelper //AllocationRequest
             Font font, Color color, StringFormat format, bool useroverride, PageDef pageset,
             Brush background, Pen border)
         {
+			System.Diagnostics.Trace.WriteLine(string.Format(">>> Entering printsection(g={0},pos={1},text={2},font={3},color={4},format={5},useroverride={6},pageset={7},background={8},border={9})", g, pos, text, font, color, format, useroverride, pageset, background, border));
             // measure string
             SizeF printsize = g.MeasureString(text, font, pageset.printWidth, format);
+			System.Diagnostics.Trace.WriteLine(string.Format("printsection(g={0},pos={1},text={2},font={3},color={4},format={5},useroverride={6},pageset={7},background={8},border={9}): printsize → {10}", g, pos, text, font, color, format, useroverride, pageset, background, border, printsize));
 
             // build area to print within
             RectangleF printarea = new RectangleF((float)pageset.margins.Left, pos, (float)pageset.printWidth,
@@ -3667,6 +3693,7 @@ namespace DGVPrinterHelper //AllocationRequest
 
             // do the actual print
             g.DrawString(text, font, new SolidBrush(color), printarea, format);
+			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting printsection(g={0},pos={1},text={2},font={3},color={4},format={5},useroverride={6},pageset={7},background={8},border={9})", g, pos, text, font, color, format, useroverride, pageset, background, border));
         }
 
         /// <summary>
