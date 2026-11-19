@@ -84,6 +84,7 @@ namespace AnyStore.UI
             txtDescription.Text = "";
 			System.Diagnostics.Trace.WriteLine(string.Format("Clear(): txtDescription.Text → {0}", txtDescription.Text));
             txtSearch.Text = "";
+			System.Diagnostics.Trace.WriteLine(string.Format("Clear(): txtSearch.Text → {0}", txtSearch.Text));
         }
 
         private void frmCategories_Load(object sender, EventArgs e)
@@ -197,6 +198,7 @@ namespace AnyStore.UI
                 //Use Select Method to Display All Categories
                 DataTable dt = dal.Select();
                 dgvCategories.DataSource = dt;
+				System.Diagnostics.Trace.WriteLine(string.Format("txtSearch_TextChanged(sender={0},e={1}): dgvCategories.DataSource → {2}", sender, e, dgvCategories.DataSource));
             }
 			System.Diagnostics.Trace.WriteLine(string.Format("<<< Exiting txtSearch_TextChanged(sender={0},e={1})", sender, e));
         }

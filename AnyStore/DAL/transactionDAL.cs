@@ -61,6 +61,7 @@ namespace AnyStore.DAL
                 {
                     //Query Executed Successfully
                     transactionID = int.Parse(o.ToString());
+					System.Diagnostics.Trace.WriteLine(string.Format("Insert_Transaction(t={0}): transactionID → {1}", t, transactionID));
                     isSuccess = true;
 					System.Diagnostics.Trace.WriteLine(string.Format("Insert_Transaction(t={0}): isSuccess → {1}", t, isSuccess));
                 }
